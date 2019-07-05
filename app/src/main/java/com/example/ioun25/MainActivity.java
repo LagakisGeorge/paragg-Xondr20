@@ -23,6 +23,8 @@ public class MainActivity extends AppCompatActivity {
     Button button;
     String Pelatis;
     Button bb;
+    ResultSet rs;
+    TextView ds;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -75,13 +77,7 @@ public class MainActivity extends AppCompatActivity {
                 Runnable aRunnable = new Runnable() {
                     public void run() {
                         start();
-                       // goToSleep();
-//                        on work finished, send message to handler
-                       // Message msg = handler.obtainMessage();
-                       // Bundle bundle = new Bundle();
-                       // String threadMessage = "It's all over, Bob!";
-                       // bundle.putString("message", threadMessage);
-                        // msg.setData(bundle);
+
                         handler.sendEmptyMessage(0);
                     }
                 };
@@ -98,8 +94,9 @@ public class MainActivity extends AppCompatActivity {
 
     private void start() {
         System.out.println("START");
+
         String query = "SELECT top 100 * FROM PEL";
-        ResultSet rs = getData(query);
+        rs = getData(query);
         TextView h;
         h=(TextView)findViewById(R.id.hello);
 
@@ -132,9 +129,10 @@ public class MainActivity extends AppCompatActivity {
         }
         return RESULT;
     }
-    private String URL = "jdbc:jtds:sqlserver://192.168.1.4:52735/DHMOS;instance=SQLEXPRESS;";
+   // OK   private String URL = "jdbc:jtds:sqlserver://192.168.1.4:52735/DHMOS;instance=SQLEXPRESS;";
+    private String URL = "jdbc:jtds:sqlserver://192.168.1.7:49702/MERCURY;instance=SQLEXPRESS;";
     private String USER = "sa";
-    private String PASS = "12345678";
+    private String PASS = "p@ssw0rd"; //"12345678";
     private static ResultSet RESULT;
 
 

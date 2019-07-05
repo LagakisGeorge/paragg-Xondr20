@@ -34,4 +34,15 @@
         tools:layout_editor_absoluteY="382dp"
         app:layout_constraintBottom_toBottomOf="parent"/>
 
+    <EditText
+        android:id="@+id/editText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Name"
+        tools:layout_editor_absoluteX="111dp"
+        tools:layout_editor_absoluteY="456dp"
+        tools:text="SELECT TOP 10 * FROM PEL" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
