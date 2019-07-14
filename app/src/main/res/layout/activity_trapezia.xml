@@ -6,31 +6,25 @@
     android:layout_height="match_parent"
     tools:context=".trapezia">
 
+
+    <ListView
+
+        android:id="@+id/listview"
+        android:layout_width="match_parent"
+        android:layout_height="683dp" />
+
     <TextView
         android:id="@+id/textView"
-        android:layout_width="190dp"
-        android:layout_height="104dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="98dp"
-        android:layout_marginLeft="98dp"
-        android:layout_marginBottom="256dp"
+        android:layout_width="94dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/listview"
+
+        android:layout_marginTop="221dp"
         android:text="TextView"
         android:textSize="18sp"
         app:fontFamily="serif"
         tools:layout_editor_absoluteX="122dp"
         tools:layout_editor_absoluteY="177dp" />
 
-    <Button
-        android:id="@+id/button5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="136dp"
-        android:layout_marginLeft="136dp"
-        android:layout_marginTop="235dp"
-        android:text="Button" />
+
 </RelativeLayout>
