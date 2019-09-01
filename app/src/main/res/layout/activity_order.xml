@@ -16,40 +16,51 @@
         android:layout_alignParentTop="true"
         />
 
-    <ListView
-        android:layout_below="@+id/textView3"
+    <GridView
         android:id="@+id/listmaster"
-        android:layout_width="404dp"
-        android:layout_height="283dp"
-        />
+        android:layout_width="298dp"
+        android:layout_height="173dp"
+        android:layout_below="@+id/listdetail"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="-3dp"
+        android:layout_toRightOf="@+id/listKathg"
+        android:background="#CDDC39" />
 
-    <ListView
-        android:layout_below="@+id/listmaster"
-
-
+    <GridView
         android:id="@+id/listdetail"
-        android:layout_width="398dp"
-        android:layout_height="333dp"
+        android:layout_width="match_parent"
+        android:layout_height="337dp"
+        android:layout_below="@+id/textView3"
+        android:layout_marginTop="27dp"
+        android:background="#FFEB3B"
+        android:cacheColorHint="#CDDC39" >
 
-        />
+
+    </GridView>
+
+    <GridView
+        android:id="@+id/listKathg"
+        android:layout_width="105dp"
+        android:layout_height="153dp"
+        android:layout_below="@+id/listdetail"
+        android:layout_alignLeft="@+id/listdetail" />
 
     <Button
         android:id="@+id/button5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Button"
-        android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-         />
+        android:layout_alignParentBottom="true"
+        android:onClick="SAVE_ORDER"
+        android:text="SAVE ORDER" />
 
     <Button
         android:id="@+id/button6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Button"
-        android:layout_toRightOf="@+id/button5"
         android:layout_alignParentBottom="true"
-         />
+        android:layout_toRightOf="@+id/button5"
+        android:text="display" />
 
     <Button
         android:id="@+id/button7"
@@ -61,4 +72,5 @@
 
 
        />
+
 </RelativeLayout>

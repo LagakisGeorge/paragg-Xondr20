@@ -19,6 +19,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.GridView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -37,7 +38,9 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
   //  StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
@@ -53,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
       Handler handler;
     Handler handler2;
 
-
+    ListView moviesList;
 
     Button button3;
     Button button;
@@ -61,6 +64,10 @@ public class MainActivity extends AppCompatActivity {
     Button bb,load,save;
     EditText arxeio,db;
     public static ArrayList<String> pel;
+
+    public static ArrayList<String> pel3;
+    public static ArrayList<String> pelKathg;
+    public String arr[][];
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,20 +94,27 @@ public class MainActivity extends AppCompatActivity {
         handler2 = new Handler(new Handler.Callback() {
             @Override
             public boolean handleMessage(Message msg) {
-                // todo
+
+
+                Toast.makeText(getApplicationContext(),"ok διαβαστηκε",Toast.LENGTH_SHORT).show();
+
+                /*    / todo
                 TextView h;
                 h =(TextView)findViewById(R.id.hello);
                 h.setText("*"+Pelatis);
                 for (int i = 0; i < pel.size(); i++) {
                     System.out.println("πελατης"+pel.get(i));
                 }
+                */
+
                 return true;
             }
         });
 
 // ArrayList<String>
         pel = new ArrayList<String>(); // Create an ArrayList object
-
+        pel3 = new ArrayList<String>();
+        pelKathg = new ArrayList<String>();
 
         /** Called when the user taps the Send button */
 
@@ -126,14 +140,17 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-//--------------------------------------------------------------------
-//------------------------------------------------
 
 
+//==============  BUTTON  ΤΡΑΠΕΖΙΩΝ ========================================
         button=(Button)findViewById(R.id.button);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+
+
+
                 pel.clear();
 
                 Runnable aRunnable = new Runnable() {
@@ -172,6 +189,124 @@ public class MainActivity extends AppCompatActivity {
     }  // -------------- onCreate
 // If you cannot connect with SQL server(express), you can check here: http://stackoverflow.com/questions/10522120/connecting-to-local-ms-sql-server
 
+
+//================  BUTTON3  ΤΟ ΙΔΙΟ ΜΕ ΤΑ ΤΡΑΠΕΖΙΑ ALLA ME EIDH  =====================
+    public void TRAP2 (View view) {
+
+
+        pel3.clear();
+
+        Runnable aRunnable = new Runnable() {
+            public void run() {
+                ResultSet rs = getData("SELECT *  FROM EIDH ");
+                try {
+                    ExecuteSql("delete from  EIDH ");
+
+                    while (rs.next()) {
+                        //  System.out.println(rs.getString("EPO"));
+                        if (1==rs.getInt("KATHG")   )
+                        {
+                            pel3.add(rs.getString("ONO")+"----1------");
+
+                           // αποθηκευση σε SQLLITE
+                            String KOD,ONO,CH1,CH2;
+                            int ID,KAT;
+                            double TIMH;
+                           /*  int i = 5;     MATATROPH SE STRING
+                            String strI = String.valueOf(i);
+                            Or int aInt = 1;
+                            String aString = Integer.toString(aInt);
+                              String numberAsString = "153.25";
+
+                              double number = Double.parseDouble(numberAsString);
+                              OR  double number = new Double("153.25").doubleValue();
+
+                               double number = 456.7891d;
+                               DecimalFormat decimalFormat = new DecimalFormat("#.00");
+                                String numberAsString = decimalFormat.format(number);
+                              */
+                                KOD=rs.getString("KOD");
+                                ONO=rs.getString("ONO");
+                                CH1=rs.getString("CH1");
+                                CH2=rs.getString("CH2");
+                                ID=rs.getInt("ID");
+                                KAT=rs.getInt("KATHG");
+                                TIMH=rs.getDouble("TIMH");
+                                DecimalFormat decimalFormat = new DecimalFormat("#.00");
+                                String Q;
+                                Q="INSERT INTO EIDH (KOD,ONO,CH1,CH2,ID,KATHG,TIMH) VALUES";
+                                Q=Q+"('"+KOD+"','"+ONO+"','"+CH1+"','"+CH2+"',"+Integer.toString(ID)+","+Integer.toString(KAT)+","+decimalFormat.format(TIMH)+")";
+                                ExecuteSql(Q);
+                        } else {
+                            pel3.add(rs.getString("ONO")+"----2------");
+                        }
+                        //  Pelatis=rs.getString("ONO");
+                    }
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                    Toast.makeText(getApplicationContext(),"ΕΙΔΗ ΛΑΘΟΣ",Toast.LENGTH_SHORT).show();
+                }
+                handler2.sendEmptyMessage(0);
+            }
+        };
+        Thread aThread = new Thread(aRunnable);
+        aThread.start();
+        android.os.SystemClock.sleep(1000);// };
+        Toast.makeText(getApplicationContext(),"pel3 ok",Toast.LENGTH_SHORT).show();
+
+        loadKathg();
+
+
+
+
+    }
+
+
+    public void loadKathg () {
+
+        pelKathg.clear();
+
+        Runnable cRunnable = new Runnable() {
+            public void run() {
+                ResultSet crs = getData("SELECT KOD, ONO  FROM KATHG ");
+                try {
+                    while (crs.next()) {
+                        //  System.out.println(rs.getString("EPO"));
+                        if (crs.getInt("KOD")>=0   )
+                        {
+                            pelKathg.add(crs.getString("ONO"));
+                        } else {
+                            // pelKathg.add(rs.getString("ONO")+"----2------");
+                        }
+                        //  Pelatis=rs.getString("ONO");
+                    }
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+                handler2.sendEmptyMessage(0);
+            }
+        };
+        Thread cThread = new Thread(cRunnable);
+        cThread.start();
+        android.os.SystemClock.sleep(1000);// };
+        Toast.makeText(getApplicationContext(),"pelKathg ok",Toast.LENGTH_SHORT).show();
+//*/
+
+
+
+
+
+    }
+
+
+
+
+
+
+
+
+
+   //=====================================  READ  TXT  FILE ===============================
     public void load (View view) {
         String marxeio = "Lagakis.txt"; // arxeio.getText().toString();
       //  File f = new File(marxeio);
@@ -200,7 +335,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-//**************************************************************
+//******************************   SQLLITE DATABASE   ********************************
     public void login (View view) {
 
         SQLiteDatabase mydatabase=null;
@@ -271,6 +406,121 @@ public class MainActivity extends AppCompatActivity {
 */
     }
 
+    public void listEidh (View view) {
+        SQLiteDatabase mydatabase=null;
+        Integer n=0;
+
+        List<String> values=new ArrayList<>();
+        moviesList=(ListView)findViewById(R.id.list1);
+        try{
+            mydatabase = openOrCreateDatabase("eidh",MODE_PRIVATE,null);
+            Cursor cursor2 = mydatabase.rawQuery("select KOD,ONO from  EIDH", null);
+
+            if (cursor2.moveToFirst()) {
+                do {
+                     n++;
+                    values.add(String.valueOf(n)+";"+ cursor2.getString(0)+";"+cursor2.getString(1));
+
+                } while (cursor2.moveToNext());
+            }
+
+            ArrayAdapter<String> arrayAdapter =
+                    new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, values);
+
+            moviesList.setAdapter(arrayAdapter);
+
+
+        } catch (SQLiteAccessPermException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void loginEidh (View view) {
+        SQLiteDatabase mydatabase=null;
+        Integer n=0;
+        try{
+            mydatabase = openOrCreateDatabase("eidh",MODE_PRIVATE,null);
+            mydatabase.execSQL("CREATE TABLE IF NOT EXISTS EIDH( [KOD] [int],\n" +
+                    "\t[ONO] [nvarchar](255) ,\n" +
+                    "\t[XAR1] [int] ,\n" +
+                    "\t[XAR2] [int] ,\n" +
+                    "\t[CH1] [nvarchar](255) ,\n" +
+                    "\t[CH2] [nvarchar](255) ,\n" +
+                    "\t[NUM1] [int] ,\n" +
+                    "\t[NUM2] [int] ,\n" +
+                    "\t[TIMH] [real] ,\n" +
+                    "\t[KATHG] [int] ,\n" +
+                    "\t[PICTURE] [nvarchar](255) ,\n" +
+                    "\t[ID] [int]  );");
+
+            Cursor cursor = mydatabase.rawQuery("select count(*) from EIDH ", null);
+
+            // looping through all rows and adding to list
+            if (cursor.moveToFirst()) {
+                do {
+                    n= Integer.parseInt(cursor.getString(0));
+                    // movies.add(cursor.getString(0));
+                } while (cursor.moveToNext());
+            }
+
+            if (n<4){
+                mydatabase.execSQL("INSERT INTO EIDH (KOD,ONO,XAR1) VALUES('s4','004',1);");
+                mydatabase.execSQL("INSERT INTO EIDH (KOD,ONO,XAR1) VALUES('s4','004',1);");
+                mydatabase.execSQL("INSERT INTO EIDH (KOD,ONO,XAR1) VALUES('s4','004',1);");
+            }
+            // ψαχνω να βρω τον κωδικο που εβαλε
+            EditText pw;
+            pw=(EditText) findViewById(R.id.editText);
+            String cpw ="004"; // pw.getText().toString();
+            Cursor cursor2 = mydatabase.rawQuery("select XAR1 from  EIDH", null);
+
+            //   Integer kodikos_ok=0;
+            // looping through all rows and adding to list
+            if (cursor2.moveToFirst()) {
+                do {
+
+                    if(Integer.parseInt(cpw)==Integer.parseInt(cursor2.getString(0)))
+                    {
+                        kodikos_ok=1;
+                        Toast.makeText(getApplicationContext(),"ok",Toast.LENGTH_SHORT).show();
+                    }
+                } while (cursor2.moveToNext());
+            }
+
+
+            if(kodikos_ok==0) {
+
+                Toast.makeText(getApplicationContext(),"λαθος",Toast.LENGTH_SHORT).show();
+            }
+
+
+        } catch (SQLiteAccessPermException e) {
+            e.printStackTrace();
+        }
+
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     public void save (View view) {
@@ -278,7 +528,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
-
+//  ======================   SHOW TRAPEZIA  =========================
     public void click6 (View view) {
 //================= TRAPEZIA ===========================================
 /*
@@ -297,6 +547,8 @@ public class MainActivity extends AppCompatActivity {
         String message2 ="---" ;// EditText.GetText().toString();
         intent.putExtra(EXTRA_MESSAGE, message2);
         intent.putExtra("mpel", pel); // ΣΤΕΛΝΩ ΤΟΝ ΠΙΝΑΚΑ ΜΕ ΤΑ ΤΡΑΠΕΖΙΑ
+        intent.putExtra("mEIDH", pel3); // ΣΤΕΛΝΩ ΤΟΝ ΠΙΝΑΚΑ ΜΕ ΤΑ EIDH
+        intent.putExtra("mKathg", pelKathg); // ΣΤΕΛΝΩ ΤΟΝ ΠΙΝΑΚΑ ΜΕ ΤΑ EIDH
         startActivity(intent);
         // Do something in response to button
     };
@@ -335,9 +587,10 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-    // private String URL = "jdbc:jtds:sqlserver://192.168.1.4:52735/DHMOS;instance=SQLEXPRESS;";
+   // private String URL = "jdbc:jtds:sqlserver://192.168.1.5:52735/BAR;instance=SQLEXPRESS;";
     private String URL = "jdbc:jtds:sqlserver://192.168.1.7:49702/BAR;instance=SQLEXPRESS;";
     private String USER = "sa";
+   // private String PASS = "12345678";  //"p@ssw0rd";
     private String PASS = "p@ssw0rd";
     private static ResultSet RESULT;
     public ResultSet getData(String query) {
@@ -351,6 +604,38 @@ public class MainActivity extends AppCompatActivity {
         }
         return RESULT;
     }
+
+
+    public void ExecuteSql (String SQL) {
+        SQLiteDatabase mydatabase=null;
+        Integer n=0;
+        try{    mydatabase = openOrCreateDatabase("eidh",MODE_PRIVATE,null);
+                mydatabase.execSQL(SQL);
+        } catch (SQLiteAccessPermException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 } // end class ===============================================================================================
 
 
