@@ -115,5 +115,21 @@
         android:layout_below="@+id/button8"
         />
 
+    <Button
+        android:id="@+id/button9"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="print_order"
+        android:text="Button" />
+
+    <Button
+        android:id="@+id/button12"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/button4"
+        android:layout_toRightOf="@+id/button2"
+        android:onClick="formaSQL"
+        android:text="sql" />
+
 
 </RelativeLayout>

@@ -18,32 +18,33 @@
 
     <GridView
         android:id="@+id/listmaster"
-        android:layout_width="298dp"
-        android:layout_height="173dp"
+        android:layout_width="match_parent"
+        android:layout_height="117dp"
         android:layout_below="@+id/listdetail"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="-3dp"
+        android:layout_marginLeft="-411dp"
+        android:layout_marginTop="18dp"
         android:layout_toRightOf="@+id/listKathg"
         android:background="#CDDC39" />
 
     <GridView
         android:id="@+id/listdetail"
         android:layout_width="match_parent"
-        android:layout_height="337dp"
+        android:layout_height="100dp"
         android:layout_below="@+id/textView3"
         android:layout_marginTop="27dp"
         android:background="#FFEB3B"
-        android:cacheColorHint="#CDDC39" >
+        android:cacheColorHint="#CDDC39">
 
 
     </GridView>
 
     <GridView
         android:id="@+id/listKathg"
-        android:layout_width="105dp"
-        android:layout_height="153dp"
-        android:layout_below="@+id/listdetail"
-        android:layout_alignLeft="@+id/listdetail" />
+        android:layout_width="match_parent"
+        android:layout_height="145dp"
+        android:layout_alignBottom="@+id/button5"
+        android:layout_alignLeft="@+id/listdetail"
+        android:background="@color/colorAccent" />
 
     <Button
         android:id="@+id/button5"

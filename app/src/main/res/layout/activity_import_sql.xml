@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".import_sql">
+
+
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"/>
+
+
+
+    <TableRow
+        android:layout_height="wrap_content"
+        android:layout_width="fill_parent"
+        android:gravity="center_horizontal">
+
+
+        <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:textSize="18dp"
+            android:text="Row 1"  android:layout_span="3"
+            android:padding="28dip" android:background="#b0b0b0"
+            android:textColor="#000"/>
+
+
+    </TableRow>
+
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <Button
+            android:id="@+id/button10"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Button"
+            android:padding="15dp"
+
+            />
+
+        <Button
+            android:id="@+id/button11"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="listEidh"
+            android:text="ListView" />
+    </TableRow>
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <Button
+            android:id="@+id/button1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="loadSQLiteFromSQLSERVER"
+            android:text="Update from SQLServer" />
+
+        <Button
+            android:id="@+id/button2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="loginEidh"
+            android:text="create SQLite" />
+    </TableRow>
+
+
+    <!-- Row 3 with 2 columns -->
+<TableRow
+android:layout_height="wrap_content"
+android:layout_width="wrap_content">
+
+
+<TextView
+    android:id="@+id/TextView14"
+    android:text="Row 3 column 1"
+    android:layout_weight="1"
+    android:background="#b0b0b0"
+    android:textColor="#000000"
+      android:padding="18dip"
+    android:gravity="center"/>
+
+<TextView
+    android:id="@+id/TextView04"
+    android:text="Row 3 column 2"
+    android:layout_weight="1"
+    android:background="#a09f9f"
+    android:textColor="#000000"
+    android:padding="18dip"
+    android:gravity="center"/>
+</TableRow>
+
+
+    <TableRow
+        android:id="@+id/tableRow1"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent">
+
+        <TextView
+            android:id="@+id/TextView24"
+            android:text="Row 2 column 1"
+            android:layout_weight="1"
+            android:background="#dcdcdc"
+            android:textColor="#000000"
+            android:padding="20dip"
+            android:gravity="center"/>
+
+        <TextView
+            android:id="@+id/TextView34"
+            android:text="Row 2 column 2"
+            android:layout_weight="1"
+            android:background="#d3d3d3"
+            android:textColor="#000000"
+            android:padding="20dip"
+            android:gravity="center"/>
+
+        <TextView
+            android:id="@+id/TextView44"
+            android:text="Row 2 column 3"
+            android:layout_weight="1"
+            android:background="#cac9c9"
+            android:textColor="#000000"
+            android:padding="20dip"
+            android:gravity="center"/>
+
+    </TableRow>
+
+
+
+
+
+
+
+    <TableRow>
+
+        <ListView
+            android:id="@+id/list1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/button8"
+            />
+
+
+
+    </TableRow>
+
+
+
+
+
+
+</TableLayout>
