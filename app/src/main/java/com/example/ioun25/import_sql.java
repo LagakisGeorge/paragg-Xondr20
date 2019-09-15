@@ -80,20 +80,79 @@ public class import_sql extends AppCompatActivity {
         SQLiteDatabase mydatabase=null;
         Integer n=0;
 
+
         List<String> values=new ArrayList<>();
+
+try {
+        mydatabase = openOrCreateDatabase("eidh",MODE_PRIVATE,null);
+        Cursor cursor = mydatabase.rawQuery("select count(*) from tables ", null);
+
+        // looping through all rows and adding to list
+        if (cursor.moveToFirst()) {
+            do {
+                n= Integer.parseInt(cursor.getString(0));
+                // movies.add(cursor.getString(0));
+            } while (cursor.moveToNext());
+        }
+
+
+
+
+
+
+        if (n>0) {
+            values.add("exei TRAPEZIA---"+String.valueOf(n));
+
+            Cursor cursor2 = mydatabase.rawQuery("select ONO,ONO AS SS from TABLES ", null);
+cursor2.moveToFirst() ;
+            for ( int i = 0; i < n; i++) {
+
+                        String d=cursor2.getString(1);
+                values.add(d);
+
+
+                if (i<n-1) {
+                    cursor2.moveToNext();
+                }
+               // n= Integer.parseInt(cursor.getString(0));
+                //  System.out.println("πελατης"+pel.get(i));
+            }
+
+
+
+
+    }
+
+
+
+} catch (SQLiteAccessPermException e) {
+    e.printStackTrace();
+    Toast.makeText(getApplicationContext(), "trapezia1  ERRORS", Toast.LENGTH_SHORT).show();
+}
+
+
+
+
+
+
+
         values.add("TRAPEZIA---");
         moviesList=(ListView)findViewById(R.id.list1);
         try{
-            mydatabase = openOrCreateDatabase("eidh",MODE_PRIVATE,null);
+           // mydatabase = openOrCreateDatabase("eidh",MODE_PRIVATE,null);
             Cursor cursor2 = mydatabase.rawQuery("SELECT ONO,KATEILHMENO,NUM1  FROM TABLES where NUM1>0", null);
 
             if (cursor2.moveToFirst()) {
                 do {
                     n++;
-                    values.add(String.valueOf(n)+";"+ cursor2.getString(0));
+                    values.add(String.valueOf(n) + ";" + cursor2.getString(0));
 
                 } while (cursor2.moveToNext());
+            }else{
+                ExecuteSql("insert into TABLES (ONO) VALUES ('51') ");
+
             }
+            values.add("===== end TRAPEZIA---");
 
             ArrayAdapter<String> arrayAdapter =
                     new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, values);
@@ -137,12 +196,12 @@ public class import_sql extends AppCompatActivity {
         }
     }
 
-
+    private String URL = "jdbc:jtds:sqlserver://192.168.1.9:51403/BAR;instance=SQL17;";
     // private String URL = "jdbc:jtds:sqlserver://192.168.1.5:52735/BAR;instance=SQLEXPRESS;";
-    private String URL = "jdbc:jtds:sqlserver://192.168.1.7:49702/BAR;instance=SQLEXPRESS;";
+   // private String URL = "jdbc:jtds:sqlserver://192.168.1.7:49702/BAR;instance=SQLEXPRESS;";
     private String USER = "sa";
-    // private String PASS = "12345678";  //"p@ssw0rd";
-    private String PASS = "p@ssw0rd";
+     private String PASS = "12345678";  //"p@ssw0rd";
+    //private String PASS = "p@ssw0rd";
     private static ResultSet RESULT;
     public ResultSet getData(String query) {
         Connection CON = null;
@@ -291,16 +350,18 @@ public class import_sql extends AppCompatActivity {
                     ExecuteSql("delete from TABLES");
                     while (crs.next()) {
                         //  System.out.println(rs.getString("EPO"));
-                        if (crs.getInt("KOD") >= 0) {
+                       // if (crs.getInt("NUM1") >= 0) {
                             pelKathg.add(crs.getString("ONO"));
 
                             String Q;
-                            Q = "INSERT INTO TABLES (ONO,KATEILHMENO,NUM1) VALUES";
-                            Q = Q + "('" + crs.getString("ONO") + "'," + Integer.toString(crs.getInt("KATEILHMENO")) + "," + Integer.toString(crs.getInt("KATEILHMENO")) + "')";
+
+                        Q = "INSERT INTO TABLES (ONO) VALUES";
+                            Q = Q + "('" + crs.getString("ONO") + "')" ;
+                         // + Integer.toString(crs.getInt("KATEILHMENO")) + "," + Integer.toString(crs.getInt("KATEILHMENO")) + "')";
                             ExecuteSql(Q);
-                        } else {
+                       // } else {
                             // pelKathg.add(rs.getString("ONO")+"----2------");
-                        }
+                      //  }
                         //  Pelatis=rs.getString("ONO");
                     }
                 } catch (SQLException e) {
@@ -395,12 +456,19 @@ public class import_sql extends AppCompatActivity {
                     "\t[ID] [int]  );");
 
 
+            Toast.makeText(getApplicationContext(), "1.EIDH ok", Toast.LENGTH_SHORT).show();
+
             mydatabase.execSQL("CREATE TABLE IF NOT EXISTS KATHG (ID [int] ,"+
                     "[KOD] [int] ,"+
                     "[ONO] [nvarchar](55) ,"+
                     "[PICTURE] [nvarchar](55) ,"+
                     "[CH1] [nvarchar](55) ,"+
                     "[CH2] [nvarchar](55)  ); ");
+
+
+            Toast.makeText(getApplicationContext(), "2.KATHG ok", Toast.LENGTH_SHORT).show();
+
+
 
             mydatabase.execSQL("CREATE TABLE IF NOT EXISTS TABLES ("+
                     "[ONO] [nvarchar](55) ,"+
@@ -412,6 +480,10 @@ public class import_sql extends AppCompatActivity {
                     "[CH2] [nvarchar](55),"+
                     "[IDPARAGG] [int] ,"+
                     "[ID] [int]);" );
+
+
+            Toast.makeText(getApplicationContext(), "3.TABLES ok", Toast.LENGTH_SHORT).show();
+
 
 
             mydatabase.execSQL("CREATE TABLE IF NOT EXISTS PARAGG ("+
@@ -432,8 +504,48 @@ public class import_sql extends AppCompatActivity {
                     "[KERASMENOSE] [varchar](55) ,"+
                     "[ID]  INTEGER PRIMARY KEY )");
 
+            Toast.makeText(getApplicationContext(), "4.PARAGG ok", Toast.LENGTH_SHORT).show();
 
-            String c="CREATE TABLE IF NOT EXISTS PARAGGMASTER("+
+            Cursor cursor5 = mydatabase.rawQuery("select count(*) from TABLES ", null);
+
+            // looping through all rows and adding to list
+            if (cursor5.moveToFirst()) {
+                do {
+                    n= Integer.parseInt(cursor5.getString(0));
+                    // movies.add(cursor.getString(0));
+                } while (cursor5.moveToNext());
+            }
+
+            if (n<8){
+                mydatabase.execSQL("INSERT INTO TABLES (ONO) VALUES('004');");
+                mydatabase.execSQL("INSERT INTO TABLES (ONO) VALUES('005');");
+            }
+
+
+
+   //     } catch (SQLiteAccessPermException e) {
+     //       e.printStackTrace();
+     //   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        String c="CREATE TABLE IF NOT EXISTS PARAGGMASTER("+
                     "[TRAPEZI] [nvarchar](55) ,"+
                     "[IDERGAZ] [int] ,"+
                     "[HME] [datetime] ,"+
@@ -448,7 +560,7 @@ public class import_sql extends AppCompatActivity {
 
             mydatabase.execSQL(c);
 
-
+            Toast.makeText(getApplicationContext(), "5.PARAGGMASTER ok", Toast.LENGTH_SHORT).show();
 
             Cursor cursor = mydatabase.rawQuery("select count(*) from EIDH ", null);
 
@@ -473,8 +585,8 @@ public class import_sql extends AppCompatActivity {
 
 
 
-        } catch (SQLiteAccessPermException e) {
-            e.printStackTrace();
+        } catch (SQLiteAccessPermException e2) {
+            e2.printStackTrace();
         }
 
 
