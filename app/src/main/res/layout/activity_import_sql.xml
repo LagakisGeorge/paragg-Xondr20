@@ -18,10 +18,15 @@
         android:gravity="center_horizontal">
 
 
-        <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:textSize="18dp"
-            android:text="Row 1"  android:layout_span="3"
-            android:padding="28dip" android:background="#b0b0b0"
-            android:textColor="#000"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_span="3"
+            android:background="#b0b0b0"
+            android:padding="28dip"
+            android:text="**************"
+            android:textColor="#000"
+            android:textSize="18dp" />
 
 
     </TableRow>
@@ -33,12 +38,13 @@
 
         <Button
             android:id="@+id/button10"
-            android:layout_width="wrap_content"
+            android:layout_width="161dp"
             android:layout_height="wrap_content"
-            android:text="Button"
+            android:onClick="listTRAPEZI"
             android:padding="15dp"
 
-            />
+            android:text="LIST TRAPEZIA"
+            tools:text="ΛΙΣΤΑ ΤΡΑΠΕΖΙΩΝ" />
 
         <Button
             android:id="@+id/button11"
@@ -73,14 +79,14 @@ android:layout_height="wrap_content"
 android:layout_width="wrap_content">
 
 
-<TextView
-    android:id="@+id/TextView14"
-    android:text="Row 3 column 1"
-    android:layout_weight="1"
-    android:background="#b0b0b0"
-    android:textColor="#000000"
-      android:padding="18dip"
-    android:gravity="center"/>
+    <TextView
+        android:id="@+id/TextView14"
+        android:layout_weight="1"
+        android:background="#b0b0b0"
+        android:gravity="center"
+        android:padding="18dip"
+        android:text="......"
+        android:textColor="#000000" />
 
 <TextView
     android:id="@+id/TextView04"

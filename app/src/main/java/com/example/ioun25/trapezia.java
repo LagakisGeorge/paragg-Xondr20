@@ -3,6 +3,9 @@ package com.example.ioun25;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteAccessPermException;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -44,6 +47,9 @@ public class trapezia extends AppCompatActivity {
         TextView textView = findViewById(R.id.textView);
         textView.setText(message);
 
+
+
+     /*
         List<String> values=new ArrayList<>();
 
         for (int i = 0; i < pel.size(); i++) {
@@ -68,9 +74,9 @@ public class trapezia extends AppCompatActivity {
                 new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, values);
 
         moviesList.setAdapter(arrayAdapter);
+*/
 
-
-
+        moviesList=(GridView)findViewById(R.id.grid);
         moviesList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position,
@@ -85,22 +91,50 @@ public class trapezia extends AppCompatActivity {
                 intent.putExtra("mpel", pel); // ΣΤΕΛΝΩ ΤΟΝ ΠΙΝΑΚΑ ΜΕ ΤΑ ΤΡΑΠΕΖΙΑ
                 intent.putExtra("mEIDH", EIDH); // ΣΤΕΛΝΩ ΤΟΝ ΠΙΝΑΚΑ ΜΕ ΤΑ EIDH
                 intent.putExtra("mKATHG", KATHG); // ΣΤΕΛΝΩ ΤΟΝ ΠΙΝΑΚΑ ΜΕ ΤΑ EIDH
-
-
-
                 // intent.putExtra("mpel", pel); // ΣΤΕΛΝΩ ΤΟΝ ΠΙΝΑΚΑ ΜΕ ΤΑ ΤΡΑΠΕΖΙΑ
                 trapezia.this.startActivity(intent);
-
-
             }
         });
 
-
-
-
-
+        listTRAPEZIA();
 
     }
+
+
+
+
+    //================= sqlliteEIDH====================
+    public void listTRAPEZIA () {
+        SQLiteDatabase mydatabase=null;
+        Integer n=0;
+        moviesList=(GridView)findViewById(R.id.grid);
+        List<String> values=new ArrayList<>();
+
+        try{
+            mydatabase = openOrCreateDatabase("eidh",MODE_PRIVATE,null);
+            Cursor cursor2 = mydatabase.rawQuery("select ONO  from  TABLES", null);
+
+            if (cursor2.moveToFirst()) {
+                do {
+                    n++;
+                    values.add( cursor2.getString(0));
+
+                } while (cursor2.moveToNext());
+            }
+
+            ArrayAdapter<String> arrayAdapter =
+                    new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, values);
+
+            moviesList.setAdapter(arrayAdapter);
+
+
+        } catch (SQLiteAccessPermException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+
 }
 /*
 

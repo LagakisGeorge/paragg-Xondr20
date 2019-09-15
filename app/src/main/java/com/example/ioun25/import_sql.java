@@ -75,9 +75,39 @@ public class import_sql extends AppCompatActivity {
 
     }
 
+    //================= sqlliteEIDH====================
+    public void listTRAPEZI (View view) {
+        SQLiteDatabase mydatabase=null;
+        Integer n=0;
+
+        List<String> values=new ArrayList<>();
+        values.add("TRAPEZIA---");
+        moviesList=(ListView)findViewById(R.id.list1);
+        try{
+            mydatabase = openOrCreateDatabase("eidh",MODE_PRIVATE,null);
+            Cursor cursor2 = mydatabase.rawQuery("SELECT ONO,KATEILHMENO,NUM1  FROM TABLES where NUM1>0", null);
+
+            if (cursor2.moveToFirst()) {
+                do {
+                    n++;
+                    values.add(String.valueOf(n)+";"+ cursor2.getString(0));
+
+                } while (cursor2.moveToNext());
+            }
+
+            ArrayAdapter<String> arrayAdapter =
+                    new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, values);
+
+            moviesList.setAdapter(arrayAdapter);
 
 
-    //===============================================================================================
+        } catch (SQLiteAccessPermException e) {
+            e.printStackTrace();
+            Toast.makeText(getApplicationContext(), "trapezia ERRORS", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    //================= sqlliteEIDH====================
     public void listEidh (View view) {
         SQLiteDatabase mydatabase=null;
         Integer n=0;
@@ -106,19 +136,6 @@ public class import_sql extends AppCompatActivity {
             e.printStackTrace();
         }
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
     // private String URL = "jdbc:jtds:sqlserver://192.168.1.5:52735/BAR;instance=SQLEXPRESS;";
