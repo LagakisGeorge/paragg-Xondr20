@@ -119,7 +119,7 @@ public class order extends AppCompatActivity {
         });
 
 
-        EIDH_PARAGG.add("ΝΕΑ ΠΑΡΑΓΓΕΛΙΑ");
+     //   EIDH_PARAGG.add("ΝΕΑ ΠΑΡΑΓΓΕΛΙΑ");
 
         ArrayAdapter<String> OarrayAdapter;
         OarrayAdapter= new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, EIDH_PARAGG);

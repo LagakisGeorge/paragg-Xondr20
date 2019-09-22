@@ -26,6 +26,8 @@ public class EpiloghEid extends AppCompatActivity {
     public static  ArrayList<String> EIDH_PARAGG;
 
     public String[] arr=new String[100];
+    public String[] arr_ono=new String[100];
+    public String[] arr_timh=new String[100];
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,11 +47,11 @@ public class EpiloghEid extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position,
                                     long id) {
-                // παω να γεμισω την λιστα με την παραγγελια του τραπεζιου
-                // διαλεγοντας ενα είδος το ανεβάζει στην λίστα
-                // create_order( position);
-               // Object o = moviesList.getItemAtPosition(position);
-                // pelOrder_Items.add(o.toString() );
+                // exo tsimpisei to eidos kai pao na dixo to prosueta
+                // arr{position] exei ta prostheta toy eidoys 1;2;4
+                EIDH_PARAGG.add(arr_ono[position]);
+                EIDH_PARAGG.add("1");
+                EIDH_PARAGG.add(arr_timh[position]);
 
                 ShowProsu(arr[position]);
             }
@@ -61,7 +63,7 @@ public class EpiloghEid extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position,
                                     long id) {
 
-                EIDH_PARAGG.add("AKOMH ENA");
+                //EIDH_PARAGG.add("AKOMH ENA");
                 Intent intent = new Intent(view.getContext(), order.class);
                 // intent.putExtra(EXTRA_MESSAGE, o.toString());
                // intent.putExtra("mpel2", o.toString());
@@ -140,6 +142,10 @@ public class EpiloghEid extends AppCompatActivity {
                     values.add( cursor2.getString(0));
                    //  prosu.add(cursor2.getString(3));
                        arr[n-1]=cursor2.getString(3);
+                       arr_ono[n-1]=cursor2.getString(0);
+                       arr_timh[n-1]=Float.toString(cursor2.getFloat(2));
+
+
                 } while (cursor2.moveToNext());
             }
             ArrayAdapter<String> arrayAdapter =
