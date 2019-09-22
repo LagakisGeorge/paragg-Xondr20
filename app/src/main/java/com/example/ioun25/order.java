@@ -3,6 +3,9 @@ package com.example.ioun25;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteAccessPermException;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -55,10 +58,10 @@ public class order extends AppCompatActivity {
         TextView textView = findViewById(R.id.textView3);
         textView.setText(message);
 
-
+        ListEidh ();
 
 // γεμισμα της λιστας ειδών
-        List<String> values=new ArrayList<>();
+     /*   List<String> values=new ArrayList<>();
         for (int i = 0; i < EIDH.size(); i++) {
             values.add(EIDH.get(i));
         }
@@ -66,8 +69,8 @@ public class order extends AppCompatActivity {
         ArrayAdapter<String> arrayAdapter =
                 new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, values);
         moviesList.setAdapter(arrayAdapter);
-
-   create_kathg();
+     */
+        create_kathg();
 
         handler2 = new Handler(new Handler.Callback() {
             @Override
@@ -85,19 +88,31 @@ public class order extends AppCompatActivity {
 
 
 
+        kathgGrid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position,
+                                    long id) {
+                // παω να γεμισω την λιστα με την παραγγελια του τραπεζιου
+                // διαλεγοντας ενα είδος το ανεβάζει στην λίστα
+                // create_order( position);
+                Object o = kathgGrid.getItemAtPosition(position);
+               // pelOrder_Items.add(o.toString() );
+
+                ShowDisplay(o.toString());
+
+            }
+        });
+
 
         moviesList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position,
                                     long id) {
-
+                // παω να γεμισω την λιστα με την παραγγελια του τραπεζιου
+                // διαλεγοντας ενα είδος το ανεβάζει στην λίστα
                 create_order( position);
 
-             //   Order_Items = new ArrayList<String>();
-
-                // παω να γεμισω την λιστα με την παραγγελια του τραπεζιου
-
-
+             //   ShowDisplay();
 
             }
         });
@@ -105,10 +120,56 @@ public class order extends AppCompatActivity {
     }
 
 
+    public void ListEidh () {
+        SQLiteDatabase mydatabase=null;
+        Integer n=0;
+        moviesList=(GridView)findViewById(R.id.listmaster);
+        List<String> values=new ArrayList<>();
+
+        try{
+            mydatabase = openOrCreateDatabase("eidh",MODE_PRIVATE,null);
+            Cursor cursor2 = mydatabase.rawQuery("select ONO,TIMH,KATHG from  EIDH", null);
+
+            if (cursor2.moveToFirst()) {
+                do {
+                    n++;
+                    values.add( cursor2.getString(0));
+
+                } while (cursor2.moveToNext());
+            }
+
+           // ArrayAdapter<String> arrayAdapter =
+            //        new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, values);
+
+          //  moviesList.setAdapter(arrayAdapter);
+
+
+            ArrayAdapter<String> arrayAdapter =
+                    new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, values);
+            moviesList.setAdapter(arrayAdapter);
+
+
+
+
+
+
+
+
+        } catch (SQLiteAccessPermException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+
+
+
+
+
     public void  create_kathg(){
 
         // γεμισμα της λιστας κατηγοριών
-        List<String> values2 = new ArrayList<>();
+     /*   List<String> values2 = new ArrayList<>();
         for (int i = 0; i < KATHG.size(); i++) {
             values2.add(KATHG.get(i));
         }
@@ -116,10 +177,34 @@ public class order extends AppCompatActivity {
         ArrayAdapter<String> arrayAdapter2 =
                 new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, values2);
         kathgGrid.setAdapter(arrayAdapter2);
+      */
+
+        SQLiteDatabase mydatabase=null;
+        Integer n=0;
+        kathgGrid=(GridView)findViewById(R.id.listKathg);
+        List<String> values=new ArrayList<>();
+
+        try{
+            mydatabase = openOrCreateDatabase("eidh",MODE_PRIVATE,null);
+            Cursor cursor2 = mydatabase.rawQuery("select ONO  from  KATHG", null);
+
+            if (cursor2.moveToFirst()) {
+                do {
+                    n++;
+                    values.add( cursor2.getString(0));
+
+                } while (cursor2.moveToNext());
+            }
+
+            ArrayAdapter<String> arrayAdapter =
+                    new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, values);
+
+            kathgGrid.setAdapter(arrayAdapter);
 
 
-
-
+        } catch (SQLiteAccessPermException e) {
+            e.printStackTrace();
+        }
     }
 
 
@@ -152,32 +237,17 @@ public class order extends AppCompatActivity {
         //      new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, Order_Items);
 
         Paragg.setAdapter(OarrayAdapter);
-
-
-
-
-
-
-
     }
 
 
 
     public void SAVE_ORDER (View view) {
 
-
-
-
         pel.clear();
 
         Runnable aRunnable = new Runnable() {
             public void run() {
-
-
-                    execData("insert into PARAGG (TRAPEZI,HME) VALUES (52,GETDATE())");
-
-
-
+                execData("insert into PARAGG (TRAPEZI,HME) VALUES (52,GETDATE())");
             }
         };
 
@@ -216,19 +286,14 @@ public class order extends AppCompatActivity {
     };
 
 
-    public void ShowDisplay(View view) {
-        Intent intent = new Intent(this, DisplayMessageActivity.class);
+    public void ShowDisplay(String cKathg) {
+        Intent intent = new Intent(this, EpiloghEid.class);
      //   intent.putExtra("arrayListExtra", mArray);
      //   intent.putExtra("stringExtra", mString);
      //   intent.putExtra("intExtra", mValue);
+       // String message2 ="---" ;// EditText.GetText().toString();
+        intent.putExtra(EXTRA_MESSAGE, cKathg);
         startActivity(intent);
 
     };
-
-
-
-
-
-
-
 }

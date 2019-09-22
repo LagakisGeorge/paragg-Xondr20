@@ -11,22 +11,36 @@
     android:layout_height="match_parent"/>
 
 
-
     <TableRow
-        android:layout_height="wrap_content"
-        android:layout_width="fill_parent"
-        android:gravity="center_horizontal">
-
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
         <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_span="3"
-            android:background="#b0b0b0"
-            android:padding="28dip"
-            android:text="**************"
-            android:textColor="#000"
-            android:textSize="18dp" />
+            android:id="@+id/TextView104"
+            android:layout_weight="1"
+            android:background="#a09f9f"
+            android:gravity="center"
+            android:padding="18dip"
+            android:text="9999999999999999"
+            android:textColor="#000000" />
+    </TableRow>
+
+
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <EditText
+            android:id="@+id/t1"
+            android:layout_width="259dp"
+            android:layout_height="61dp"
+
+            android:layout_marginEnd="-1dp"
+            android:layout_marginRight="-1dp"
+
+            android:ems="10"
+            android:inputType="textPersonName" />
 
 
     </TableRow>
@@ -37,21 +51,18 @@
         android:layout_height="match_parent">
 
         <Button
-            android:id="@+id/button10"
-            android:layout_width="161dp"
-            android:layout_height="wrap_content"
-            android:onClick="listTRAPEZI"
-            android:padding="15dp"
-
-            android:text="LIST TRAPEZIA"
-            tools:text="ΛΙΣΤΑ ΤΡΑΠΕΖΙΩΝ" />
-
-        <Button
             android:id="@+id/button11"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="listEidh"
             android:text="ListView" />
+
+        <Button
+            android:id="@+id/button15"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="Array3_EIDHToSQLite"
+            android:text="Button" />
     </TableRow>
     <TableRow
         android:layout_width="match_parent"
@@ -79,23 +90,22 @@ android:layout_height="wrap_content"
 android:layout_width="wrap_content">
 
 
-    <TextView
-        android:id="@+id/TextView14"
-        android:layout_weight="1"
-        android:background="#b0b0b0"
-        android:gravity="center"
-        android:padding="18dip"
-        android:text="......"
-        android:textColor="#000000" />
+    <Button
+        android:id="@+id/button14"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="LoadXar1SQLSERVER"
+        android:text="load xar1 FROM SQLSERVER" />
 
-<TextView
-    android:id="@+id/TextView04"
-    android:text="Row 3 column 2"
-    android:layout_weight="1"
-    android:background="#a09f9f"
-    android:textColor="#000000"
-    android:padding="18dip"
-    android:gravity="center"/>
+    <Button
+        android:id="@+id/button10"
+        android:layout_width="161dp"
+        android:layout_height="wrap_content"
+        android:onClick="Array_xar1ToSQLite"
+        android:padding="15dp"
+
+        android:text="LIST TRAPEZIA"
+        tools:text="pinakas xar1 se sqllite" />
 </TableRow>
 
 
@@ -104,32 +114,20 @@ android:layout_width="wrap_content">
         android:layout_height="wrap_content"
         android:layout_width="match_parent">
 
-        <TextView
-            android:id="@+id/TextView24"
-            android:text="Row 2 column 1"
-            android:layout_weight="1"
-            android:background="#dcdcdc"
-            android:textColor="#000000"
-            android:padding="20dip"
-            android:gravity="center"/>
+        <Button
+            android:id="@+id/button13"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="listQUERY"
+            android:text="sqlLite query" />
 
-        <TextView
-            android:id="@+id/TextView34"
-            android:text="Row 2 column 2"
-            android:layout_weight="1"
-            android:background="#d3d3d3"
-            android:textColor="#000000"
-            android:padding="20dip"
-            android:gravity="center"/>
+        <Button
+            android:id="@+id/EXECUTE"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
 
-        <TextView
-            android:id="@+id/TextView44"
-            android:text="Row 2 column 3"
-            android:layout_weight="1"
-            android:background="#cac9c9"
-            android:textColor="#000000"
-            android:padding="20dip"
-            android:gravity="center"/>
+            android:onClick="Execute_direct"
+            android:text="EXECUTE SQLite" />
 
     </TableRow>
 

@@ -1,51 +1,80 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".order">
 
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="TextView"
-        tools:layout_editor_absoluteX="176dp"
-        tools:layout_editor_absoluteY="4dp"
-        android:layout_alignParentTop="true"
-        />
+    <TableRow
+        android:layout_width="fill_parent"
+        android:layout_height="116dp">
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
 
-    <GridView
-        android:id="@+id/listmaster"
-        android:layout_width="match_parent"
-        android:layout_height="117dp"
-        android:layout_below="@+id/listdetail"
-        android:layout_marginLeft="-411dp"
-        android:layout_marginTop="18dp"
-        android:layout_toRightOf="@+id/listKathg"
-        android:background="#CDDC39" />
-
-    <GridView
-        android:id="@+id/listdetail"
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:layout_below="@+id/textView3"
-        android:layout_marginTop="27dp"
-        android:background="#FFEB3B"
-        android:cacheColorHint="#CDDC39">
+            android:text="TextView" />
+    </TableRow>
 
 
-    </GridView>
 
-    <GridView
-        android:id="@+id/listKathg"
-        android:layout_width="match_parent"
-        android:layout_height="145dp"
-        android:layout_alignBottom="@+id/button5"
-        android:layout_alignLeft="@+id/listdetail"
-        android:background="@color/colorAccent" />
+    <TableRow
+        android:layout_width="fill_parent"
+        android:layout_height="201dp">
 
+        <GridView
+            android:id="@+id/listdetail"
+            android:layout_width="232dp"
+            android:layout_height="274dp"
+
+            android:numColumns="5"
+
+            android:background="#FFEB3B"
+            android:cacheColorHint="#CDDC39">
+
+
+        </GridView>
+    </TableRow>
+
+
+    <TableRow
+        android:layout_width="fill_parent"
+        android:layout_height="201dp">
+
+        <GridView
+            android:id="@+id/listKathg"
+            android:layout_width="122dp"
+            android:layout_height="145dp"
+            android:numColumns="4"
+            android:background="@color/colorAccent" />
+    </TableRow>
+
+
+
+
+    <TableRow
+        android:layout_width="fill_parent"
+        android:layout_height="16dp">
+        <GridView
+            android:id="@+id/listmaster"
+
+            android:layout_width="399dp"
+            android:layout_height="15dp"
+
+            android:layout_marginTop="18dp"
+
+            android:background="#CDDC39" />
+
+    </TableRow>
+
+
+
+    <TableRow
+        android:layout_width="fill_parent"
+        android:layout_height="101dp">
     <Button
         android:id="@+id/button5"
         android:layout_width="wrap_content"
@@ -60,7 +89,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_toRightOf="@+id/button5"
+
         android:text="display" />
 
     <Button
@@ -69,9 +98,10 @@
         android:layout_height="wrap_content"
         android:text="Button"
         android:layout_alignParentBottom="true"
-        android:layout_toRightOf="@+id/button6"
+
 
 
        />
+</TableRow>
 
-</RelativeLayout>
+</TableLayout>
