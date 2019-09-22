@@ -23,6 +23,8 @@ public class EpiloghEid extends AppCompatActivity {
     String message;
     GridView prosuGrid;
     public static ArrayList<String> prosu;
+    public static  ArrayList<String> EIDH_PARAGG;
+
     public String[] arr=new String[100];
 
     @Override
@@ -31,6 +33,8 @@ public class EpiloghEid extends AppCompatActivity {
         setContentView(R.layout.activity_epilogh_eid);
         Intent intent = getIntent();
         message = intent.getStringExtra(EXTRA_MESSAGE);
+        EIDH_PARAGG = intent.getStringArrayListExtra("mEIDH");
+
         ListEidh ();
 
      //   prosu = new ArrayList<String>();
@@ -57,14 +61,15 @@ public class EpiloghEid extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position,
                                     long id) {
 
-
+                EIDH_PARAGG.add("AKOMH ENA");
                 Intent intent = new Intent(view.getContext(), order.class);
                 // intent.putExtra(EXTRA_MESSAGE, o.toString());
                // intent.putExtra("mpel2", o.toString());
               //  intent.putExtra("mpel", pel); // ΣΤΕΛΝΩ ΤΟΝ ΠΙΝΑΚΑ ΜΕ ΤΑ ΤΡΑΠΕΖΙΑ
-              //  intent.putExtra("mEIDH", EIDH); // ΣΤΕΛΝΩ ΤΟΝ ΠΙΝΑΚΑ ΜΕ ΤΑ EIDH
+                intent.putExtra("mEIDH", EIDH_PARAGG); // ΣΤΕΛΝΩ ΤΟΝ ΠΙΝΑΚΑ ΜΕ ΤΑ EIDH
              //   intent.putExtra("mKATHG", KATHG); // ΣΤΕΛΝΩ ΤΟΝ ΠΙΝΑΚΑ ΜΕ ΤΑ EIDH
                 // intent.putExtra("mpel", pel); // ΣΤΕΛΝΩ ΤΟΝ ΠΙΝΑΚΑ ΜΕ ΤΑ ΤΡΑΠΕΖΙΑ
+
                 EpiloghEid.this.startActivity(intent);
 
 

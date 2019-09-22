@@ -30,7 +30,8 @@ import static java.util.jar.Pack200.Packer.PASS;
 public class order extends AppCompatActivity {
 
     ArrayList<String> pel;
-    ArrayList<String> EIDH;
+    ArrayList<String> EIDH_PARAGG; // ερχεται απο το trapezia class ΑΔΕΙΟς αλλα δεν το χρειαζομαι
+                            // το χρησιμοποιω για τα είδη παραγγελίας τα οποία τα γεμιζω στο EpiloghEid
     ArrayList<String> KATHG;
     GridView moviesList;
     GridView kathgGrid;
@@ -48,7 +49,7 @@ public class order extends AppCompatActivity {
         Intent intent = getIntent();
         String message = intent.getStringExtra("mpel2");
         pel = intent.getStringArrayListExtra("mpel");
-        EIDH = intent.getStringArrayListExtra("mEIDH");
+        EIDH_PARAGG = intent.getStringArrayListExtra("mEIDH");
         KATHG = intent.getStringArrayListExtra("mKATHG");
        // pelOrder_Items = new ArrayList<String>();
 
@@ -87,7 +88,7 @@ public class order extends AppCompatActivity {
         });
 
 
-
+        // δειχνει τα ειδη σε αλλο intent για να διαλεξω
         kathgGrid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position,
@@ -117,9 +118,23 @@ public class order extends AppCompatActivity {
             }
         });
 
+
+        EIDH_PARAGG.add("ΝΕΑ ΠΑΡΑΓΓΕΛΙΑ");
+
+        ArrayAdapter<String> OarrayAdapter;
+        OarrayAdapter= new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, EIDH_PARAGG);
+
+        //  ArrayAdapter<String> arrayAdapter =
+        //      new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, Order_Items);
+        Paragg=(GridView)findViewById(R.id.listdetail);
+        Paragg.setAdapter(OarrayAdapter);
+
+
+
+
     }
 
-
+// ΠΑΛΙΟ alla xreiazetai?  ΕΧΕΙ ΜΕΤΑΦΕΡΘΕΙ ΣΤΟ ΙΝΤΕΝΤ EPILOGHEID
     public void ListEidh () {
         SQLiteDatabase mydatabase=null;
         Integer n=0;
@@ -165,7 +180,7 @@ public class order extends AppCompatActivity {
 
 
 
-
+// γεμίζει το  kathgGrid απο το sqllite->KATHG
     public void  create_kathg(){
 
         // γεμισμα της λιστας κατηγοριών
@@ -210,7 +225,7 @@ public class order extends AppCompatActivity {
 
 
 
-
+// ανεβαζει στο Paragg apo to ton pinaka pelOrder_Items
     public void create_order (int position) {
 
 
@@ -240,7 +255,7 @@ public class order extends AppCompatActivity {
     }
 
 
-
+// σώζει την παραγγελια σε sqlserver
     public void SAVE_ORDER (View view) {
 
         pel.clear();
@@ -285,7 +300,7 @@ public class order extends AppCompatActivity {
 
     };
 
-
+   // δειχνει τα ειδη σε αλλο intent για να διαλεξω
     public void ShowDisplay(String cKathg) {
         Intent intent = new Intent(this, EpiloghEid.class);
      //   intent.putExtra("arrayListExtra", mArray);
@@ -293,6 +308,7 @@ public class order extends AppCompatActivity {
      //   intent.putExtra("intExtra", mValue);
        // String message2 ="---" ;// EditText.GetText().toString();
         intent.putExtra(EXTRA_MESSAGE, cKathg);
+        intent.putExtra("mEIDH", EIDH_PARAGG); // ΣΤΕΛΝΩ ΤΟΝ ΠΙΝΑΚΑ ΜΕ ΤΗΝ ΤΡΕΧΟΥΣΑ ΠΑΡΑΓΓΕΛΙΑ
         startActivity(intent);
 
     };
