@@ -2,15 +2,26 @@ package com.example.ioun25;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteAccessPermException;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
+import android.util.TypedValue;
+import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
+import android.widget.EditText;
 import android.widget.GridView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -20,14 +31,19 @@ import static com.example.ioun25.MainActivity.EXTRA_MESSAGE;
 
 public class EpiloghEid extends AppCompatActivity {
     GridView moviesList;
+    TextView TextProsu;  // π.χ. μετριος,καστανη
+    EditText Keim; // π.χ. θελει ψηλο ποτηρι
     String message;
     GridView prosuGrid;
+    TextView TextEidos;
     public static ArrayList<String> prosu;
     public static  ArrayList<String> EIDH_PARAGG;
+    public int Eidos_position=-1;
 
     public String[] arr=new String[100];
     public String[] arr_ono=new String[100];
     public String[] arr_timh=new String[100];
+    public String[] arr_prosu=new String[100];
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +57,9 @@ public class EpiloghEid extends AppCompatActivity {
 
      //   prosu = new ArrayList<String>();
         prosuGrid=(GridView)findViewById(R.id.prosu);
-
+        TextProsu=(TextView)findViewById(R.id.textView4);  // π.χ. μετριος,καστανη
+        TextEidos=(TextView)findViewById(R.id.TextEidos);
+         Keim=(EditText)findViewById(R.id.editText2); // π.χ. θελει ψηλο ποτηρι
 
         moviesList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -49,11 +67,11 @@ public class EpiloghEid extends AppCompatActivity {
                                     long id) {
                 // exo tsimpisei to eidos kai pao na dixo to prosueta
                 // arr{position] exei ta prostheta toy eidoys 1;2;4
-                EIDH_PARAGG.add(arr_ono[position]);
-                EIDH_PARAGG.add("1");
-                EIDH_PARAGG.add(arr_timh[position]);
 
+                Eidos_position=position;  // κραταω την θέση του είδους γιατι μπορει να παρει άλλο είδος
+                TextEidos.setText(arr_ono[Eidos_position].toString());
                 ShowProsu(arr[position]);
+
             }
         });
 
@@ -64,15 +82,8 @@ public class EpiloghEid extends AppCompatActivity {
                                     long id) {
 
                 //EIDH_PARAGG.add("AKOMH ENA");
-                Intent intent = new Intent(view.getContext(), order.class);
-                // intent.putExtra(EXTRA_MESSAGE, o.toString());
-               // intent.putExtra("mpel2", o.toString());
-              //  intent.putExtra("mpel", pel); // ΣΤΕΛΝΩ ΤΟΝ ΠΙΝΑΚΑ ΜΕ ΤΑ ΤΡΑΠΕΖΙΑ
-                intent.putExtra("mEIDH", EIDH_PARAGG); // ΣΤΕΛΝΩ ΤΟΝ ΠΙΝΑΚΑ ΜΕ ΤΑ EIDH
-             //   intent.putExtra("mKATHG", KATHG); // ΣΤΕΛΝΩ ΤΟΝ ΠΙΝΑΚΑ ΜΕ ΤΑ EIDH
-                // intent.putExtra("mpel", pel); // ΣΤΕΛΝΩ ΤΟΝ ΠΙΝΑΚΑ ΜΕ ΤΑ ΤΡΑΠΕΖΙΑ
 
-                EpiloghEid.this.startActivity(intent);
+                TextProsu.setText(TextProsu.getText().toString()+","+arr_prosu[position]);
 
 
 
@@ -86,7 +97,32 @@ public class EpiloghEid extends AppCompatActivity {
     }
 
 
+    // στελνει το ειδος στο intent order
+    public void SendEidos (View view){
 
+        EIDH_PARAGG.add(arr_ono[Eidos_position]);
+        EIDH_PARAGG.add("1");
+        EIDH_PARAGG.add(arr_timh[Eidos_position]);
+
+
+
+
+        String Q=TextProsu.getText().toString();
+        EIDH_PARAGG.add(Q);
+        Q=Keim.getText().toString();
+        EIDH_PARAGG.add(Q);
+        EIDH_PARAGG.add("---");
+        Intent intent = new Intent(view.getContext(), order.class);
+        // intent.putExtra(EXTRA_MESSAGE, o.toString());
+        // intent.putExtra("mpel2", o.toString());
+        //  intent.putExtra("mpel", pel); // ΣΤΕΛΝΩ ΤΟΝ ΠΙΝΑΚΑ ΜΕ ΤΑ ΤΡΑΠΕΖΙΑ
+        intent.putExtra("mEIDH", EIDH_PARAGG); // ΣΤΕΛΝΩ ΤΟΝ ΠΙΝΑΚΑ ΜΕ ΤΑ EIDH
+        //   intent.putExtra("mKATHG", KATHG); // ΣΤΕΛΝΩ ΤΟΝ ΠΙΝΑΚΑ ΜΕ ΤΑ EIDH
+        // intent.putExtra("mpel", pel); // ΣΤΕΛΝΩ ΤΟΝ ΠΙΝΑΚΑ ΜΕ ΤΑ ΤΡΑΠΕΖΙΑ
+
+        EpiloghEid.this.startActivity(intent);
+
+    }
 
 
     public void ShowProsu (String c){
@@ -94,7 +130,7 @@ public class EpiloghEid extends AppCompatActivity {
         SQLiteDatabase mydatabase=null;
         Integer n=0;
         prosuGrid=(GridView)findViewById(R.id.prosu);
-        List<String> values=new ArrayList<>();
+       final List<String> values=new ArrayList<>();
 
 
       //  prosu.clear();
@@ -108,6 +144,7 @@ public class EpiloghEid extends AppCompatActivity {
                     n++;
                     values.add( cursor2.getString(0));
                   //  prosu.add(cursor2.getString(3));
+                    arr_prosu[n-1]=cursor2.getString(0);
                   //  arr[n]=cursor2.getString(3);
                 } while (cursor2.moveToNext());
             }
@@ -115,7 +152,98 @@ public class EpiloghEid extends AppCompatActivity {
             //        new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, values);
             //  moviesList.setAdapter(arrayAdapter);
             ArrayAdapter<String> arrayAdapter =
-                    new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, values);
+                    new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, values)
+
+// arxh  αυτο το κομματι βαζει πλαισια στο gridview
+                    {
+                        public View getView(int position, View convertView, ViewGroup parent) {
+
+                            // Return the GridView current item as a View
+                            View view = super.getView(position,convertView,parent);
+
+                            // Convert the view as a TextView widget
+                            TextView tv = (TextView) view;
+
+                            //tv.setTextColor(Color.DKGRAY);
+
+                            // Set the layout parameters for TextView widget
+                            RelativeLayout.LayoutParams lp =  new RelativeLayout.LayoutParams(
+                                    RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.MATCH_PARENT
+                            );
+                            tv.setLayoutParams(lp);
+
+                            // Get the TextView LayoutParams
+                            RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams)tv.getLayoutParams();
+
+                            // Set the width of TextView widget (item of GridView)
+                /*
+                    IMPORTANT
+                        Adjust the TextView widget width depending
+                        on GridView width and number of columns.
+
+                        GridView width / Number of columns = TextView width.
+
+                        Also calculate the GridView padding, margins, vertical spacing
+                        and horizontal spacing.
+                 */
+
+
+                            Resources r = EpiloghEid.this.getResources();
+                            int  px = (int) (TypedValue.applyDimension(
+                                    TypedValue.COMPLEX_UNIT_DIP, 168, r.getDisplayMetrics()));
+
+
+
+                            params.width = px;  // getPixelsFromDPs(EpiloghEid.this,168);
+
+                            // Set the TextView layout parameters
+                            tv.setLayoutParams(params);
+
+                            // Display TextView text in center position
+                            tv.setGravity(Gravity.CENTER);
+
+                            // Set the TextView text font family and text size
+                            tv.setTypeface(Typeface.SANS_SERIF, Typeface.NORMAL);
+                            tv.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 12);
+
+                            // Set the TextView text (GridView item text)
+                            tv.setText(values.get(position));
+
+                            // Set the TextView background color
+                            tv.setBackgroundColor(Color.parseColor("#d9d5dc"));
+
+                            // Return the TextView widget as GridView item
+                            return tv;
+                        }
+                    };
+// telos αυτο το κομματι βαζει πλαισια στο gridview
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            ;
             prosuGrid.setAdapter(arrayAdapter);
         } catch (SQLiteAccessPermException e) {
             e.printStackTrace();
@@ -127,7 +255,15 @@ public class EpiloghEid extends AppCompatActivity {
         SQLiteDatabase mydatabase=null;
         Integer n=0;
         moviesList=(GridView)findViewById(R.id.listmaster);
-        List<String> values=new ArrayList<>();
+
+      //  moviesList.setBackgroundColor();
+      //  moviesList.setVerticalSpacing(1);
+      //  moviesList.setHorizontalSpacing(1);
+
+
+
+
+       final List<String> values=new ArrayList<>();
 
 
        // prosu.clear();
@@ -149,12 +285,101 @@ public class EpiloghEid extends AppCompatActivity {
                 } while (cursor2.moveToNext());
             }
             ArrayAdapter<String> arrayAdapter =
-                    new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, values);
-            moviesList.setAdapter(arrayAdapter);
+                    new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, values)
+
+
+                            // arxh  αυτο το κομματι βαζει πλαισια στο gridview
+                    {
+                        public View getView(int position, View convertView, ViewGroup parent) {
+
+                            // Return the GridView current item as a View
+                            View view = super.getView(position,convertView,parent);
+
+                            // Convert the view as a TextView widget
+                            TextView tv = (TextView) view;
+
+                            //tv.setTextColor(Color.DKGRAY);
+
+                            // Set the layout parameters for TextView widget
+                            RelativeLayout.LayoutParams lp =  new RelativeLayout.LayoutParams(
+                                    RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.MATCH_PARENT
+                            );
+                            tv.setLayoutParams(lp);
+
+                            // Get the TextView LayoutParams
+                            RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams)tv.getLayoutParams();
+
+                            // Set the width of TextView widget (item of GridView)
+                /*
+                    IMPORTANT
+                        Adjust the TextView widget width depending
+                        on GridView width and number of columns.
+
+                        GridView width / Number of columns = TextView width.
+
+                        Also calculate the GridView padding, margins, vertical spacing
+                        and horizontal spacing.
+                 */
+
+
+                            Resources r = EpiloghEid.this.getResources();
+                            int  px = (int) (TypedValue.applyDimension(
+                                    TypedValue.COMPLEX_UNIT_DIP, 168, r.getDisplayMetrics()));
+
+
+
+                            params.width = px;  // getPixelsFromDPs(EpiloghEid.this,168);
+
+                            // Set the TextView layout parameters
+                            tv.setLayoutParams(params);
+
+                            // Display TextView text in center position
+                            tv.setGravity(Gravity.CENTER);
+
+                            // Set the TextView text font family and text size
+                            tv.setTypeface(Typeface.SANS_SERIF, Typeface.NORMAL);
+                            tv.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 12);
+
+                            // Set the TextView text (GridView item text)
+                            tv.setText(values.get(position));
+
+                            // Set the TextView background color
+                            tv.setBackgroundColor(Color.parseColor("#d9d5dc"));
+
+                            // Return the TextView widget as GridView item
+                            return tv;
+                        }
+                    };
+// telos  αυτο το κομματι βαζει πλαισια στο gridview
+
+
+
+
+    //More android examples
+    //How to use GridView OnItemClickLi
+          moviesList.setAdapter(arrayAdapter);
+
+
+
+
+
+
+
+
+
+
+
+
         } catch (SQLiteAccessPermException e) {
             e.printStackTrace();
         }
     }
+
+
+
+
+
+
 }
 
 

@@ -3,17 +3,24 @@ package com.example.ioun25;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.res.Resources;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteAccessPermException;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.util.TypedValue;
+import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.GridView;
 
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -121,12 +128,84 @@ public class order extends AppCompatActivity {
 
      //   EIDH_PARAGG.add("ΝΕΑ ΠΑΡΑΓΓΕΛΙΑ");
 
+        Paragg=(GridView)findViewById(R.id.listdetail);
         ArrayAdapter<String> OarrayAdapter;
-        OarrayAdapter= new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, EIDH_PARAGG);
+        OarrayAdapter= new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, EIDH_PARAGG)
+                // arxh  αυτο το κομματι βαζει πλαισια στο gridview
+        {
+            public View getView(int position, View convertView, ViewGroup parent) {
+
+                // Return the GridView current item as a View
+                View view = super.getView(position,convertView,parent);
+
+                // Convert the view as a TextView widget
+                TextView tv = (TextView) view;
+
+                //tv.setTextColor(Color.DKGRAY);
+
+                // Set the layout parameters for TextView widget
+                RelativeLayout.LayoutParams lp =  new RelativeLayout.LayoutParams(
+                        RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.MATCH_PARENT
+                );
+                tv.setLayoutParams(lp);
+
+                // Get the TextView LayoutParams
+                RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams)tv.getLayoutParams();
+
+                // Set the width of TextView widget (item of GridView)
+                /*
+                    IMPORTANT
+                        Adjust the TextView widget width depending
+                        on GridView width and number of columns.
+
+                        GridView width / Number of columns = TextView width.
+
+                        Also calculate the GridView padding, margins, vertical spacing
+                        and horizontal spacing.
+                 */
+
+
+                Resources r = order.this.getResources();
+                int  px = (int) (TypedValue.applyDimension(
+                        TypedValue.COMPLEX_UNIT_DIP, 168, r.getDisplayMetrics()));
+
+
+
+                params.width = px;  // getPixelsFromDPs(EpiloghEid.this,168);
+
+                // Set the TextView layout parameters
+                tv.setLayoutParams(params);
+
+                // Display TextView text in center position
+                tv.setGravity(Gravity.CENTER);
+
+                // Set the TextView text font family and text size
+                tv.setTypeface(Typeface.SANS_SERIF, Typeface.NORMAL);
+                tv.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 12);
+
+                // Set the TextView text (GridView item text)
+                tv.setText(EIDH_PARAGG.get(position));
+
+                // Set the TextView background color
+                tv.setBackgroundColor(Color.parseColor("#d9d5dc"));
+
+                // Return the TextView widget as GridView item
+                return tv;
+            }
+        };
+// telos αυτο το κομματι βαζει πλαισια στο gridview
+
+
+
+
+
+
+
+
 
         //  ArrayAdapter<String> arrayAdapter =
         //      new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, Order_Items);
-        Paragg=(GridView)findViewById(R.id.listdetail);
+
         Paragg.setAdapter(OarrayAdapter);
 
 
@@ -213,6 +292,89 @@ public class order extends AppCompatActivity {
 
             ArrayAdapter<String> arrayAdapter =
                     new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, values);
+
+
+
+                           
+
+/*
+                            // arxh  αυτο το κομματι βαζει πλαισια στο gridview
+                    {
+                        public View getView(int position, View convertView, ViewGroup parent) {
+
+                            // Return the GridView current item as a View
+                            View view = super.getView(position,convertView,parent);
+
+                            // Convert the view as a TextView widget
+                            TextView tv = (TextView) view;
+
+                            //tv.setTextColor(Color.DKGRAY);
+
+                            // Set the layout parameters for TextView widget
+                            RelativeLayout.LayoutParams lp =  new RelativeLayout.LayoutParams(
+                                    RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.MATCH_PARENT
+                            );
+                            tv.setLayoutParams(lp);
+
+                            // Get the TextView LayoutParams
+                            RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams)tv.getLayoutParams();
+
+                            // Set the width of TextView widget (item of GridView)
+
+                  //  IMPORTANT
+                    //    Adjust the TextView widget width depending
+                    //    on GridView width and number of columns.
+
+                    //    GridView width / Number of columns = TextView width.
+
+                    //    Also calculate the GridView padding, margins, vertical spacing
+                    //    and horizontal spacing.
+
+
+
+                            Resources r = order.this.getResources();
+                            int  px = (int) (TypedValue.applyDimension(
+                                    TypedValue.COMPLEX_UNIT_DIP, 168, r.getDisplayMetrics()));
+
+
+
+                            params.width = px;  // getPixelsFromDPs(EpiloghEid.this,168);
+
+                            // Set the TextView layout parameters
+                            tv.setLayoutParams(params);
+
+                            // Display TextView text in center position
+                            tv.setGravity(Gravity.CENTER);
+
+                            // Set the TextView text font family and text size
+                            tv.setTypeface(Typeface.SANS_SERIF, Typeface.NORMAL);
+                            tv.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 12);
+
+                            // Set the TextView text (GridView item text)
+                            tv.setText(EIDH_PARAGG.get(position));
+
+                            // Set the TextView background color
+                            tv.setBackgroundColor(Color.parseColor("#d9d5dc"));
+
+                            // Return the TextView widget as GridView item
+                            return tv;
+                        }
+                    };
+    */
+// telos αυτο το κομματι βαζει πλαισια στο gridview
+
+
+
+
+
+
+
+
+
+
+
+
+
 
             kathgGrid.setAdapter(arrayAdapter);
 
