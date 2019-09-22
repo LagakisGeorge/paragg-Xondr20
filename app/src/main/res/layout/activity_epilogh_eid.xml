@@ -5,12 +5,31 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".EpiloghEid">
+    <Button
+        android:id="@+id/button16"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Button1" />
 
+    <Button
+        android:id="@+id/button17"
+        android:layout_toRightOf="@+id/button16"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Button2" />
+
+    <Button
+        android:id="@+id/button18"
+        android:layout_toRightOf="@+id/button17"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Button3" />
     <GridView
         android:id="@+id/prosu"
         android:layout_width="419dp"
         android:layout_height="267dp"
         android:background="#00BCD4"
+        android:layout_below="@+id/button17"
         tools:layout_editor_absoluteX="-7dp"
         tools:layout_editor_absoluteY="5dp" />
 
