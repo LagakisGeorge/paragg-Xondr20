@@ -27,16 +27,22 @@
 
         <GridView
             android:id="@+id/listdetail"
-            android:layout_width="232dp"
-            android:layout_height="274dp"
+            android:layout_width="wrap_content"
+            android:layout_height="345dp"
+            android:padding="2dp"
 
-            android:numColumns="5"
+            android:background="#8c898f"
+            android:verticalSpacing="2dp"
+            android:horizontalSpacing="2dp"
+            android:stretchMode="columnWidth"
+            android:gravity="left"
 
-            android:background="#FFEB3B"
-            android:cacheColorHint="#CDDC39">
+            android:numColumns="3"
+
+           />
 
 
-        </GridView>
+
     </TableRow>
 
 
@@ -46,9 +52,9 @@
 
         <GridView
             android:id="@+id/listKathg"
-            android:layout_width="122dp"
+            android:layout_width="match_parent"
             android:layout_height="145dp"
-            android:numColumns="4"
+            android:numColumns="3"
             android:background="@color/colorAccent" />
     </TableRow>
 

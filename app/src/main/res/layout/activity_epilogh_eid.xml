@@ -4,42 +4,130 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#F1F0EC"
     tools:context=".EpiloghEid">
+
+    <TextView
+        android:id="@+id/trapezi"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:text="" />
+
     <Button
         android:id="@+id/button16"
+        android:onClick="SendEidos"
+        android:layout_toRightOf="@+id/trapezi"
+
+
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Button1" />
+        android:layout_height="30dp"
+
+        android:layout_marginStart="0dp"
+        android:layout_marginLeft="2dp"
+
+        android:background="#4CAF50"
+
+
+
+
+        android:text="ΟΚ" />
+
+
+
+
 
     <Button
         android:id="@+id/button17"
+        android:onClick="Akyro_Prosu"
         android:layout_toRightOf="@+id/button16"
+
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Button2" />
+        android:layout_height="30dp"
+
+        android:layout_marginStart="0dp"
+        android:layout_marginLeft="2dp"
+
+        android:background="@color/colorAccent"
+
+
+        android:text="Ακυρο" />
 
     <Button
         android:id="@+id/button18"
         android:layout_toRightOf="@+id/button17"
+        android:text="Button3"
+
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+
+        android:layout_marginStart="0dp"
+        android:layout_marginLeft="2dp"
+
+        android:background="#8c898f"
+
+        />
+
+    <TextView
+        android:id="@+id/TextEidos"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Button3" />
+        android:layout_below="@+id/button18" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/TextEidos" />
+
+
+    <EditText
+        android:id="@+id/editText2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView4"
+        android:layout_alignParentRight="true"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text=""
+        tools:text="" />
+
     <GridView
         android:id="@+id/prosu"
-        android:layout_width="419dp"
-        android:layout_height="267dp"
-        android:background="#00BCD4"
-        android:layout_below="@+id/button17"
+        android:layout_width="match_parent"
+        android:layout_height="167dp"
+        android:layout_below="@+id/editText2"
+
+        android:layout_margin="5dp"
+        android:background="@drawable/perith"
+        android:numColumns="2"
+        android:padding="5dp"
         tools:layout_editor_absoluteX="-7dp"
         tools:layout_editor_absoluteY="5dp" />
 
     <GridView
         android:id="@+id/listmaster"
-        android:layout_width="406dp"
-        android:layout_height="452dp"
-        android:layout_below="@+id/prosu"
-        android:background="#2196F3"
+
+        android:layout_width="650dp"
+        android:layout_height="wrap_content"
+        android:padding="2dp"
         android:numColumns="2"
-        tools:layout_editor_absoluteX="4dp"
-        tools:layout_editor_absoluteY="272dp" />
+        android:background="#8c898f"
+        android:verticalSpacing="2dp"
+        android:horizontalSpacing="2dp"
+        android:stretchMode="columnWidth"
+        android:gravity="left"
+        android:layout_below="@+id/prosu"
+         />
+
+
+
+
+
+
+
+
+
+
 </RelativeLayout>
