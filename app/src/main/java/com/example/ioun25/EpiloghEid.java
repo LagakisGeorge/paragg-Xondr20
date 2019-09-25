@@ -51,6 +51,12 @@ public class EpiloghEid extends AppCompatActivity {
         setContentView(R.layout.activity_epilogh_eid);
         Intent intent = getIntent();
         message = intent.getStringExtra(EXTRA_MESSAGE);
+        String message = intent.getStringExtra("mpel2");  // αριθμος τραπεζιού
+
+        TextView textView = findViewById(R.id.trapezi);
+        textView.setText(message); // αριθμος τραπεζιού
+
+
         EIDH_PARAGG = intent.getStringArrayListExtra("mEIDH");
 
         ListEidh ();
@@ -96,6 +102,15 @@ public class EpiloghEid extends AppCompatActivity {
 
     }
 
+    // σβηνω τις επιλογές πρόσθετων
+    public void Akyro_Prosu (View view){
+        TextProsu=(TextView)findViewById(R.id.textView4);  // π.χ. μετριος,καστανη
+
+        TextProsu.setText("");
+
+    }
+
+
 
     // στελνει το ειδος στο intent order
     public void SendEidos (View view){
@@ -119,6 +134,11 @@ public class EpiloghEid extends AppCompatActivity {
         intent.putExtra("mEIDH", EIDH_PARAGG); // ΣΤΕΛΝΩ ΤΟΝ ΠΙΝΑΚΑ ΜΕ ΤΑ EIDH
         //   intent.putExtra("mKATHG", KATHG); // ΣΤΕΛΝΩ ΤΟΝ ΠΙΝΑΚΑ ΜΕ ΤΑ EIDH
         // intent.putExtra("mpel", pel); // ΣΤΕΛΝΩ ΤΟΝ ΠΙΝΑΚΑ ΜΕ ΤΑ ΤΡΑΠΕΖΙΑ
+
+        TextView textView = findViewById(R.id.trapezi);
+        String message=textView.getText().toString(); // αριθμος τραπεζιού
+        intent.putExtra("mpel2", message); // ΣΤΕΛΝΩ ΤΟ  ΤΡΑΠΕΖΙ
+
 
         EpiloghEid.this.startActivity(intent);
 
@@ -338,13 +358,13 @@ public class EpiloghEid extends AppCompatActivity {
 
                             // Set the TextView text font family and text size
                             tv.setTypeface(Typeface.SANS_SERIF, Typeface.NORMAL);
-                            tv.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 12);
+                            tv.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 14);
 
                             // Set the TextView text (GridView item text)
                             tv.setText(values.get(position));
 
                             // Set the TextView background color
-                            tv.setBackgroundColor(Color.parseColor("#d9d5dc"));
+                            tv.setBackgroundColor(Color.parseColor("#CDDC39"));
 
                             // Return the TextView widget as GridView item
                             return tv;

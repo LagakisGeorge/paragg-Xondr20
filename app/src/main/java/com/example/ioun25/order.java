@@ -54,7 +54,7 @@ public class order extends AppCompatActivity {
         setContentView(R.layout.activity_order);
 
         Intent intent = getIntent();
-        String message = intent.getStringExtra("mpel2");
+        String message = intent.getStringExtra("mpel2");  // αριθμος τραπεζιού
         pel = intent.getStringArrayListExtra("mpel");
         EIDH_PARAGG = intent.getStringArrayListExtra("mEIDH");
         KATHG = intent.getStringArrayListExtra("mKATHG");
@@ -64,10 +64,10 @@ public class order extends AppCompatActivity {
        // pel = intent.getStringArrayListExtra("mpel");
         // Capture the layout's TextView and set the string as its text
         TextView textView = findViewById(R.id.textView3);
-        textView.setText(message);
+        textView.setText(message); // αριθμος τραπεζιού
 
-        ListEidh ();
-
+      //  ListEidh ();
+        moviesList=(GridView)findViewById(R.id.listmaster);
 // γεμισμα της λιστας ειδών
      /*   List<String> values=new ArrayList<>();
         for (int i = 0; i < EIDH.size(); i++) {
@@ -106,7 +106,7 @@ public class order extends AppCompatActivity {
                 Object o = kathgGrid.getItemAtPosition(position);
                // pelOrder_Items.add(o.toString() );
 
-                ShowDisplay(o.toString());
+                ShowDisplay(o.toString());  // ονομα κατηγοριας
 
             }
         });
@@ -218,7 +218,7 @@ public class order extends AppCompatActivity {
         SQLiteDatabase mydatabase=null;
         Integer n=0;
         moviesList=(GridView)findViewById(R.id.listmaster);
-        List<String> values=new ArrayList<>();
+        final List<String> values=new ArrayList<>();
 
         try{
             mydatabase = openOrCreateDatabase("eidh",MODE_PRIVATE,null);
@@ -276,7 +276,7 @@ public class order extends AppCompatActivity {
         SQLiteDatabase mydatabase=null;
         Integer n=0;
         kathgGrid=(GridView)findViewById(R.id.listKathg);
-        List<String> values=new ArrayList<>();
+       final List<String> values=new ArrayList<>();
 
         try{
             mydatabase = openOrCreateDatabase("eidh",MODE_PRIVATE,null);
@@ -291,13 +291,13 @@ public class order extends AppCompatActivity {
             }
 
             ArrayAdapter<String> arrayAdapter =
-                    new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, values);
+                    new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, values)
 
 
 
-                           
 
-/*
+
+
                             // arxh  αυτο το κομματι βαζει πλαισια στο gridview
                     {
                         public View getView(int position, View convertView, ViewGroup parent) {
@@ -351,16 +351,16 @@ public class order extends AppCompatActivity {
                             tv.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 12);
 
                             // Set the TextView text (GridView item text)
-                            tv.setText(EIDH_PARAGG.get(position));
+                            tv.setText(values.get(position));
 
                             // Set the TextView background color
-                            tv.setBackgroundColor(Color.parseColor("#d9d5dc"));
+                            tv.setBackgroundColor(Color.parseColor("#CDDC39"));
 
                             // Return the TextView widget as GridView item
                             return tv;
                         }
                     };
-    */
+
 // telos αυτο το κομματι βαζει πλαισια στο gridview
 
 
@@ -383,10 +383,6 @@ public class order extends AppCompatActivity {
             e.printStackTrace();
         }
     }
-
-
-
-
 // ανεβαζει στο Paragg apo to ton pinaka pelOrder_Items
     public void create_order (int position) {
 
@@ -420,21 +416,86 @@ public class order extends AppCompatActivity {
 // σώζει την παραγγελια σε sqlserver
     public void SAVE_ORDER (View view) {
 
-        pel.clear();
 
+        // --------------------- ok sql server save ----------------------------------------------
+
+      /*  pel.clear();
         Runnable aRunnable = new Runnable() {
             public void run() {
                 execData("insert into PARAGG (TRAPEZI,HME) VALUES (52,GETDATE())");
             }
         };
-
         Thread aThread = new Thread(aRunnable);
         aThread.start();
-
         //while ( bT.getText().toString()=="*"){
         android.os.SystemClock.sleep(1000);
         // };
         Toast.makeText(getApplicationContext(), "OK ENHMEROTHIKE", Toast.LENGTH_SHORT).show();
+      */
+
+
+
+
+  //   apo vbnet :   ExecuteSQLQuery("INSERT INTO PARAGGMASTER (TRAPEZI,HME,IDBARDIA,CH1) VALUES ('" + p_Trapezi + "'," + MDATE + "," //+ Str(gBardia) + ",'" + Format(Now(), "hh:mm") + "' )", DT)
+   //     'ExecuteSQLQuery("UPDATE PARAGGMASTER SET CH2='" + Format(Now(), "hh:mm") + "',AJIA=" + SS + ",TROPOS=" + F.LoginName + " WHERE ID=" + p_IDPARAGG, DT)
+
+  //      ExecuteSQLQuery("SELECT MAX(ID) FROM PARAGGMASTER", DT)
+    //    Dim N As Integer = DT(0)(0)
+      //  Dim pr As String = ""
+
+
+
+
+
+
+        //-----------------------------------  sql lite save order --------------------------
+        SQLiteDatabase mydatabase = null;
+        mydatabase = openOrCreateDatabase("eidh",MODE_PRIVATE,null);
+
+        TextView textView = findViewById(R.id.textView3);
+        String tr=textView.getText().toString(); // αριθμος τραπεζιού
+
+String Q="INSERT INTO PARAGGMASTER (TRAPEZI,IDBARDIA,CH1) VALUES ('"+tr+"',1,datetime('now','localtime'))";
+
+        mydatabase.execSQL(Q);
+
+
+
+        for(int i = 0; i<EIDH_PARAGG.size();i=i+6)
+        {
+            //String Q;
+            Q="INSERT INTO PARAGG (TRAPEZI,ONO,POSO,TIMH,PROSUETA,CH2) VALUES ('"+tr+"','"+ EIDH_PARAGG.get(i)+"',";
+    Q=Q+ EIDH_PARAGG.get(i+1)+","+ EIDH_PARAGG.get(i+2)+",'"+ EIDH_PARAGG.get(i+3)+"','"+EIDH_PARAGG.get(i+4)+"');";
+
+            mydatabase.execSQL(Q);
+
+        }
+        mydatabase.close();
+        //-----------------------------------
+
+
+
+
+
+
+      /*  mydatabase.execSQL("CREATE TABLE IF NOT EXISTS PARAGG ("+
+                "[TRAPEZI] [varchar](55),"+
+                "[HME] [datetime] ,"+
+                "[IDPARAGG] [int] ,"+
+                "[KOD] [nvarchar](55) ,"+
+                "[POSO] [real] ,"+
+                "[TIMH] [real] ,"+
+                "[ONO] [varchar](55) ,"+
+                "[PROSUETA] [varchar](55) ,"+
+                "[CH1] [varchar](55) ,"+
+                "[CH2] [varchar](55) ,"+
+                "[NUM1] [int] ,"+
+                "[NUM2] [int] ,"+
+                "[ENERGOS] [int] ,"+
+                "[KERASMENOAPO] [varchar](55) ,"+
+                "[KERASMENOSE] [varchar](55) ,"+
+                "[ID]  INTEGER PRIMARY KEY )");
+      */
 
     }
 
@@ -464,14 +525,43 @@ public class order extends AppCompatActivity {
 
    // δειχνει τα ειδη σε αλλο intent για να διαλεξω
     public void ShowDisplay(String cKathg) {
+        // cKathg : ονομα κατηγοριας
+
         Intent intent = new Intent(this, EpiloghEid.class);
      //   intent.putExtra("arrayListExtra", mArray);
      //   intent.putExtra("stringExtra", mString);
      //   intent.putExtra("intExtra", mValue);
        // String message2 ="---" ;// EditText.GetText().toString();
+
+        TextView textView = findViewById(R.id.textView3);
+         String message=textView.getText().toString(); // αριθμος τραπεζιού
+        intent.putExtra("mpel2",message);  // αριθμος τραπεζιού
+
+       //String message = intent.getStringExtra("mpel2");  // αριθμος τραπεζιού
+
         intent.putExtra(EXTRA_MESSAGE, cKathg);
         intent.putExtra("mEIDH", EIDH_PARAGG); // ΣΤΕΛΝΩ ΤΟΝ ΠΙΝΑΚΑ ΜΕ ΤΗΝ ΤΡΕΧΟΥΣΑ ΠΑΡΑΓΓΕΛΙΑ
         startActivity(intent);
 
     };
 }
+
+/*            help  dates
+//Building the table includes:
+StringBuilder query= new StringBuilder();
+query.append("CREATE TABLE "+TABLE_NAME+ " (");
+query.append(COLUMN_ID+"int primary key autoincrement,");
+query.append(COLUMN_CREATION_DATE+" DATE)");
+
+//Inserting the data includes this:
+SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+values.put(COLUMN_CREATION_DATE,dateFormat.format(reactionGame.getCreationDate()));
+
+// Fetching the data includes this:
+try {
+   java.util.Date creationDate = dateFormat.parse(cursor.getString(0);
+   YourObject.setCreationDate(creationDate));
+} catch (Exception e) {
+   YourObject.setCreationDate(null);
+}
+ */

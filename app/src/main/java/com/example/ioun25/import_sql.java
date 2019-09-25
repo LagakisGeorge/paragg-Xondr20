@@ -691,12 +691,22 @@ cursor2.moveToFirst() ;
                     "[ONO] [nvarchar](55)  ); ");
 
 
-            mydatabase.execSQL("INSERT INTO XAR1 (ONO,ID) VALUES('104',1);");
-            mydatabase.execSQL("INSERT INTO XAR1 (ONO,ID) VALUES('105',2);");
+        //    mydatabase.execSQL("INSERT INTO XAR1 (ONO,ID) VALUES('104',1);");
+          //  mydatabase.execSQL("INSERT INTO XAR1 (ONO,ID) VALUES('105',2);");
 
             Toast.makeText(getApplicationContext(), "1A.XAR1 ok", Toast.LENGTH_SHORT).show();
 
 
+            mydatabase.execSQL("CREATE TABLE IF NOT EXISTS PARAGGMASTER( ID int primary key, TRAPEZI nvarchar(25),"+
+	"[IDERGAZ] [int] ,"+
+	"[HME] [datetime] ,"+
+	"[IDBARDIA] [int] ,"+
+	"[AJIA] [real] ,"+
+	"[TROPOS] [int] ,"+
+	"[NUM1] [int] ,"+
+	"[NUM2] [int] ,"+
+	"[CH1] [nvarchar](255) ,"+
+	"[CH2] [nvarchar](255) )");
 
 
 
@@ -781,8 +791,8 @@ cursor2.moveToFirst() ;
             }
 
             if (n<8){
-                mydatabase.execSQL("INSERT INTO TABLES (ONO) VALUES('004');");
-                mydatabase.execSQL("INSERT INTO TABLES (ONO) VALUES('005');");
+              //  mydatabase.execSQL("INSERT INTO TABLES (ONO) VALUES('004');");
+              //  mydatabase.execSQL("INSERT INTO TABLES (ONO) VALUES('005');");
             }
 
 
