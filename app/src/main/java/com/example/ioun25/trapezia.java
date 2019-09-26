@@ -112,12 +112,15 @@ public class trapezia extends AppCompatActivity {
 
         try{
             mydatabase = openOrCreateDatabase("eidh",MODE_PRIVATE,null);
-            Cursor cursor2 = mydatabase.rawQuery("select ONO  from  TABLES", null);
-
+            Cursor cursor2 = mydatabase.rawQuery("select ONO,KATEILHMENO  from  TABLES", null);
+            String kat="";
             if (cursor2.moveToFirst()) {
                 do {
                     n++;
-                    values.add( cursor2.getString(0));
+                    kat="";
+                    if (cursor2.getShort(1)==1){ kat="*";
+                    }
+                    values.add(kat + cursor2.getString(0));
 
                 } while (cursor2.moveToNext());
             }

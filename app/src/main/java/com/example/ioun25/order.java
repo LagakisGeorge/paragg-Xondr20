@@ -43,6 +43,14 @@ public class order extends AppCompatActivity {
     GridView moviesList;
     GridView kathgGrid;
     GridView Paragg;
+    // private String URL = "jdbc:jtds:sqlserver://192.168.1.5:52735/BAR;instance=SQLEXPRESS;";
+    private String URL = "jdbc:jtds:sqlserver://192.168.1.7:49702/BAR;instance=SQLEXPRESS;";
+    private String USER = "sa";
+    //  private String PASS = "12345678";  //"p@ssw0rd";
+    private String PASS = "p@ssw0rd";
+
+    private static ResultSet RESULT;
+
 
     Handler handler2;
   public final  List<String> pelOrder_Items=new ArrayList<>();// pelOrder_Items;
@@ -65,8 +73,15 @@ public class order extends AppCompatActivity {
         // Capture the layout's TextView and set the string as its text
         TextView textView = findViewById(R.id.textView3);
         textView.setText(message); // αριθμος τραπεζιού
+     //   String hallostring = "hallo";
+     //   String asubstring = hallostring.substring(0, 1);
 
-      //  ListEidh ();
+
+     //   boolean resultOfComparison=stringA.equals(stringB);
+
+       if (message.substring(0, 1).equals("*")){
+              LoadYparxoysa();
+        }
         moviesList=(GridView)findViewById(R.id.listmaster);
 // γεμισμα της λιστας ειδών
      /*   List<String> values=new ArrayList<>();
@@ -194,68 +209,10 @@ public class order extends AppCompatActivity {
             }
         };
 // telos αυτο το κομματι βαζει πλαισια στο gridview
-
-
-
-
-
-
-
-
-
         //  ArrayAdapter<String> arrayAdapter =
         //      new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, Order_Items);
-
         Paragg.setAdapter(OarrayAdapter);
-
-
-
-
     }
-
-// ΠΑΛΙΟ alla xreiazetai?  ΕΧΕΙ ΜΕΤΑΦΕΡΘΕΙ ΣΤΟ ΙΝΤΕΝΤ EPILOGHEID
-    public void ListEidh () {
-        SQLiteDatabase mydatabase=null;
-        Integer n=0;
-        moviesList=(GridView)findViewById(R.id.listmaster);
-        final List<String> values=new ArrayList<>();
-
-        try{
-            mydatabase = openOrCreateDatabase("eidh",MODE_PRIVATE,null);
-            Cursor cursor2 = mydatabase.rawQuery("select ONO,TIMH,KATHG from  EIDH", null);
-
-            if (cursor2.moveToFirst()) {
-                do {
-                    n++;
-                    values.add( cursor2.getString(0));
-
-                } while (cursor2.moveToNext());
-            }
-
-           // ArrayAdapter<String> arrayAdapter =
-            //        new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, values);
-
-          //  moviesList.setAdapter(arrayAdapter);
-
-
-            ArrayAdapter<String> arrayAdapter =
-                    new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, values);
-            moviesList.setAdapter(arrayAdapter);
-
-
-
-
-
-
-
-
-        } catch (SQLiteAccessPermException e) {
-            e.printStackTrace();
-        }
-    }
-
-
-
 
 
 
@@ -459,22 +416,46 @@ String Q="INSERT INTO PARAGGMASTER (TRAPEZI,IDBARDIA,CH1) VALUES ('"+tr+"',1,dat
 
         mydatabase.execSQL(Q);
 
+        Cursor cursor5 = mydatabase.rawQuery("select max(ID) from PARAGGMASTER ", null);
+        // long n=0;
+        // looping through all rows and adding to list
+        String s="0";
+        if (cursor5.moveToFirst()) {
+            do {
+                s=cursor5.getString(0);
+               // n= Integer.parseInt(cursor5.
+                // movies.add(cursor.getString(0));
+            } while (cursor5.moveToNext());
+        }
+
 
 
         for(int i = 0; i<EIDH_PARAGG.size();i=i+6)
         {
             //String Q;
-            Q="INSERT INTO PARAGG (TRAPEZI,ONO,POSO,TIMH,PROSUETA,CH2) VALUES ('"+tr+"','"+ EIDH_PARAGG.get(i)+"',";
+            Q="INSERT INTO PARAGG (IDPARAGG,TRAPEZI,ONO,POSO,TIMH,PROSUETA,CH2) VALUES ("+s+",'"+tr+"','"+ EIDH_PARAGG.get(i)+"',";
     Q=Q+ EIDH_PARAGG.get(i+1)+","+ EIDH_PARAGG.get(i+2)+",'"+ EIDH_PARAGG.get(i+3)+"','"+EIDH_PARAGG.get(i+4)+"');";
 
             mydatabase.execSQL(Q);
 
         }
+
+
+        mydatabase.execSQL("UPDATE TABLES SET KATEILHMENO=1,IDPARAGG=" + s + " WHERE ONO='" + tr + "'"   );
+
+
         mydatabase.close();
         //-----------------------------------
 
 
-
+        Intent intent = new Intent(this, trapezia.class);
+        // EditText editText = (EditText) findViewById(R.id.editText);
+     //   String message2 ="---" ;// EditText.GetText().toString();
+      //  intent.putExtra(EXTRA_MESSAGE, message2);
+      //  intent.putExtra("mpel", pel); // ΣΤΕΛΝΩ ΤΟΝ ΠΙΝΑΚΑ ΜΕ ΤΑ ΤΡΑΠΕΖΙΑ
+      //  intent.putExtra("mEIDH", pel3); // ΣΤΕΛΝΩ ΤΟΝ ΠΙΝΑΚΑ ΜΕ ΤΑ EIDH
+      //  intent.putExtra("mKathg", pelKathg); // ΣΤΕΛΝΩ ΤΟΝ ΠΙΝΑΚΑ ΜΕ ΤΑ EIDH
+        startActivity(intent);
 
 
 
@@ -500,14 +481,39 @@ String Q="INSERT INTO PARAGGMASTER (TRAPEZI,IDBARDIA,CH1) VALUES ('"+tr+"',1,dat
     }
 
 
+// ΦΟΡΤΩΝΩ ΤΗΝ ΗΔΗ ΥΠΑΡΧΟΥΣΑ ΠΑΡΑΓΓΕΛΙΑ
+    public void LoadYparxoysa () {
+        SQLiteDatabase mydatabase=null;
+        Integer n=0;
+        moviesList=(GridView)findViewById(R.id.listmaster);
+      //  final List<String> values=new ArrayList<>();
+        Paragg=(GridView)findViewById(R.id.listdetail);
+        try{
+            mydatabase = openOrCreateDatabase("eidh",MODE_PRIVATE,null);
+            Cursor cursor2 = mydatabase.rawQuery("select ONO,POSO,TIMH,PROSUETA,CH2 from  PARAGG", null);
 
-    // private String URL = "jdbc:jtds:sqlserver://192.168.1.5:52735/BAR;instance=SQLEXPRESS;";
-     private String URL = "jdbc:jtds:sqlserver://192.168.1.7:49702/BAR;instance=SQLEXPRESS;";
-    private String USER = "sa";
-  //  private String PASS = "12345678";  //"p@ssw0rd";
-    private String PASS = "p@ssw0rd";
+            if (cursor2.moveToFirst()) {
+                do {
+                    n++;
+                    EIDH_PARAGG.add( cursor2.getString(0));
+                    EIDH_PARAGG.add( cursor2.getString(1));
+                    EIDH_PARAGG.add( cursor2.getString(2));
+                    EIDH_PARAGG.add( cursor2.getString(3));
+                    EIDH_PARAGG.add( cursor2.getString(4));
+                    EIDH_PARAGG.add( "");
 
-    private static ResultSet RESULT;
+                } while (cursor2.moveToNext());
+            }
+
+
+            ArrayAdapter<String> arrayAdapter =
+                    new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, EIDH_PARAGG);
+            Paragg.setAdapter(arrayAdapter);
+        } catch (SQLiteAccessPermException e) {
+            e.printStackTrace();
+        }
+    }
+
 
 
 
@@ -565,3 +571,4 @@ try {
    YourObject.setCreationDate(null);
 }
  */
+
