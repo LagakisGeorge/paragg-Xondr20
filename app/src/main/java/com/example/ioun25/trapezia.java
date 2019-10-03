@@ -26,7 +26,7 @@ public class trapezia extends AppCompatActivity {
     ArrayList<String> EIDH;
     GridView moviesList;
     ArrayList<String> KATHG;
-
+    public String[] arrIdParagg=new String[100];
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,7 +87,7 @@ public class trapezia extends AppCompatActivity {
 
                 Intent intent = new Intent(view.getContext(), order.class);
                // intent.putExtra(EXTRA_MESSAGE, o.toString());
-                intent.putExtra("mpel2", o.toString());
+                intent.putExtra("mpel2", o.toString()+";"+arrIdParagg[position]);  // αριθμος τραπεζιου
                 intent.putExtra("mpel", pel); // ΣΤΕΛΝΩ ΤΟΝ ΠΙΝΑΚΑ ΜΕ ΤΑ ΤΡΑΠΕΖΙΑ
                 intent.putExtra("mEIDH", EIDH); // ΣΤΕΛΝΩ ΤΟΝ ΠΙΝΑΚΑ ΜΕ ΤΑ EIDH
                 intent.putExtra("mKATHG", KATHG); // ΣΤΕΛΝΩ ΤΟΝ ΠΙΝΑΚΑ ΜΕ ΤΑ EIDH
@@ -112,19 +112,20 @@ public class trapezia extends AppCompatActivity {
 
         try{
             mydatabase = openOrCreateDatabase("eidh",MODE_PRIVATE,null);
-            Cursor cursor2 = mydatabase.rawQuery("select ONO,KATEILHMENO  from  TABLES", null);
+            Cursor cursor2 = mydatabase.rawQuery("select ONO,KATEILHMENO,idparagg  from  TABLES", null);
             String kat="";
             if (cursor2.moveToFirst()) {
                 do {
                     n++;
                     kat="";
-                    if (cursor2.getShort(1)==1){ kat="*";
+                    if (cursor2.getShort(1)==1){ kat="#";
                     }
                     values.add(kat + cursor2.getString(0));
+                    arrIdParagg[n-1]=Long.toString(cursor2.getLong(2));
 
                 } while (cursor2.moveToNext());
             }
-
+            mydatabase.close();
             ArrayAdapter<String> arrayAdapter =
                     new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, values);
 

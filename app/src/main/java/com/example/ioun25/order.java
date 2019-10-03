@@ -50,7 +50,8 @@ public class order extends AppCompatActivity {
     private String PASS = "p@ssw0rd";
 
     private static ResultSet RESULT;
-
+    private static String fIDPARAGG;
+    private static int  fYparxSeires;  // ποσες σειρες υπαρχουν στην ηδη υπάρχουσα παραγγελια
 
     Handler handler2;
   public final  List<String> pelOrder_Items=new ArrayList<>();// pelOrder_Items;
@@ -66,11 +67,47 @@ public class order extends AppCompatActivity {
         pel = intent.getStringArrayListExtra("mpel");
         EIDH_PARAGG = intent.getStringArrayListExtra("mEIDH");
         KATHG = intent.getStringArrayListExtra("mKATHG");
-       // pelOrder_Items = new ArrayList<String>();
+
+
+
+
+        // κραταω αυτο που ερχεται απο το trapazia μονο που κόβω το αστερακι για να μην  ξαναδιαβαζεται οταν ερχεται απο το epilogheid  δηλαδη ανα ερχεται *62;1200  => 62;1200
+        String message2;
+        message2=message;
+        if (message2.substring(0, 1).equals("#")){
+            String[] separated3 = message2.split("#");
+            message2=separated3[1];
+        }
+        TextView Trapezi_idparagg = findViewById(R.id.textView32); //   *51;1256   trapezi;idparagg
+        Trapezi_idparagg.setText(message2);
+
+
+
+
+        // pelOrder_Items = new ArrayList<String>();
 
       //  pel = intent.getStringArrayListExtra("mpel");
        // pel = intent.getStringArrayListExtra("mpel");
         // Capture the layout's TextView and set the string as its text
+
+
+        /*=============  split ============================
+String currentString = "Fruit: they taste good";
+String[] separated = currentString.split(":");
+separated[0]; // this will contain "Fruit"
+separated[1]; // this will contain " they taste good"
+    */
+
+
+        String[] separated = message.split(";");
+        message=separated[0];
+        fIDPARAGG=separated[1];
+
+
+
+
+
+
         TextView textView = findViewById(R.id.textView3);
         textView.setText(message); // αριθμος τραπεζιού
      //   String hallostring = "hallo";
@@ -78,12 +115,15 @@ public class order extends AppCompatActivity {
 
 
      //   boolean resultOfComparison=stringA.equals(stringB);
+        fYparxSeires=0;
+       if (message.substring(0, 1).equals("#")){
 
-       if (message.substring(0, 1).equals("*")){
-              LoadYparxoysa();
+           String[] separated2 = message.split("#");
+           message=separated[1];
+              LoadYparxoysa(message,fIDPARAGG);
         }
         moviesList=(GridView)findViewById(R.id.listmaster);
-// γεμισμα της λιστας ειδών
+// γεμισμα της λιστας ειδώ
      /*   List<String> values=new ArrayList<>();
         for (int i = 0; i < EIDH.size(); i++) {
             values.add(EIDH.get(i));
@@ -412,25 +452,34 @@ public class order extends AppCompatActivity {
         TextView textView = findViewById(R.id.textView3);
         String tr=textView.getText().toString(); // αριθμος τραπεζιού
 
-String Q="INSERT INTO PARAGGMASTER (TRAPEZI,IDBARDIA,CH1) VALUES ('"+tr+"',1,datetime('now','localtime'))";
 
-        mydatabase.execSQL(Q);
+        String s = "0";  // αριθμος παργγελιας
+        String Q;
+        // αν ειναι νέα παραγγελία
+        if (fYparxSeires ==0) {
+            Q = "INSERT INTO PARAGGMASTER (TRAPEZI,IDBARDIA,CH1) VALUES ('" + tr + "',1,datetime('now','localtime'))";
 
-        Cursor cursor5 = mydatabase.rawQuery("select max(ID) from PARAGGMASTER ", null);
-        // long n=0;
-        // looping through all rows and adding to list
-        String s="0";
-        if (cursor5.moveToFirst()) {
-            do {
-                s=cursor5.getString(0);
-               // n= Integer.parseInt(cursor5.
-                // movies.add(cursor.getString(0));
-            } while (cursor5.moveToNext());
+            mydatabase.execSQL(Q);
+
+            Cursor cursor5 = mydatabase.rawQuery("select max(ID) from PARAGGMASTER ", null);
+            // long n=0;
+            // looping through all rows and adding to list
+
+            if (cursor5.moveToFirst()) {
+                do {
+                    s = cursor5.getString(0);
+                    // n= Integer.parseInt(cursor5.
+                    // movies.add(cursor.getString(0));
+                } while (cursor5.moveToNext());
+            }
+        }else{
+            s=fIDPARAGG;
         }
 
 
 
-        for(int i = 0; i<EIDH_PARAGG.size();i=i+6)
+
+        for(int i = fYparxSeires; i<EIDH_PARAGG.size();i=i+6)
         {
             //String Q;
             Q="INSERT INTO PARAGG (IDPARAGG,TRAPEZI,ONO,POSO,TIMH,PROSUETA,CH2) VALUES ("+s+",'"+tr+"','"+ EIDH_PARAGG.get(i)+"',";
@@ -482,7 +531,7 @@ String Q="INSERT INTO PARAGGMASTER (TRAPEZI,IDBARDIA,CH1) VALUES ('"+tr+"',1,dat
 
 
 // ΦΟΡΤΩΝΩ ΤΗΝ ΗΔΗ ΥΠΑΡΧΟΥΣΑ ΠΑΡΑΓΓΕΛΙΑ
-    public void LoadYparxoysa () {
+    public void LoadYparxoysa (String tr,String IDPARAGG) {
         SQLiteDatabase mydatabase=null;
         Integer n=0;
         moviesList=(GridView)findViewById(R.id.listmaster);
@@ -490,7 +539,63 @@ String Q="INSERT INTO PARAGGMASTER (TRAPEZI,IDBARDIA,CH1) VALUES ('"+tr+"',1,dat
         Paragg=(GridView)findViewById(R.id.listdetail);
         try{
             mydatabase = openOrCreateDatabase("eidh",MODE_PRIVATE,null);
-            Cursor cursor2 = mydatabase.rawQuery("select ONO,POSO,TIMH,PROSUETA,CH2 from  PARAGG", null);
+
+
+
+            // βρισκω τον αριθμο παραγγελιας idparagg
+            TextView textView = findViewById(R.id.textView3);
+         //   String tr=textView.getText().toString(); // αριθμος τραπεζιού
+
+         /*   String idparagg="00";
+            Cursor cursor1 = mydatabase.rawQuery("select IDPARAGG from  TABLES WHERE ONO='"+tr+"'", null);
+            if (cursor1.moveToFirst()) {
+                do {
+                    n++;
+                    idparagg= cursor1.getString(0);
+                } while (cursor1.moveToNext());
+            }
+            mydatabase.close();
+
+            int in = Integer.valueOf(idparagg);
+            if (in==0) {
+                return;
+            }
+
+
+            if (idparagg==null) {
+                idparagg = "00";
+            }else
+            {
+                double number = Double.parseDouble(idparagg);
+                if (number==0) {
+                    idparagg = "00";
+                }
+            }
+         */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            Cursor cursor2 = mydatabase.rawQuery("select ONO,POSO,TIMH,PROSUETA,CH2 from  PARAGG where idparagg="+IDPARAGG, null);
 
             if (cursor2.moveToFirst()) {
                 do {
@@ -501,6 +606,7 @@ String Q="INSERT INTO PARAGGMASTER (TRAPEZI,IDBARDIA,CH1) VALUES ('"+tr+"',1,dat
                     EIDH_PARAGG.add( cursor2.getString(3));
                     EIDH_PARAGG.add( cursor2.getString(4));
                     EIDH_PARAGG.add( "");
+                    fIDPARAGG=fIDPARAGG+5;  // υπαρχουσες εγγραφες
 
                 } while (cursor2.moveToNext());
             }
@@ -539,8 +645,10 @@ String Q="INSERT INTO PARAGGMASTER (TRAPEZI,IDBARDIA,CH1) VALUES ('"+tr+"',1,dat
      //   intent.putExtra("intExtra", mValue);
        // String message2 ="---" ;// EditText.GetText().toString();
 
-        TextView textView = findViewById(R.id.textView3);
-         String message=textView.getText().toString(); // αριθμος τραπεζιού
+        TextView Trapezi_idparagg = findViewById(R.id.textView32);
+         String message=Trapezi_idparagg.getText().toString(); // αριθμος τραπεζιού;idparagg
+
+
         intent.putExtra("mpel2",message);  // αριθμος τραπεζιού
 
        //String message = intent.getStringExtra("mpel2");  // αριθμος τραπεζιού

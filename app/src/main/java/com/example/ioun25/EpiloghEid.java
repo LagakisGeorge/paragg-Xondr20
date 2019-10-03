@@ -54,7 +54,7 @@ public class EpiloghEid extends AppCompatActivity {
         String message = intent.getStringExtra("mpel2");  // αριθμος τραπεζιού
 
         TextView textView = findViewById(R.id.trapezi);
-        textView.setText(message); // αριθμος τραπεζιού
+        textView.setText(message); // αριθμος τραπεζιού;idparagg
 
 
         EIDH_PARAGG = intent.getStringArrayListExtra("mEIDH");
