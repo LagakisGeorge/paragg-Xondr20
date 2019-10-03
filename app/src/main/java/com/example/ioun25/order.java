@@ -591,13 +591,33 @@ separated[1]; // this will contain " they taste good"
 
 
 
+            EIDH_PARAGG=new ArrayList<String>();
 
-
-
+          //  EIDH_PARAGG.clear();
 
             Cursor cursor2 = mydatabase.rawQuery("select ONO,POSO,TIMH,PROSUETA,CH2 from  PARAGG where idparagg="+IDPARAGG, null);
 
             if (cursor2.moveToFirst()) {
+                while (!cursor2.isAfterLast()) {
+                    n++;
+                    EIDH_PARAGG.add( cursor2.getString(0));
+                    EIDH_PARAGG.add( cursor2.getString(1));
+                    EIDH_PARAGG.add( cursor2.getString(2));
+                    EIDH_PARAGG.add( cursor2.getString(3));
+                    EIDH_PARAGG.add( cursor2.getString(4));
+                    EIDH_PARAGG.add( "");
+                    fIDPARAGG=fIDPARAGG+5;  // υπαρχουσες εγγραφες
+
+
+                    cursor2.moveToNext();
+                }
+            }
+
+
+
+
+
+           /* if (cursor2.moveToFirst()) {
                 do {
                     n++;
                     EIDH_PARAGG.add( cursor2.getString(0));
@@ -609,7 +629,7 @@ separated[1]; // this will contain " they taste good"
                     fIDPARAGG=fIDPARAGG+5;  // υπαρχουσες εγγραφες
 
                 } while (cursor2.moveToNext());
-            }
+            }  */
 
 
             ArrayAdapter<String> arrayAdapter =
