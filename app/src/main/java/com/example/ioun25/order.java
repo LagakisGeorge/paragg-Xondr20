@@ -13,12 +13,16 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.TypedValue;
+import android.view.ContextMenu;
 import android.view.Gravity;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.GridView;
+import android.view.Menu;
+import android.view.MenuItem;
 
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -123,7 +127,27 @@ separated[1]; // this will contain " they taste good"
               LoadYparxoysa(message,fIDPARAGG);
         }
         moviesList=(GridView)findViewById(R.id.listmaster);
-// γεμισμα της λιστας ειδώ
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+       // γεμισμα της λιστας ειδώ
      /*   List<String> values=new ArrayList<>();
         for (int i = 0; i < EIDH.size(); i++) {
             values.add(EIDH.get(i));
@@ -253,6 +277,47 @@ separated[1]; // this will contain " they taste good"
         //      new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, Order_Items);
         Paragg.setAdapter(OarrayAdapter);
     }
+
+
+
+   // @Override
+    public void onCreateOptionsMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo){
+        super.onCreateContextMenu(menu, v, menuInfo);
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.options_menu, menu);
+    }
+
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        Toast.makeText(this, "Selected Item: " +item.getTitle(), Toast.LENGTH_SHORT).show();
+        switch (item.getItemId()) {
+            case R.id.search_item:
+                // do your code
+                return true;
+            case R.id.upload_item:
+                // do your code
+                return true;
+            case R.id.copy_item:
+                // do your code
+                return true;
+            case R.id.print_item:
+                // do your code
+                return true;
+            case R.id.share_item:
+                // do your code
+                return true;
+            case R.id.bookmark_item:
+                // do your code
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+
+
 
 
 
