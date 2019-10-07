@@ -11,9 +11,9 @@
         android:id="@+id/textView"
         android:layout_width="94dp"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/grid"
+        android:layout_below="@+id/grid2"
 
-        android:layout_marginTop="221dp"
+        android:layout_marginTop="2dp"
         android:text="TextView"
         android:textSize="18sp"
         app:fontFamily="serif"
@@ -22,14 +22,22 @@
 
     <GridView
         android:id="@+id/grid"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
+        android:layout_width="match_parent"
+        android:layout_height="240dp"
         android:columnWidth="100dp"
         android:gravity="center"
         android:numColumns="auto_fit"
         android:stretchMode="columnWidth"
 
 
+        />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/grid2"
+        android:layout_width="match_parent"
+        android:layout_height="472dp"
+        android:layout_below="@+id/grid"
+        android:numColumns="4"
         />
 
 
