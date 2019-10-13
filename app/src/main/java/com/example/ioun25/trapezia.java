@@ -56,7 +56,7 @@ public class trapezia extends AppCompatActivity {
 
     TextView trapezi;
 
-
+    public String TrapeziFull;
     ArrayList<String> KATHG;
     public String[] arrIdParagg=new String[100];
 
@@ -279,10 +279,19 @@ gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
                                     long id) {
 
                 Object o = moviesList.getItemAtPosition(position);
+
+
+
                 trapezi = (TextView)findViewById(R.id.textView);
                 //  textView.setText(message);
 
-                trapezi.setText(o.toString()+";"+arrIdParagg[position]);
+              TrapeziFull=o.toString()+";"+arrIdParagg[position];  // #52;234
+
+
+              //  String[] separated2 = message.split("#");
+              //  message=separated[1];
+
+                trapezi.setText(o.toString());  //#52  ή  52
 
 
 
@@ -310,15 +319,16 @@ gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
         listTRAPEZIA();
     }
 
-
+// call order intent
   public void Paraggelia(View view) {
       Intent intent = new Intent(view.getContext(), order.class);
       // intent.putExtra(EXTRA_MESSAGE, o.toString());
-      String ctrapezi;
-      trapezi = (TextView)findViewById(R.id.textView);
-      ctrapezi=trapezi.getText().toString();
+     // String ctrapezi;
+     // trapezi = (TextView)findViewById(R.id.textView);
+     // ctrapezi=trapezi.getText().toString();
 
-      intent.putExtra("mpel2", ctrapezi);  // αριθμος τραπεζιου
+      intent.putExtra("mpel2", TrapeziFull);  // αριθμος τραπεζιου
+      intent.putExtra("WhoCall", "trapezia");  // ποια φορμα καλει
       intent.putExtra("mpel", pel); // ΣΤΕΛΝΩ ΤΟΝ ΠΙΝΑΚΑ ΜΕ ΤΑ ΤΡΑΠΕΖΙΑ
       intent.putExtra("mEIDH", EIDH); // ΣΤΕΛΝΩ ΤΟΝ ΠΙΝΑΚΑ ΜΕ ΤΑ EIDH
       intent.putExtra("mKATHG", KATHG); // ΣΤΕΛΝΩ ΤΟΝ ΠΙΝΑΚΑ ΜΕ ΤΑ EIDH
@@ -328,6 +338,39 @@ gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
 
   }
 
+  public void Payment(View view) {
+        SQLiteDatabase mydatabase = null;
+        mydatabase = openOrCreateDatabase("eidh",MODE_PRIVATE,null);
+        trapezi = (TextView)findViewById(R.id.textView);
+
+        String skTrapezi=trapezi.getText().toString();
+
+        if (skTrapezi.substring(0, 1).equals("#")){
+            String[] separated3 = skTrapezi.split("#");
+            skTrapezi=separated3[1];
+        }
+
+        String[] cTrapeziFull = TrapeziFull.split(";");
+        String idpar=cTrapeziFull[1];
+
+
+
+        mydatabase.execSQL("UPDATE TABLES SET KATEILHMENO=0,IDPARAGG=0 WHERE ONO='" + skTrapezi + "'");
+        mydatabase.execSQL("UPDATE PARAGGMASTER SET CH2= datetime('now','localtime'),AJIA=0 ,TROPOS=2  WHERE ID=" + idpar);
+  mydatabase.close();
+
+
+
+        listTRAPEZIA();
+
+
+
+    }
+
+
+
+
+
 
     //================= sqlliteEIDH====================
     public void listTRAPEZIA () {
@@ -335,7 +378,7 @@ gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
         Integer n=0;
         moviesList=(GridView)findViewById(R.id.grid);
         //recyclerView=(RecyclerView) findViewById(R.id.grid2);
-        final List<String> values=new ArrayList<>();
+         List<String> values=new ArrayList<>();
 
         try{
             mydatabase = openOrCreateDatabase("eidh",MODE_PRIVATE,null);
@@ -370,17 +413,6 @@ gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
          //   adapter = new MyRecyclerViewAdapter(this, animalNames);
          //   adapter.setClickListener(this);
          //   recyclerView.setAdapter(adapter);
-
-
-
-
-
-
-
-
-
-
-
 
         } catch (SQLiteAccessPermException e) {
             e.printStackTrace();

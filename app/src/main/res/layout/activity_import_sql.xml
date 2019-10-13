@@ -105,7 +105,7 @@ android:layout_width="wrap_content">
         android:padding="15dp"
 
         android:text="LIST TRAPEZIA"
-        tools:text="pinakas xar1 se sqllite" />
+        tools:text="ΔΙΑΓΡΑΦΗ ΟΛΩΝ ΤΩΝ ΠΑΡΑΓΓΕΛΙΩΝ" />
 </TableRow>
 
 

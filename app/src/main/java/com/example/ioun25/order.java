@@ -54,7 +54,7 @@ public class order extends AppCompatActivity {
     private String PASS = "p@ssw0rd";
 
     private static ResultSet RESULT;
-    private static String fIDPARAGG;
+    private static String fIDPARAGG;  // ιδ παραγγελιασ
     private static int  fYparxSeires;  // ποσες σειρες υπαρχουν στην ηδη υπάρχουσα παραγγελια
 
     Handler handler2;
@@ -66,8 +66,12 @@ public class order extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order);
 
+
+        String Who;
         Intent intent = getIntent();
         String message = intent.getStringExtra("mpel2");  // αριθμος τραπεζιού
+        Who = intent.getStringExtra("WhoCall");
+
         pel = intent.getStringArrayListExtra("mpel");
         EIDH_PARAGG = intent.getStringArrayListExtra("mEIDH");
         KATHG = intent.getStringArrayListExtra("mKATHG");
@@ -75,12 +79,21 @@ public class order extends AppCompatActivity {
 
 
 
+if (null==EIDH_PARAGG) {
+    fYparxSeires=0;
+}else{
+    fYparxSeires= EIDH_PARAGG.size();
+}
+
+
+
         // κραταω αυτο που ερχεται απο το trapazia μονο που κόβω το αστερακι για να μην  ξαναδιαβαζεται οταν ερχεται απο το epilogheid  δηλαδη ανα ερχεται *62;1200  => 62;1200
         String message2;
         message2=message;
-        if (message2.substring(0, 1).equals("#")){
+        if (message2.substring(0, 1).equals("#")) {
             String[] separated3 = message2.split("#");
-            message2=separated3[1];
+            message2 = separated3[1];
+
         }
         TextView Trapezi_idparagg = findViewById(R.id.textView32); //   *51;1256   trapezi;idparagg
         Trapezi_idparagg.setText(message2);
@@ -108,10 +121,6 @@ separated[1]; // this will contain " they taste good"
         fIDPARAGG=separated[1];
 
 
-
-
-
-
         TextView textView = findViewById(R.id.textView3);
         textView.setText(message); // αριθμος τραπεζιού
      //   String hallostring = "hallo";
@@ -125,27 +134,15 @@ separated[1]; // this will contain " they taste good"
            String[] separated2 = message.split("#");
            message=separated[1];
               LoadYparxoysa(message,fIDPARAGG);
-        }
+       } else{
+
+           if (Who.equals("trapezia")){
+               EIDH_PARAGG=new ArrayList<String>();
+
+
+           }
+       }
         moviesList=(GridView)findViewById(R.id.listmaster);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
        // γεμισμα της λιστας ειδώ
      /*   List<String> values=new ArrayList<>();
@@ -205,12 +202,23 @@ separated[1]; // this will contain " they taste good"
         });
 
 
+
+       // if(fYparxSeires==0){
+        //    EIDH_PARAGG=new ArrayList<String>();
+       //     return ;
+       // };
+
      //   EIDH_PARAGG.add("ΝΕΑ ΠΑΡΑΓΓΕΛΙΑ");
 
         Paragg=(GridView)findViewById(R.id.listdetail);
         ArrayAdapter<String> OarrayAdapter;
+
+
+
+
+
         OarrayAdapter= new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, EIDH_PARAGG)
-                // arxh  αυτο το κομματι βαζει πλαισια στο gridview
+                //-------------------- arxh  αυτο το κομματι βαζει πλαισια στο gridview
         {
             public View getView(int position, View convertView, ViewGroup parent) {
 
@@ -246,11 +254,16 @@ separated[1]; // this will contain " they taste good"
 
                 Resources r = order.this.getResources();
                 int  px = (int) (TypedValue.applyDimension(
-                        TypedValue.COMPLEX_UNIT_DIP, 168, r.getDisplayMetrics()));
+                        TypedValue.COMPLEX_UNIT_DIP, 100, r.getDisplayMetrics()));
+                // tv.setLayoutParams(new GridView.LayoutParams((width/10)*6, 50));
 
+               // if (position==0 || position==5) {
+                   // params.width = px/2;  // getPixelsFromDPs(EpiloghEid.this,168);
+                 //   tv.setLayoutParams(new GridView.LayoutParams((px*6), 100));
+               // }else{
+                    params.width = px;  // getPixelsFromDPs(EpiloghEid.this,168);
+               // }
 
-
-                params.width = px;  // getPixelsFromDPs(EpiloghEid.this,168);
 
                 // Set the TextView layout parameters
                 tv.setLayoutParams(params);
@@ -272,6 +285,9 @@ separated[1]; // this will contain " they taste good"
                 return tv;
             }
         };
+
+
+
 // telos αυτο το κομματι βαζει πλαισια στο gridview
         //  ArrayAdapter<String> arrayAdapter =
         //      new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, Order_Items);
@@ -279,15 +295,21 @@ separated[1]; // this will contain " they taste good"
     }
 
 
-
+/*
    // @Override
     public void onCreateOptionsMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo){
         super.onCreateContextMenu(menu, v, menuInfo);
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.options_menu, menu);
+       // return true;
     }
-
-
+*/
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.options_menu, menu);
+        return true;
+    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -475,7 +497,7 @@ separated[1]; // this will contain " they taste good"
     }
 
 
-// σώζει την παραγγελια σε sqlserver
+// σώζει την παραγγελια σε sqlιτε   //server
     public void SAVE_ORDER (View view) {
 
 
@@ -544,7 +566,7 @@ separated[1]; // this will contain " they taste good"
 
 
 
-        for(int i = fYparxSeires; i<EIDH_PARAGG.size();i=i+6)
+        for(int i = fYparxSeires; i<EIDH_PARAGG.size();i=i+5)//
         {
             //String Q;
             Q="INSERT INTO PARAGG (IDPARAGG,TRAPEZI,ONO,POSO,TIMH,PROSUETA,CH2) VALUES ("+s+",'"+tr+"','"+ EIDH_PARAGG.get(i)+"',";
@@ -670,14 +692,13 @@ separated[1]; // this will contain " they taste good"
                     EIDH_PARAGG.add( cursor2.getString(2));
                     EIDH_PARAGG.add( cursor2.getString(3));
                     EIDH_PARAGG.add( cursor2.getString(4));
-                    EIDH_PARAGG.add( "");
-                    fIDPARAGG=fIDPARAGG+5;  // υπαρχουσες εγγραφες
-
+                   // EIDH_PARAGG.add( "");
+                  //  fIDPARAGG=fIDPARAGG+5;  // υπαρχουσες εγγραφες
+                    fYparxSeires=fYparxSeires+5;
 
                     cursor2.moveToNext();
                 }
             }
-
 
 
 

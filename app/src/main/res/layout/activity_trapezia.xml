@@ -7,6 +7,31 @@
     tools:context=".trapezia">
 
 
+
+
+    <GridView
+        android:id="@+id/grid"
+        android:layout_width="match_parent"
+        android:layout_height="240dp"
+        android:columnWidth="100dp"
+        android:gravity="center"
+        android:drawSelectorOnTop="true"
+        android:listSelector="@drawable/selector"
+        android:numColumns="auto_fit"
+        android:stretchMode="columnWidth">
+
+
+    </GridView>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/grid2"
+        android:layout_width="368dp"
+        android:layout_height="272dp"
+        android:layout_below="@+id/grid"
+        android:layout_marginTop="10dp"
+        android:background="@android:color/holo_blue_bright"
+        android:numColumns="4" />
+
     <TextView
         android:id="@+id/textView"
         android:layout_width="94dp"
@@ -20,25 +45,31 @@
         tools:layout_editor_absoluteX="122dp"
         tools:layout_editor_absoluteY="177dp" />
 
-    <GridView
-        android:id="@+id/grid"
-        android:layout_width="match_parent"
-        android:layout_height="240dp"
-        android:columnWidth="100dp"
-        android:gravity="center"
-        android:numColumns="auto_fit"
-        android:stretchMode="columnWidth"
+    <Button
+        android:id="@+id/button19"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/grid2"
+        android:layout_toRightOf="@+id/textView"
+        android:onClick="Paraggelia"
+        android:text="Παραγγελία" />
 
+    <Button
+        android:id="@+id/button20"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/grid2"
+        android:layout_toRightOf="@+id/button19"
+        android:onClick="Payment"
+        android:text="Πληρωμή" />
 
-        />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/grid2"
-        android:layout_width="match_parent"
-        android:layout_height="472dp"
-        android:layout_below="@+id/grid"
-        android:numColumns="4"
-        />
+    <Button
+        android:id="@+id/button21"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/grid2"
+        android:layout_toRightOf="@+id/button20"
+        android:text="Button" />
 
 
 </RelativeLayout>

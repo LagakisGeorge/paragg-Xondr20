@@ -126,7 +126,9 @@ public class EpiloghEid extends AppCompatActivity {
         EIDH_PARAGG.add(Q);
         Q=Keim.getText().toString();
         EIDH_PARAGG.add(Q);
-        EIDH_PARAGG.add("---");
+       // EIDH_PARAGG.add("---");  // den χρειαζεται το παραγεμισμα
+
+
         Intent intent = new Intent(view.getContext(), order.class);
         // intent.putExtra(EXTRA_MESSAGE, o.toString());
         // intent.putExtra("mpel2", o.toString());
@@ -134,7 +136,7 @@ public class EpiloghEid extends AppCompatActivity {
         intent.putExtra("mEIDH", EIDH_PARAGG); // ΣΤΕΛΝΩ ΤΟΝ ΠΙΝΑΚΑ ΜΕ ΤΑ EIDH
         //   intent.putExtra("mKATHG", KATHG); // ΣΤΕΛΝΩ ΤΟΝ ΠΙΝΑΚΑ ΜΕ ΤΑ EIDH
         // intent.putExtra("mpel", pel); // ΣΤΕΛΝΩ ΤΟΝ ΠΙΝΑΚΑ ΜΕ ΤΑ ΤΡΑΠΕΖΙΑ
-
+        intent.putExtra("WhoCall", "EpiloghEid");  // ποια φορμα καλει
         TextView textView = findViewById(R.id.trapezi);
         String message=textView.getText().toString(); // αριθμος τραπεζιού
         intent.putExtra("mpel2", message); // ΣΤΕΛΝΩ ΤΟ  ΤΡΑΠΕΖΙ

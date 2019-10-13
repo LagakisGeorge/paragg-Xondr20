@@ -181,8 +181,14 @@ public class import_sql extends AppCompatActivity {
         SQLiteDatabase mydatabase=null;
         mydatabase = openOrCreateDatabase("eidh",MODE_PRIVATE,null);
          //  mydatabase.execSQL(Q);
+        mydatabase.execSQL("DELETE FROM PARAGG");
+        mydatabase.execSQL("DELETE FROM PARAGGMASTER");
+        mydatabase.execSQL("UPDATE TABLES  SET KATEILHMENO=0,IDPARAGG=0  ");
 
 
+
+
+/*
           //  mydatabase.execSQL("INSERT INTO XAR1 (ONO,ID) VALUES('104',1);");
         for (int i = 0; i < pel3.size(); i++) {
 
@@ -193,6 +199,7 @@ public class import_sql extends AppCompatActivity {
 
         }
 
+*/
 
         /*
 

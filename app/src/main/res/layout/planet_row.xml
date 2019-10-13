@@ -13,4 +13,9 @@
         android:layout_height="wrap_content"
         android:text="Planet Name"
         android:id="@+id/text_id"/>
+
+
+
+
+
 </LinearLayout>
