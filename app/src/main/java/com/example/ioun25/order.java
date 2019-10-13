@@ -32,10 +32,12 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
 import static com.example.ioun25.MainActivity.EXTRA_MESSAGE;
+import static java.lang.Double.parseDouble;
 import static java.util.jar.Pack200.Packer.PASS;
 
 public class order extends AppCompatActivity {
@@ -564,7 +566,7 @@ separated[1]; // this will contain " they taste good"
         }
 
 
-
+Double sum=0.0;
 
         for(int i = fYparxSeires; i<EIDH_PARAGG.size();i=i+5)//
         {
@@ -574,10 +576,22 @@ separated[1]; // this will contain " they taste good"
 
             mydatabase.execSQL(Q);
 
+            sum=sum+ parseDouble(EIDH_PARAGG.get(i+1))*parseDouble(EIDH_PARAGG.get(i+2));
+
+
+
+
         }
 
+       // DecimalFormat df = new DecimalFormat("#.##");
+       // sum = Double.valueOf(df.format(sum));
+        String csum = sum.toString();    // df.format(sum);
 
-        mydatabase.execSQL("UPDATE TABLES SET KATEILHMENO=1,IDPARAGG=" + s + " WHERE ONO='" + tr + "'"   );
+       // String csum = df.format(sum);
+
+        csum = csum.replace(",", ",");
+
+        mydatabase.execSQL("UPDATE TABLES SET CH1='"+csum+"',KATEILHMENO=1,IDPARAGG=" + s + " WHERE ONO='" + tr + "'"   );
 
 
         mydatabase.close();

@@ -272,6 +272,8 @@ gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
         moviesList.setAdapter(arrayAdapter);
 */
 
+
+       // ΔΙΑΛΕΓΩ ΤΟ ΤΡΑΠΕΖΙ ΠΟΥ ΘΕΛΩ
         moviesList=(GridView)findViewById(R.id.grid);
         moviesList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -280,18 +282,29 @@ gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
 
                 Object o = moviesList.getItemAtPosition(position);
 
+              //  String trap_xoris_lefta ;
 
 
-                trapezi = (TextView)findViewById(R.id.textView);
+
+
+
+                trapezi = (TextView)findViewById(R.id.textView);   // #52 €45.70
                 //  textView.setText(message);
 
-              TrapeziFull=o.toString()+";"+arrIdParagg[position];  // #52;234
+                String[] separated3 = o.toString().split("€");
+                String cTable= separated3[0];  // #52
+
+
+
+
+
+              TrapeziFull=cTable+";"+arrIdParagg[position];  // #52 ; 234
 
 
               //  String[] separated2 = message.split("#");
               //  message=separated[1];
 
-                trapezi.setText(o.toString());  //#52  ή  52
+                trapezi.setText(cTable); // o.toString());  //#52  ή  52
 
 
 
@@ -382,15 +395,19 @@ gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
 
         try{
             mydatabase = openOrCreateDatabase("eidh",MODE_PRIVATE,null);
-            Cursor cursor2 = mydatabase.rawQuery("select ONO,KATEILHMENO,idparagg  from  TABLES", null);
+            Cursor cursor2 = mydatabase.rawQuery("select ONO,KATEILHMENO,idparagg,CH1  from  TABLES", null);
             String kat="";
+            String syn="";
             if (cursor2.moveToFirst()) {
                 do {
                     n++;
                     kat="";
-                    if (cursor2.getShort(1)==1){ kat="#";
+                    syn="";
+                    if (cursor2.getShort(1)==1){
+                        kat="#";
+                        syn="€"+cursor2.getString(3);
                     }
-                    values.add(kat + cursor2.getString(0));
+                    values.add(kat + cursor2.getString(0)+syn);
                     arrIdParagg[n-1]=Long.toString(cursor2.getLong(2));
 
                 } while (cursor2.moveToNext());
