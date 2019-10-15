@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:background="@drawable/register_table"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
@@ -46,6 +47,7 @@
         android:layout_below="@+id/load"
         android:layout_marginTop="0dp"
         android:text="φορτωμα τραπεζιων" />
+
     <Button
         android:id="@+id/button3"
         android:layout_width="wrap_content"
@@ -53,10 +55,11 @@
         android:layout_below="@+id/button"
         android:layout_marginTop="-50dp"
         android:layout_toRightOf="@+id/button"
+        android:onClick="reports"
         android:text="φορτωμα ειδων" />
 
     <Button
-        android:id="@+id/button4"
+        android:id="@+id/trapezia"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/button3"
@@ -68,7 +71,7 @@
         android:id="@+id/button2"
         android:layout_width="wrap_content"
         android:layout_height="45dp"
-        android:layout_below="@+id/button4"
+        android:layout_below="@+id/trapezia"
         android:layout_centerHorizontal="true"
         android:text="πελατες" />
 
@@ -108,10 +111,19 @@
         android:id="@+id/button12"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/button4"
+        android:layout_below="@+id/trapezia"
         android:layout_toRightOf="@+id/button2"
         android:onClick="formaSQL"
         android:text="sql" />
+
+    <Button
+        android:id="@+id/reports"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/button3"
+        android:layout_toRightOf="@+id/trapezia"
+        android:onClick="report"
+        android:text="Reports" />
 
 
 </RelativeLayout>

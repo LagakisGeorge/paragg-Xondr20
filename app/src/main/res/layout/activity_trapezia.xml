@@ -34,7 +34,7 @@
 
     <TextView
         android:id="@+id/textView"
-        android:layout_width="94dp"
+        android:layout_width="44dp"
         android:layout_height="wrap_content"
         android:layout_below="@+id/grid2"
 
@@ -69,7 +69,8 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/grid2"
         android:layout_toRightOf="@+id/button20"
-        android:text="Button" />
+        android:onClick="kentriko"
+        android:text="κεντρικο" />
 
 
 </RelativeLayout>

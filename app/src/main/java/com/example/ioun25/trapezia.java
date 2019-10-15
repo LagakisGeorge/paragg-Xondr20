@@ -223,8 +223,8 @@ gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
                 tv.setText(mPlanets[position]);
                 tv.setTextSize(TypedValue.COMPLEX_UNIT_SP, 10f);
                 // αν θελω εικονα
-              //  tv.setCompoundDrawablePadding(24);
-              //  tv.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_stars_black_24dp, 0, 0, 0);
+                tv.setCompoundDrawablePadding(24);
+                tv.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_stars_black_24dp, 0, 0, 0);
                 // αν θελω εικονα
 
 
@@ -332,7 +332,28 @@ gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
         listTRAPEZIA();
     }
 
-// call order intent
+
+
+    public void kentriko (View view){
+        Intent intent = new Intent(this, MainActivity.class);
+        // EditText editText = (EditText) findViewById(R.id.editText);
+        String message2 ="---" ;// EditText.GetText().toString();
+        intent.putExtra(EXTRA_MESSAGE, message2);
+        //  intent.putExtra("mpel", pel); // ΣΤΕΛΝΩ ΤΟΝ ΠΙΝΑΚΑ ΜΕ ΤΑ ΤΡΑΠΕΖΙΑ
+        //  intent.putExtra("mEIDH", pel3); // ΣΤΕΛΝΩ ΤΟΝ ΠΙΝΑΚΑ ΜΕ ΤΑ EIDH
+        //  intent.putExtra("mKathg", pelKathg); // ΣΤΕΛΝΩ ΤΟΝ ΠΙΝΑΚΑ ΜΕ ΤΑ EIDH
+        startActivity(intent);
+
+
+    }
+
+
+
+
+
+
+
+    // call order intent
   public void Paraggelia(View view) {
       Intent intent = new Intent(view.getContext(), order.class);
       // intent.putExtra(EXTRA_MESSAGE, o.toString());

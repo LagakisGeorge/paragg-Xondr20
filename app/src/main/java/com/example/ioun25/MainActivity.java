@@ -229,7 +229,21 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    public void report (View view){
 
+
+
+        Intent intent = new Intent(this, reports2.class);
+        // EditText editText = (EditText) findViewById(R.id.editText);
+        String message2 ="---" ;// EditText.GetText().toString();
+        intent.putExtra(EXTRA_MESSAGE, message2);
+      //  intent.putExtra("mpel", pel); // ΣΤΕΛΝΩ ΤΟΝ ΠΙΝΑΚΑ ΜΕ ΤΑ ΤΡΑΠΕΖΙΑ
+      //  intent.putExtra("mEIDH", pel3); // ΣΤΕΛΝΩ ΤΟΝ ΠΙΝΑΚΑ ΜΕ ΤΑ EIDH
+      //  intent.putExtra("mKathg", pelKathg); // ΣΤΕΛΝΩ ΤΟΝ ΠΙΝΑΚΑ ΜΕ ΤΑ EIDH
+        startActivity(intent);
+
+
+    }
 
 
 

@@ -1,7 +1,9 @@
 package com.example.ioun25;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.database.Cursor;
@@ -203,6 +205,42 @@ separated[1]; // this will contain " they taste good"
             }
         });
 
+        //Set Long-Clickable
+        Paragg.setLongClickable(true);
+        Paragg.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+
+            @Override
+            public boolean onItemLongClick(AdapterView<?> arg0, View view,
+                                           int position , long id) {
+                // TODO Auto-generated method stub
+                Toast.makeText(getApplicationContext(), "Long Click", Toast.LENGTH_SHORT).show();
+                /*
+                 *You Can use parameters like position,view or id to
+                 *Customize your action
+                 */
+                alertDialog();
+                return false;
+            }
+        });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
        // if(fYparxSeires==0){
@@ -306,6 +344,52 @@ separated[1]; // this will contain " they taste good"
        // return true;
     }
 */
+
+
+ /*  protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        Button button=findViewById(R.id.button);
+        button.setOnClickListener(this);
+    }
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.button:
+                alertDialog();
+                break;
+        }
+    }
+   */
+
+
+    private void alertDialog() {
+        AlertDialog.Builder dialog=new AlertDialog.Builder(this);
+        dialog.setMessage("Please Select any option");
+        dialog.setTitle("Dialog Box");
+        dialog.setPositiveButton("YES",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog,
+                                        int which) {
+                        Toast.makeText(getApplicationContext(),"Yes is clicked",Toast.LENGTH_LONG).show();
+
+                    }
+
+                });
+        dialog.setNegativeButton("cancel",new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Toast.makeText(getApplicationContext(),"cancel is clicked",Toast.LENGTH_LONG).show();
+            }
+        });
+        AlertDialog alertDialog=dialog.create();
+        alertDialog.show();
+
+    }
+
+
+
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
