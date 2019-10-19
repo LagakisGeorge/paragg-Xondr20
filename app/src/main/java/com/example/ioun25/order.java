@@ -205,6 +205,35 @@ separated[1]; // this will contain " they taste good"
             }
         });
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+       // if(fYparxSeires==0){
+        //    EIDH_PARAGG=new ArrayList<String>();
+       //     return ;
+       // };
+
+     //   EIDH_PARAGG.add("ΝΕΑ ΠΑΡΑΓΓΕΛΙΑ");
+
+        Paragg=(GridView)findViewById(R.id.listdetail);
+
+
         //Set Long-Clickable
         Paragg.setLongClickable(true);
         Paragg.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
@@ -233,24 +262,6 @@ separated[1]; // this will contain " they taste good"
 
 
 
-
-
-
-
-
-
-
-
-
-
-       // if(fYparxSeires==0){
-        //    EIDH_PARAGG=new ArrayList<String>();
-       //     return ;
-       // };
-
-     //   EIDH_PARAGG.add("ΝΕΑ ΠΑΡΑΓΓΕΛΙΑ");
-
-        Paragg=(GridView)findViewById(R.id.listdetail);
         ArrayAdapter<String> OarrayAdapter;
 
 

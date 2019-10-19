@@ -149,6 +149,10 @@ gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
      //   TextView textView = findViewById(R.id.textView);
       //  textView.setText(message);
 
+        listTRAPEZIA();
+
+
+
 
         mRecyclerView = (RecyclerView) findViewById(R.id.grid2);
       //  mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -329,7 +333,7 @@ gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
             }
         });
 
-        listTRAPEZIA();
+    //    listTRAPEZIA();
     }
 
 
