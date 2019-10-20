@@ -6,6 +6,7 @@ android {
     buildToolsVersion "29.0.0"
     defaultConfig {
         applicationId "com.example.ioun25"
+        vectorDrawables.useSupportLibrary = true
         minSdkVersion 14
         targetSdkVersion 29
         versionCode 1
@@ -29,7 +30,7 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.2.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
-
+    //compile 'com.androidx.support:appcompat-v7:23.2.0'
 
     // για να παιξει η βιβλιοθηκη 'com.bignerdranch.android:simple-item-decoration:1.0.0'
     implementation 'androidx.recyclerview:recyclerview:1.1.0-beta02'

@@ -53,7 +53,7 @@ public class trapezia extends AppCompatActivity {
     ArrayList<String> pel;
     ArrayList<String> EIDH;
     GridView moviesList;
-
+    public   List<String> values=new ArrayList<>();
     TextView trapezi;
 
     public String TrapeziFull;
@@ -224,14 +224,21 @@ gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
             @Override
             public void onBindViewHolder(PlanetViewHolder vh, int position) {
                 TextView tv = (TextView) vh.itemView;
-                tv.setText(mPlanets[position]);
+                tv.setText(values.get(position)); // mPlanets[position]);
                 tv.setTextSize(TypedValue.COMPLEX_UNIT_SP, 10f);
-                // αν θελω εικονα
-                tv.setCompoundDrawablePadding(24);
-                tv.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_stars_black_24dp, 0, 0, 0);
+               
                 // αν θελω εικονα
 
+                if (values.get(position).indexOf("€")>0){
+                    tv.setCompoundDrawablePadding(24);
+                    tv.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_stars_white_24dp , 0, 0, 0);
 
+                }else {
+                    // αν θελω εικονα
+                    tv.setCompoundDrawablePadding(24);
+                    tv.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_stars_black_24dp, 0, 0, 0);
+                }
+                // αν θελω εικονα
 
 
 
@@ -240,7 +247,7 @@ gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
 
             @Override
             public int getItemCount() {
-                return mPlanets.length;
+                return values.size();
             }
         });
 
@@ -416,7 +423,7 @@ gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
         Integer n=0;
         moviesList=(GridView)findViewById(R.id.grid);
         //recyclerView=(RecyclerView) findViewById(R.id.grid2);
-         List<String> values=new ArrayList<>();
+      //   List<String> values=new ArrayList<>();
 
         try{
             mydatabase = openOrCreateDatabase("eidh",MODE_PRIVATE,null);

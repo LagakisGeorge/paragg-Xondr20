@@ -55,7 +55,7 @@
         android:text="Παραγγελία" />
 
     <Button
-        android:id="@+id/button20"
+        android:id="@+id/payment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/grid2"
@@ -68,7 +68,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/grid2"
-        android:layout_toRightOf="@+id/button20"
+        android:layout_toRightOf="@+id/payment"
         android:onClick="kentriko"
         android:text="κεντρικο" />
 
