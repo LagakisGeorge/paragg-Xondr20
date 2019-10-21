@@ -369,10 +369,35 @@ Button bb;
     //    listTRAPEZIA();
     }
 
-
-
-
     @Override
+    public boolean onMenuItemClick(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.one: {
+                Toast.makeText(trapezia.this,"Clicked 1on the action", Toast.LENGTH_LONG).show();
+                return true;
+            }
+            case R.id.two: {
+                Toast.makeText(trapezia.this,"Clicked2 on the action", Toast.LENGTH_LONG).show();
+                return true;
+            }
+            case R.id.three: {
+                Toast.makeText(trapezia.this,"Clicked3 on the action", Toast.LENGTH_LONG).show();
+                return true;
+            }
+            case R.id.four: {
+                Toast.makeText(trapezia.this,"Clicked4 on the action", Toast.LENGTH_LONG).show();
+                return true;
+            }
+
+            
+
+
+        }
+        return true;
+    }
+
+
+/*    @Override
   //  public abstract boolean onMenuItemClick (MenuItem item)
     public  boolean onMenuItemClick(MenuItem item){
         switch (item.getItemId()){
@@ -388,22 +413,10 @@ Button bb;
 
             default:
                 return false;
-
-
-
         }
+  }
 
-
-
-
-
-
-
-
-
-    }
-
-
+*/
 
 
 
