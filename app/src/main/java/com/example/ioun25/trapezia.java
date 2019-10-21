@@ -24,14 +24,17 @@ import android.os.Bundle;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -49,7 +52,7 @@ import static com.example.ioun25.MainActivity.EXTRA_MESSAGE;
 
 //  import static com.example.ioun25.MainActivity.pel;
 
-public class trapezia extends AppCompatActivity {
+public  class trapezia extends AppCompatActivity  implements PopupMenu.OnMenuItemClickListener{
     ArrayList<String> pel;
     ArrayList<String> EIDH;
     GridView moviesList;
@@ -98,7 +101,7 @@ gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
     });
 */
 
-
+Button bb;
 
 
 
@@ -144,6 +147,29 @@ gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
          pel = intent.getStringArrayListExtra("mpel");
         EIDH = intent.getStringArrayListExtra("mEIDH");
         KATHG = intent.getStringArrayListExtra("mKathg");
+
+
+
+        bb=(Button)findViewById(R.id.payment);
+        bb.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                PopupMenu popup=new PopupMenu(getApplicationContext(),bb);
+                popup.setOnMenuItemClickListener(trapezia.this);
+
+                popup.inflate(R.menu.popup_menu);
+                popup.show();
+            }
+        });
+
+
+
+
+
+
+
+
+
 
         // Capture the layout's TextView and set the string as its text
      //   TextView textView = findViewById(R.id.textView);
@@ -342,6 +368,51 @@ gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
 
     //    listTRAPEZIA();
     }
+
+
+
+
+    @Override
+  //  public abstract boolean onMenuItemClick (MenuItem item)
+    public  boolean onMenuItemClick(MenuItem item){
+        switch (item.getItemId()){
+            case R.id.one:
+                Toast.makeText(this,"item1 clicked",Toast.LENGTH_SHORT);
+                return true;
+            case R.id.two:
+                Toast.makeText(this,"item1 clicked",Toast.LENGTH_SHORT);
+                return true;
+            case R.id.three:
+                Toast.makeText(this,"item1 clicked",Toast.LENGTH_SHORT);
+                return true;
+
+            default:
+                return false;
+
+
+
+        }
+
+
+
+
+
+
+
+
+
+    }
+
+
+
+
+
+
+
+
+
+
+
 
 
 

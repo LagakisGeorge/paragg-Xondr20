@@ -60,7 +60,6 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/grid2"
         android:layout_toRightOf="@+id/button19"
-        android:onClick="Payment"
         android:text="Πληρωμή" />
 
     <Button
