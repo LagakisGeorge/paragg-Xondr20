@@ -74,6 +74,19 @@ public class MainActivity extends AppCompatActivity {
     public static ArrayList<String> pelKathg;
     public String arr[][];
 
+
+    public static final String[] mPliromes = new String[] {"00",
+            "ΜΕΤΡΗΤΟΙΣ",
+            "ΚΑΡΤΑ 1",
+            "ΚΑΡΤΑ 2",
+            "ΚEΡAΣMENA"};
+
+
+
+
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 

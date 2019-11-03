@@ -70,7 +70,7 @@ public  class trapezia extends AppCompatActivity  implements PopupMenu.OnMenuIte
     private ArrayList<String> planetList=new ArrayList();
 //Other Stuff
 
-    private final String[] mPlanets = new String[] {
+   /*  private final String[] mPlanets = new String[] {
             "Mercury aaaa",
             "Venus dfd",
             "Earth fgf",
@@ -80,7 +80,7 @@ public  class trapezia extends AppCompatActivity  implements PopupMenu.OnMenuIte
             "Uranus gf",
             "Neptune gfg fgf"
     };
-
+ */
 
 
 
@@ -102,14 +102,7 @@ gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
 */
 
 Button bb;
-
-
-
-
-
-
-
-
+   // διαλεγω τραπεζι για παραγγελια ή πληρωμή
     private class PlanetViewHolder
             extends RecyclerView.ViewHolder
             implements View.OnClickListener {
@@ -121,16 +114,28 @@ Button bb;
 
         @Override
         public void onClick(View v) {
+
+
+
+            String[] separated3 = ((TextView) v).getText().toString().split("€");
+            String cTable= separated3[0];  // #52
+
+
+      //   String cTable=((TextView) v).getText().toString(); //#52  ή  52
+
+            //  String[] separated2 = message.split("#");
+            //  message=separated[1];
+            trapezi = (TextView)findViewById(R.id.textView);
+            trapezi.setText(cTable); // o.toString());  //#52  ή  52
+            int position=this.getPosition()  ;  //position=((TextView) v).getId();
+
+            TrapeziFull=cTable+";"+arrIdParagg[position];  // #52 ; 234
+
             Toast.makeText(getApplicationContext(),
-                    "You have clicked " + ((TextView) v).getText(),
+                    "You have clicked " +position+ ((TextView) v).getText(),
                     Toast.LENGTH_LONG).show();
         }
     }
-
-
-
-
-
 
   //  MyRecyclerViewAdapter adapter;
     @Override
@@ -316,83 +321,61 @@ Button bb;
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position,
                                     long id) {
-
                 Object o = moviesList.getItemAtPosition(position);
-
-              //  String trap_xoris_lefta ;
-
-
-
-
-
                 trapezi = (TextView)findViewById(R.id.textView);   // #52 €45.70
                 //  textView.setText(message);
-
                 String[] separated3 = o.toString().split("€");
                 String cTable= separated3[0];  // #52
-
-
-
-
-
               TrapeziFull=cTable+";"+arrIdParagg[position];  // #52 ; 234
-
-
               //  String[] separated2 = message.split("#");
               //  message=separated[1];
-
                 trapezi.setText(cTable); // o.toString());  //#52  ή  52
-
-
-
-       /*   αυτο ολο θα μεταφερθεί στο κουμπι της παραγγελίας
-
-
-                Intent intent = new Intent(view.getContext(), order.class);
-               // intent.putExtra(EXTRA_MESSAGE, o.toString());
-                intent.putExtra("mpel2", o.toString()+";"+arrIdParagg[position]);  // αριθμος τραπεζιου
-                intent.putExtra("mpel", pel); // ΣΤΕΛΝΩ ΤΟΝ ΠΙΝΑΚΑ ΜΕ ΤΑ ΤΡΑΠΕΖΙΑ
-                intent.putExtra("mEIDH", EIDH); // ΣΤΕΛΝΩ ΤΟΝ ΠΙΝΑΚΑ ΜΕ ΤΑ EIDH
-                intent.putExtra("mKATHG", KATHG); // ΣΤΕΛΝΩ ΤΟΝ ΠΙΝΑΚΑ ΜΕ ΤΑ EIDH
-                // intent.putExtra("mpel", pel); // ΣΤΕΛΝΩ ΤΟΝ ΠΙΝΑΚΑ ΜΕ ΤΑ ΤΡΑΠΕΖΙΑ
-                trapezia.this.startActivity(intent);
-
-       */
-
-
-
-
-
             }
         });
 
     //    listTRAPEZIA();
     }
 
+
+
+
+    // διαλεγει τροπο πληρωμης
     @Override
-    public boolean onMenuItemClick(MenuItem item) {
+    public boolean onMenuItemClick(MenuItem item) { // click popup menu
+
+        String PLIROMI;
+
         switch (item.getItemId()) {
             case R.id.one: {
-                Toast.makeText(trapezia.this,"Clicked 1on the action", Toast.LENGTH_LONG).show();
-                return true;
+                PLIROMI=MainActivity.mPliromes[1];
+               // Toast.makeText(trapezia.this,"Clicked 1on the action", Toast.LENGTH_LONG).show();
+        //        return true;
             }
             case R.id.two: {
-                Toast.makeText(trapezia.this,"Clicked2 on the action", Toast.LENGTH_LONG).show();
-                return true;
+                PLIROMI=MainActivity.mPliromes[2];
+
+          //      return true;
             }
             case R.id.three: {
-                Toast.makeText(trapezia.this,"Clicked3 on the action", Toast.LENGTH_LONG).show();
-                return true;
+                PLIROMI=MainActivity.mPliromes[3];
+
+            //    return true;
             }
             case R.id.four: {
-                Toast.makeText(trapezia.this,"Clicked4 on the action", Toast.LENGTH_LONG).show();
-                return true;
+                PLIROMI=MainActivity.mPliromes[4];
+
+              //  return true;
             }
 
-            
+            Toast.makeText(trapezia.this,PLIROMI, Toast.LENGTH_LONG).show();
 
 
         }
+
+
+
+
+
         return true;
     }
 
@@ -417,18 +400,7 @@ Button bb;
   }
 
 */
-
-
-
-
-
-
-
-
-
-
-
-
+// call main intent
     public void kentriko (View view){
         Intent intent = new Intent(this, MainActivity.class);
         // EditText editText = (EditText) findViewById(R.id.editText);
@@ -441,12 +413,6 @@ Button bb;
 
 
     }
-
-
-
-
-
-
 
     // call order intent
   public void Paraggelia(View view) {
@@ -495,11 +461,6 @@ Button bb;
 
 
     }
-
-
-
-
-
 
     //================= sqlliteEIDH====================
     public void listTRAPEZIA () {
@@ -551,10 +512,6 @@ Button bb;
             e.printStackTrace();
         }
     }
-
-
-
-
 
 }
 /*
