@@ -15,6 +15,8 @@ import android.os.Handler;
 import android.os.Bundle;
 import android.os.Message;
 import android.os.StrictMode;
+import android.util.Log;
+import android.util.Xml;
 import android.view.ContextMenu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -28,15 +30,18 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.BufferedReader;
+import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
+import java.net.ConnectException;
 import java.net.Socket;
 import java.net.UnknownHostException;
 import java.security.Policy;
@@ -205,28 +210,85 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+
+
+
+       // printhtml();
+
     }  // -------------- onCreate
 // If you cannot connect with SQL server(express), you can check here: http://stackoverflow.com/questions/10522120/connecting-to-local-ms-sql-server
+
+ /*   public static final byte[] INIT = {27, 64};
+    public static final byte[] FEED_LINE = {10};
+
+    public static final byte[] SELECT_FONT_A = {27, 33, 0};
+
+    public static final byte[] FONT_B = {0x1B, 0x4D, 0x01};
+    public static final byte[] ALLINEA_SX = {0x1B, 0x61, 0x00};
+    public static final byte[] ALLINEA_CT = {0x1B, 0x61, 0x01};
+*/
 
 
 
 // ΤΥΠΩΝΕΙ ΕΝΑ ΚΕΙΜΕΝΟ
-    public void print_text(String ss) {
+    public void print_text(View view) {
+
+
+
+
+
+
+
+
+
+
+
 
 
         try {
             Socket sock = new Socket("192.168.1.202", 9100);
             PrintWriter oStream = new PrintWriter(sock.getOutputStream());
+
+Character c=(char) 27;
+String d=""+c+"t15";
+
+
+          //  oStream.println((char) 27);
+
+
+
+
             oStream.println("HI,test from Android Device");
-            oStream.println(ss);
+            oStream.println("λσαδσξδΞΣΔΞΑΔΞΕΙΞΔΣΞΦΔΨΝΔΞΦ");
             String s = "ΛΑΓΑΚΗΣ ΓΕΩΡΓΙΟΣ,test from Android Device";// text returned by web service taking it as static for testing
             //  1. not working:
+           // Char c = (char) n;
+            //System.out.print(c)//char c will store the converted value.
+            // shareimprove this answer
+            // edited Dec 17 '14 at 14:59
+
+            //  Uri Agassi
+            // 33.5k1010 gold badges6363 silver badges8383 bronze badges
+            //  answered Dec 17 '14 at 14:56
+
+            //  Entriple Aardee
+            //   1111 bronze badge
+            //  add a comment
+
+            //  0
+            oStream.println("geia χαρα");
+            for (int i = 128; i < 256; i=i+5) {
+                //  Char c=(char)n;
+                //  System.out.print(c)//
+
+                oStream.println((char) i);
+        }
 
 
-            String str = new String(s.getBytes("ISO-8859-7"), "utf-8");
+        //    String str = new String(s.getBytes("ISO-8859-7"), "utf-8");
             //  String str = new String(s.getBytes(), "ISO-8859-7");
-            oStream.println(str);
-            oStream.println("HI,test from Android Device");
+         //   oStream.println(str);
+            oStream.println("αβγδεζηθικλμνξοπρστυφχψωΑΒΓΔΕΖΗΘΙΚΛΜΝΞΟΠΡΣΤΥΦΧΨΩ HI,test from Android Device");
             oStream.println("HI,test from Android Device");
 
             oStream.println("\n\n\n");
@@ -258,6 +320,204 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    // convert internal Java String format to UTF-8
+    public static String convertStringToUTF8(String s) {
+        String out = null;
+        try {
+            out = new String(s.getBytes("UTF-8"), "ISO-8859-7");
+        } catch (java.io.UnsupportedEncodingException e) {
+            return null;
+        }
+        return out;
+    }
+
+    public String toGreek(String lexh){
+        int i;
+        String cc="";
+        String c;
+        for (i=0;i<lexh.length();i++){
+             c=lexh.substring(i,i+1);
+            switch (c) {
+                case "Α":
+                    c="A";
+                    break;
+                case "Γ":
+                    c="G";
+                    break;
+                case "Β":
+                    c="B";
+                    break;
+                case "Δ":
+                    c="D";
+                    break;
+                case "Ε":
+                    c="E";
+                    break;
+                case "Ζ":
+                    c="Z";
+                    break;
+                case "Η":
+                    c="H";
+                    break;
+                case "Θ":
+                    c="8";
+                    break;
+                case "Ι":
+                    c="I";
+                    break;
+                case "Κ":
+                    c="K";
+                    break;
+                case "Λ":
+                    c="L";
+                    break;
+                case "Μ":
+                    c="M";
+                    break;
+                case "Ν":
+                    c="N";
+                    break;
+                case "Ξ":
+                    c="3";
+                    break;
+                case "Ο":
+                    c="O";
+                    break;
+                case "Π":
+                    c="P";
+                    break;
+                case "Ρ":
+                    c="R";
+                    break;
+                case "Σ":
+                    c="S";
+                    break;
+                case "Τ":
+                    c="T";
+                    break;
+                case "Υ":
+                    c="Y";
+                    break;
+                case "Φ":
+                    c="F";
+                    break;
+                case "Χ":
+                    c="X";
+                    break;
+                case "Ψ":
+                    c="PS";
+                    break;
+                case "Ω":
+                    c="O";
+                    break;
+                case "α":
+                    c="A";
+                    break;
+                case "γ":
+                    c="G";
+                    break;
+                case "β":
+                    c="B";
+                    break;
+                case "δ":
+                    c="D";
+                    break;
+                case "ε":
+                    c="E";
+                    break;
+                case "ζ":
+                    c="Z";
+                    break;
+                case "η":
+                    c="H";
+                    break;
+                case "θ":
+                    c="8";
+                    break;
+                case "ι":
+                    c="I";
+                    break;
+                case "κ":
+                    c="K";
+                    break;
+                case "λ":
+                    c="L";
+                    break;
+                case "μ":
+                    c="M";
+                    break;
+                case "ν":
+                    c="N";
+                    break;
+                case "ξ":
+                    c="3";
+                    break;
+                case "ο":
+                    c="O";
+                    break;
+                case "π":
+                    c="P";
+                    break;
+                case "ρ":
+                    c="R";
+                    break;
+                case "σ":
+                    c="S";
+                    break;
+                case "τ":
+                    c="T";
+                    break;
+                case "υ":
+                    c="Y";
+                    break;
+                case "φ":
+                    c="F";
+                    break;
+                case "χ":
+                    c="X";
+                    break;
+                case "ψ":
+                    c="PS";
+                    break;
+                case "ω":
+                    c="O";
+                    break;
+                case "ς":
+                    c="S";
+                    break;
+
+
+
+
+                case "ά":
+                    c="A";
+                    break;
+                case "έ":
+                    c="E";
+                    break;
+                case "ί":
+                    c="I";
+                    break;
+                case "ό":
+                    c="O";
+                    break;
+                case "ή":
+                    c="H";
+                    break;
+                case "ύ":
+                    c="Y";
+                    break;
+                case "ώ":
+                    c="O";
+                    break;
+
+            }
+            cc=cc+c;
+        }
+
+
+     return cc;
+    }
 
 
 
@@ -268,22 +528,93 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-
-
         try
         {
             Socket sock = new Socket("192.168.1.202", 9100);
             PrintWriter oStream = new PrintWriter(sock.getOutputStream());
+            byte[] printformat = {27, 116, 7};
+
+
+
+            SQLiteDatabase mydatabase=null;
+            mydatabase = openOrCreateDatabase("eidh",MODE_PRIVATE,null);
+            Cursor cursor2 = mydatabase.rawQuery("select ONO, ID,TIMH,CH2,PICTURE FROM EIDH", null);
+            if (cursor2.moveToFirst()) {
+                do {
+                    oStream.println( toGreek(cursor2.getString(0)));
+                } while (cursor2.moveToNext());
+            }
+            mydatabase.close();
+
+
+
+
+
+
+/*
+            byte[] buffer = new byte[128];
+            for (int i = 0; i < 128; i=i+1) {
+                buffer[i] = (byte)(128 + i);
+                oStream.print("=pr-buf=");
+                oStream.print(buffer[i]);
+                oStream.print("/i/");
+                oStream.print(i);
+                oStream.print("-wbuf-");
+                oStream.write(buffer[i]);
+            }
+
+
+
+            oStream.println(printformat);
+            oStream.print("buffer");
+           oStream.print(buffer);
+            oStream.print("end-buffer");
+*/
+            oStream.print("αδασδαδαδΑΒΓΔΕΖΗΘΙΚΛ");
+
+
+
+            oStream.print("αδασδαδαδΑΒΓΔΕΖΗΘΙΚΛ".getBytes("737")) ;
+
+            oStream.write("αδασδαδαδασδδ");
+
+
+            oStream.println(convertStringToUTF8("λαγακησ γεωργιος HI,test from Android Device"));
             oStream.println("HI,test from Android Device");
-            oStream.println("HI,test from Android Device");
-            String s = "ΛΑΓΑΚΗΣ ΓΕΩΡΓΙΟΣ,test from Android Device";// text returned by web service taking it as static for testing
+            String s = convertStringToUTF8("ΛΑΓΑΚΗΣ ΓΕΩΡΓΙΟΣ,test from Android Device");// text returned by web service taking it as static for testing
           //  1. not working:
+
+            String Str1="---ΛΑΓΑΚΗΣ ΓΕΩΡΓΙΟΣ,test ";
+            String Str2 = new String( Str1.getBytes( "UTF-8" ));
+            oStream.println("Returned Value " + Str2 );
+            Str2 = new String (Str1.getBytes( "ISO-8859-7" ));
+            oStream.println("Returned Value " + Str2 );
+
+
+
             String str = new String(s.getBytes("850"), "utf-8");
            String str2 = new String(s.getBytes(), "850");
             oStream.println(str);
             oStream.println(str2);
             oStream.println("HI,test from Android Device");
             oStream.println("HI,test from Android Device");
+            oStream.println("geia χαρα");
+
+            for (int i = 128; i < 256; i=i+15) {
+                  Character c=(char) i;
+                oStream.print(c);  //
+                oStream.write(i);
+                oStream.println((char) i);
+            }
+
+s="αβγδεζηθικλμνξοπρστυφχψωΑΒΓΔΕΖΗΘΙΚΛΜΝΞΟΠΡΣΤΥΦΧΨΩ";
+            String str22 = new String(s.getBytes("ISO-8859-7"), "utf-8");
+            //  String str = new String(s.getBytes(), "ISO-8859-7");
+            oStream.println(str22);
+            oStream.println("αβγδεζηθικλμνξοπρστυφχψωΑΒΓΔΕΖΗΘΙΚΛΜΝΞΟΠΡΣΤΥΦΧΨΩ HIsssss,test from Android Device");
+            oStream.println("HI,test from Android Device");
+
+            oStream.println("\n\n\n");
 
             oStream.println("\n\n\n");
             oStream.close();
