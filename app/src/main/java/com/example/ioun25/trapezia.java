@@ -343,37 +343,38 @@ Button bb;
     @Override
     public boolean onMenuItemClick(MenuItem item) { // click popup menu
 
-        String PLIROMI;
+        String PLIROMI="";
 
         switch (item.getItemId()) {
             case R.id.one: {
                 PLIROMI=MainActivity.mPliromes[1];
                // Toast.makeText(trapezia.this,"Clicked 1on the action", Toast.LENGTH_LONG).show();
         //        return true;
+                 break;
             }
             case R.id.two: {
                 PLIROMI=MainActivity.mPliromes[2];
-
+                      break;
           //      return true;
             }
             case R.id.three: {
                 PLIROMI=MainActivity.mPliromes[3];
-
+                break;
             //    return true;
             }
             case R.id.four: {
                 PLIROMI=MainActivity.mPliromes[4];
-
+                break;
               //  return true;
             }
 
-            Toast.makeText(trapezia.this,PLIROMI, Toast.LENGTH_LONG).show();
+
 
 
         }
 
 
-
+        Toast.makeText(trapezia.this,PLIROMI, Toast.LENGTH_LONG).show();
 
 
         return true;

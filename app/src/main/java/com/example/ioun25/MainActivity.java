@@ -15,6 +15,7 @@ import android.os.Handler;
 import android.os.Bundle;
 import android.os.Message;
 import android.os.StrictMode;
+import android.print.PrintManager;
 import android.util.Log;
 import android.util.Xml;
 import android.view.ContextMenu;
@@ -39,11 +40,17 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 import java.net.ConnectException;
 import java.net.Socket;
 import java.net.UnknownHostException;
+import java.nio.ByteBuffer;
+import java.nio.CharBuffer;
+import java.nio.charset.Charset;
+import java.nio.charset.CharsetEncoder;
 import java.security.Policy;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -249,6 +256,11 @@ public class MainActivity extends AppCompatActivity {
             Socket sock = new Socket("192.168.1.202", 9100);
             PrintWriter oStream = new PrintWriter(sock.getOutputStream());
 
+
+            String s6 = "λαγακης";
+            String out = new String(s6.getBytes("UTF-8"), "ISO-8859-7");
+            oStream.println(out);
+
 Character c=(char) 27;
 String d=""+c+"t15";
 
@@ -319,6 +331,86 @@ String d=""+c+"t15";
 
 
     }
+
+
+
+//debug
+    public static void sendData(byte[] buffer, OutputStream os)
+    {
+        try {
+            ByteBuffer byteBuffer = ByteBuffer.wrap(buffer);
+            os.write(byteBuffer.array());
+            os.flush();
+            // tell the user data were sent
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    
+
+    //debug
+    public void print (String text, String codePage, OutputStream os) throws UnsupportedEncodingException {
+        /*Your codetable initialization here.
+         *You can refactor this more efficiently.
+         *Hardcoded just so you can understand.
+         */
+
+        ByteBuffer init = ByteBuffer.allocate(3);
+        init.put((byte) 0x1B);
+        init.put((byte) 0x74);
+        init.put((byte) 2);
+        sendData(init.array(), os);
+
+      //   εναλλακτικα
+      //  ByteBuffer closeMultibyte = ByteBuffer.allocate(2);
+      //  closeMultibyte.put((byte) 0x1C);
+      //  closeMultibyte.put((byte) 0x2E);
+      //  sendData(closeMultibyte.array(), os);
+
+
+        ByteBuffer dataToPrint = ByteBuffer.allocate(text.length());
+        dataToPrint.put(text.getBytes(codePage));
+        sendData(dataToPrint.array(), os);
+    }
+
+   // debug
+    public void IntentPrint(String txtvalue)
+    {
+        byte[] buffer = txtvalue.getBytes();
+        byte[] PrintHeader = { (byte) 0xAA, 0x55,2,0 };
+        PrintHeader[3]=(byte) buffer.length;
+       // InitPrinter();
+        if(PrintHeader.length>128)
+        {
+          //  value+="\nValue is more than 128 size\n";
+            //txtLogin.setText(value);
+        }
+        else
+        {
+            try
+            {
+                for(int i=0;i<=PrintHeader.length-1;i++)
+                {
+              //      mmOutputStream.write(PrintHeader[i]);
+                }
+                for(int i=0;i<=buffer.length-1;i++)
+                {
+                //    mmOutputStream.write(buffer[i]);
+                }
+              //  mmOutputStream.close();
+              //  mmSocket.close();
+            }
+            catch(Exception ex)
+            {
+                //value+=ex.toString()+ "\n" +"Excep IntentPrint \n";
+                //txtLogin.setText(value);
+            }
+        }
+    }
+
+
 
     // convert internal Java String format to UTF-8
     public static String convertStringToUTF8(String s) {
@@ -533,6 +625,93 @@ String d=""+c+"t15";
             Socket sock = new Socket("192.168.1.202", 9100);
             PrintWriter oStream = new PrintWriter(sock.getOutputStream());
             byte[] printformat = {27, 116, 7};
+// java.io.OutputStream stream  = new java.io.OutputStream()
+
+            String Str2 = new String( "LΛGΓ".getBytes( "737" ));
+            oStream.println(Str2);
+            Str2 = new String ("LΛGΓ".getBytes( "cp737" ));
+            oStream.println(Str2);
+            Str2 = new String ("LΛGΓ".getBytes( "cp850" ));
+            oStream.println(Str2);
+
+            String s6 = "λαγακης";
+            String out = new String(s6.getBytes("850"), "CP737");
+            oStream.println(out);
+
+            CharsetEncoder encoder = Charset.forName("CP737").newEncoder();
+            oStream.println("ENCODER-START");
+            String response = "λαγακης γεωργιος ΛΑΓΑΚΗΣ ΓΕΩΡΓΙΟΣ";
+            oStream.println(encoder.encode(CharBuffer.wrap(response)));
+            oStream.println("ENCODER-END");
+            // String ASCII2 = new String("λαγακης γεωργιος ΛΑΓΑΚΗΣ ΓΕΩΡΓΙΟΣ", "737");
+
+
+
+
+
+
+
+
+              ByteBuffer closeMultibyte = ByteBuffer.allocate(2);
+              closeMultibyte.put((byte) 0x1C);
+              closeMultibyte.put((byte) 0x2E);
+            oStream.println(closeMultibyte.array());
+
+            oStream.println("λgΦG");
+            //  sendData(closeMultibyte.array(), os);
+
+
+            byte[] buffer = "lagaκης Γεωργιος γεοργιοσ georgios".getBytes();
+            byte[] PrintHeader = { (byte) 0xAA, 0x55,2,0 };
+            PrintHeader[3]=(byte) buffer.length;
+           // InitPrinter();
+            if(PrintHeader.length>128)
+            {
+               // value+="\nValue is more than 128 size\n";
+               // txtLogin.setText(value);
+            }
+            else
+            {
+                try
+                {
+                    for(int i=0;i<=PrintHeader.length-1;i++)
+                    {
+                        oStream.print(closeMultibyte.array());
+                        oStream.write(PrintHeader[i]);
+                    }
+                    for(int i=0;i<=buffer.length-1;i++)
+                    {
+                        oStream.write(buffer[i]);
+                    }
+                   // mmOutputStream.close();
+                   // mmSocket.close();
+                }
+                catch(Exception ex)
+                {
+                    // value+=ex.toString()+ "\n" +"Excep IntentPrint \n";
+                   // txtLogin.setText(value);
+                }
+            }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -541,7 +720,7 @@ String d=""+c+"t15";
             Cursor cursor2 = mydatabase.rawQuery("select ONO, ID,TIMH,CH2,PICTURE FROM EIDH", null);
             if (cursor2.moveToFirst()) {
                 do {
-                    oStream.println( toGreek(cursor2.getString(0)));
+         //           oStream.println( toGreek(cursor2.getString(0)));
                 } while (cursor2.moveToNext());
             }
             mydatabase.close();
@@ -572,7 +751,7 @@ String d=""+c+"t15";
 */
             oStream.print("αδασδαδαδΑΒΓΔΕΖΗΘΙΚΛ");
 
-
+           // print("αδασδαδαδΑΒΓΔΕΖΗΘΙΚΛ","737",oStream );
 
             oStream.print("αδασδαδαδΑΒΓΔΕΖΗΘΙΚΛ".getBytes("737")) ;
 
@@ -584,9 +763,9 @@ String d=""+c+"t15";
             String s = convertStringToUTF8("ΛΑΓΑΚΗΣ ΓΕΩΡΓΙΟΣ,test from Android Device");// text returned by web service taking it as static for testing
           //  1. not working:
 
-            String Str1="---ΛΑΓΑΚΗΣ ΓΕΩΡΓΙΟΣ,test ";
-            String Str2 = new String( Str1.getBytes( "UTF-8" ));
-            oStream.println("Returned Value " + Str2 );
+            String Str1="---ΛtΑeΓsΑt ,test ";
+            String Str3 = new String( Str1.getBytes( "UTF-8" ));
+            oStream.println("Returned Value " + Str3 );
             Str2 = new String (Str1.getBytes( "ISO-8859-7" ));
             oStream.println("Returned Value " + Str2 );
 
@@ -608,7 +787,7 @@ String d=""+c+"t15";
             }
 
 s="αβγδεζηθικλμνξοπρστυφχψωΑΒΓΔΕΖΗΘΙΚΛΜΝΞΟΠΡΣΤΥΦΧΨΩ";
-            String str22 = new String(s.getBytes("ISO-8859-7"), "utf-8");
+            String str22 = new String(s.getBytes("ISO-8859-7"), "737");
             //  String str = new String(s.getBytes(), "ISO-8859-7");
             oStream.println(str22);
             oStream.println("αβγδεζηθικλμνξοπρστυφχψωΑΒΓΔΕΖΗΘΙΚΛΜΝΞΟΠΡΣΤΥΦΧΨΩ HIsssss,test from Android Device");

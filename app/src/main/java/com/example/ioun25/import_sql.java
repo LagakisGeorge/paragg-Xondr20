@@ -41,7 +41,7 @@ public class import_sql extends AppCompatActivity {
     EditText e1;
 
     // dell οικιας .7  49702  p@ssw0rd
-    private String URL = "jdbc:jtds:sqlserver://192.168.1.7:49704/BAR;instance=SQLEXPRESS;";
+    private String URL = "jdbc:jtds:sqlserver://192.168.1.7:49705/BAR;instance=SQLEXPRESS;";
     private String USER = "sa";
     // private String PASS = "12345678";  // fujitsu laptop
     private String PASS = "p@ssw0rd";   // oikia
