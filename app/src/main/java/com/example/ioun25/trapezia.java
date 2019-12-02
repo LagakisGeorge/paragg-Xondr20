@@ -169,16 +169,6 @@ gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
                 popup.show();
             }
         });
-
-
-
-
-
-
-
-
-
-
         // Capture the layout's TextView and set the string as its text
      //   TextView textView = findViewById(R.id.textView);
       //  textView.setText(message);
@@ -186,8 +176,30 @@ gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
         listTRAPEZIA();
 
 
+    runRecycler();
 
+        // ΔΙΑΛΕΓΩ ΤΟ ΤΡΑΠΕΖΙ ΠΟΥ ΘΕΛΩ
+        moviesList=(GridView)findViewById(R.id.grid);
+        moviesList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position,
+                                    long id) {
+                Object o = moviesList.getItemAtPosition(position);
+                trapezi = (TextView)findViewById(R.id.textView);   // #52 €45.70
+                //  textView.setText(message);
+                String[] separated3 = o.toString().split("€");
+                String cTable= separated3[0];  // #52
+                TrapeziFull=cTable+";"+arrIdParagg[position];  // #52 ; 234
+                //  String[] separated2 = message.split("#");
+                //  message=separated[1];
+                trapezi.setText(cTable); // o.toString());  //#52  ή  52
+            }
+        });
 
+        //    listTRAPEZIA();
+    }
+
+/*
         mRecyclerView = (RecyclerView) findViewById(R.id.grid2);
       //  mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mRecyclerView.setLayoutManager(new GridLayoutManager(this,3));
@@ -204,29 +216,17 @@ gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
         mRecyclerView.addItemDecoration(Vdivider);
 */
 
-
-
-
-
-
-
-
-
     //    private GridLayoutManager mGridLayoutManager;
 // ...
     //    mGridLayoutManager = new GridLayoutManager(getActivity(), 2);
 
       //  int spacingInPixels = getResources().getDimensionPixelSize(R.dimen.spacing);
       //  mRecyclerView.addItemDecoration(new SpacesItemDecoration(spacingInPixels));
-
-
         /* δουλευει με οριζοντιεσ γραμμεσ
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(mRecyclerView.getContext(),VERTICAL); // HORIZONTAL or VERTICAL.
         mRecyclerView.addItemDecoration(dividerItemDecoration);
          */
-
-
-
+/*
         // με την βιβλιοθηκη 'com.bignerdranch.android:simple-item-decoration:1.0.0'
         int numColumns=3;
         Drawable horizontalDivider = ContextCompat.getDrawable(this, R.drawable.line_divider);
@@ -286,7 +286,7 @@ gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
         });
 
 
-
+*/
 
 
 
@@ -318,26 +318,7 @@ gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
 */
 
 
-       // ΔΙΑΛΕΓΩ ΤΟ ΤΡΑΠΕΖΙ ΠΟΥ ΘΕΛΩ
-        moviesList=(GridView)findViewById(R.id.grid);
-        moviesList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position,
-                                    long id) {
-                Object o = moviesList.getItemAtPosition(position);
-                trapezi = (TextView)findViewById(R.id.textView);   // #52 €45.70
-                //  textView.setText(message);
-                String[] separated3 = o.toString().split("€");
-                String cTable= separated3[0];  // #52
-              TrapeziFull=cTable+";"+arrIdParagg[position];  // #52 ; 234
-              //  String[] separated2 = message.split("#");
-              //  message=separated[1];
-                trapezi.setText(cTable); // o.toString());  //#52  ή  52
-            }
-        });
 
-    //    listTRAPEZIA();
-    }
 
 
 
@@ -345,6 +326,18 @@ gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
     // διαλεγει τροπο πληρωμης
     @Override
     public boolean onMenuItemClick(MenuItem item) { // click popup menu
+
+        trapezi = (TextView)findViewById(R.id.textView);
+
+        String skTrapezi=trapezi.getText().toString();
+        if (skTrapezi.length()==0){
+            Toast.makeText(trapezia.this,"διαλεξτε τραπεζι", Toast.LENGTH_LONG).show();
+            return false;
+        }
+
+
+
+
 
         String PLIROMI="";
         Integer mp=1;
@@ -442,6 +435,10 @@ Payment(Long.toString(mp) ) ;
   }
 
   public void Payment(String tropos) {
+
+
+
+
         SQLiteDatabase mydatabase = null;
         mydatabase = openOrCreateDatabase("eidh",MODE_PRIVATE,null);
         trapezi = (TextView)findViewById(R.id.textView);
@@ -465,7 +462,7 @@ Payment(Long.toString(mp) ) ;
 
 
         listTRAPEZIA();
-
+      runRecycler();
 
 
     }
@@ -477,7 +474,8 @@ Payment(Long.toString(mp) ) ;
         moviesList=(GridView)findViewById(R.id.grid);
         //recyclerView=(RecyclerView) findViewById(R.id.grid2);
       //   List<String> values=new ArrayList<>();
-
+        values=new ArrayList<String>();
+        arrIdParagg=new String[100];
         try{
             mydatabase = openOrCreateDatabase("eidh",MODE_PRIVATE,null);
             Cursor cursor2 = mydatabase.rawQuery("select ONO,KATEILHMENO,idparagg,CH1  from  TABLES", null);
@@ -520,6 +518,77 @@ Payment(Long.toString(mp) ) ;
             e.printStackTrace();
         }
     }
+
+    public void runRecycler(){
+
+//==============================================================================================
+        mRecyclerView = (RecyclerView) findViewById(R.id.grid2);
+        //  mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        mRecyclerView.setLayoutManager(new GridLayoutManager(this,3));
+
+
+        // με την βιβλιοθηκη 'com.bignerdranch.android:simple-item-decoration:1.0.0'
+        int numColumns=3;
+        Drawable horizontalDivider = ContextCompat.getDrawable(this, R.drawable.line_divider);
+        Drawable verticalDivider = ContextCompat.getDrawable(this, R.drawable.line_divider);
+
+        mRecyclerView.addItemDecoration(new GridDividerItemDecoration(horizontalDivider, verticalDivider, numColumns));
+        int offsetPx = 10;
+        mRecyclerView.addItemDecoration(new GridTopOffsetItemDecoration(offsetPx, numColumns));
+
+        mRecyclerView.setAdapter(new RecyclerView.Adapter<PlanetViewHolder>() {
+
+            @Override
+            public PlanetViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+                View v = LayoutInflater.from(parent.getContext()).inflate(
+                        android.R.layout.simple_list_item_1,
+                        parent,
+                        false);
+                PlanetViewHolder vh = new PlanetViewHolder(v);
+                return vh;
+            }
+
+            @Override
+            public void onBindViewHolder(PlanetViewHolder vh, int position) {
+                TextView tv = (TextView) vh.itemView;
+                tv.setText(values.get(position)); // mPlanets[position]);
+                tv.setTextSize(TypedValue.COMPLEX_UNIT_SP, 10f);
+
+                // αν θελω εικονα
+
+                if (values.get(position).indexOf("€")>0){
+                    tv.setCompoundDrawablePadding(24);
+                    tv.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_stars_white_24dp , 0, 0, 0);
+
+                }else {
+                    // αν θελω εικονα
+                    tv.setCompoundDrawablePadding(24);
+                    tv.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_stars_black_24dp, 0, 0, 0);
+                }
+                // αν θελω εικονα
+
+
+
+
+            }
+
+            @Override
+            public int getItemCount() {
+                return values.size();
+            }
+        });
+
+
+
+
+
+
+    }
+
+
+
+
+
 
 }
 /*
