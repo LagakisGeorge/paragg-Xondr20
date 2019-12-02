@@ -100,8 +100,9 @@ gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
         }
     });
 */
+  public static String idBardia;
 
-Button bb;
+  Button bb;
    // διαλεγω τραπεζι για παραγγελια ή πληρωμή
     private class PlanetViewHolder
             extends RecyclerView.ViewHolder
@@ -153,7 +154,9 @@ Button bb;
         EIDH = intent.getStringArrayListExtra("mEIDH");
         KATHG = intent.getStringArrayListExtra("mKathg");
 
-
+        SQLiteDatabase mydatabase=null;
+        mydatabase = openOrCreateDatabase("eidh", MODE_PRIVATE, null);
+        idBardia=MainActivity.ReadSql("select MAX(id) AS CID  from BARDIA",mydatabase);
 
         bb=(Button)findViewById(R.id.payment);
         bb.setOnClickListener(new View.OnClickListener() {
@@ -344,26 +347,30 @@ Button bb;
     public boolean onMenuItemClick(MenuItem item) { // click popup menu
 
         String PLIROMI="";
-
+        Integer mp=1;
         switch (item.getItemId()) {
             case R.id.one: {
                 PLIROMI=MainActivity.mPliromes[1];
                // Toast.makeText(trapezia.this,"Clicked 1on the action", Toast.LENGTH_LONG).show();
         //        return true;
+                mp=1;
                  break;
             }
             case R.id.two: {
                 PLIROMI=MainActivity.mPliromes[2];
+                mp=2;
                       break;
           //      return true;
             }
             case R.id.three: {
                 PLIROMI=MainActivity.mPliromes[3];
+                mp=3;
                 break;
             //    return true;
             }
             case R.id.four: {
                 PLIROMI=MainActivity.mPliromes[4];
+                mp=4;
                 break;
               //  return true;
             }
@@ -373,7 +380,7 @@ Button bb;
 
         }
 
-
+Payment(Long.toString(mp) ) ;
         Toast.makeText(trapezia.this,PLIROMI, Toast.LENGTH_LONG).show();
 
 
@@ -434,7 +441,7 @@ Button bb;
 
   }
 
-  public void Payment(View view) {
+  public void Payment(String tropos) {
         SQLiteDatabase mydatabase = null;
         mydatabase = openOrCreateDatabase("eidh",MODE_PRIVATE,null);
         trapezi = (TextView)findViewById(R.id.textView);
@@ -452,7 +459,7 @@ Button bb;
 
 
         mydatabase.execSQL("UPDATE TABLES SET KATEILHMENO=0,IDPARAGG=0 WHERE ONO='" + skTrapezi + "'");
-        mydatabase.execSQL("UPDATE PARAGGMASTER SET CH2= datetime('now','localtime'),AJIA=0 ,TROPOS=2  WHERE ID=" + idpar);
+        mydatabase.execSQL("UPDATE PARAGGMASTER SET CH2= datetime('now','localtime'),AJIA=0 ,TROPOS="+tropos+"   WHERE ID=" + idpar);
   mydatabase.close();
 
 
