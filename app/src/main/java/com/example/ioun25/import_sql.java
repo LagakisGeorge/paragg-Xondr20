@@ -704,7 +704,7 @@ cursor2.moveToFirst() ;
             Toast.makeText(getApplicationContext(), "1A.XAR1 ok", Toast.LENGTH_SHORT).show();
 
 
-            mydatabase.execSQL("CREATE TABLE IF NOT EXISTS PARAGGMASTER( ID int primary key, TRAPEZI nvarchar(25),"+
+    /*        mydatabase.execSQL("CREATE TABLE IF NOT EXISTS PARAGGMASTER( ID int primary key, TRAPEZI nvarchar(25),"+
 	"[IDERGAZ] [int] ,"+
 	"[HME] [datetime] ,"+
 	"[IDBARDIA] [int] ,"+
@@ -715,7 +715,7 @@ cursor2.moveToFirst() ;
 	"[CH1] [nvarchar](255) ,"+
 	"[CH2] [nvarchar](255) )");
 
-
+*/
 
 
 
@@ -840,6 +840,14 @@ cursor2.moveToFirst() ;
                     "[ID] integer PRIMARY KEY )";
 
             mydatabase.execSQL(c);
+            mydatabase.execSQL("INSERT INTO PARAGGMASTER (ID,TRAPEZI) VALUES(1,'00');");
+
+            c="CREATE TABLE BARDIA( ID integer PRIMARY KEY, HME datetime, IDERGAZ int, [NUM1] [int] ,"+
+	"[NUM2] [int] , [CH1] [nvarchar](25) , [CH2] [nvarchar](25) , [ISOPEN] [int] , [OPENH] [nvarchar](25) ," +
+	"[CLOSEH] [nvarchar](25) ,[CASHTOT] [int] ,[CASH1] [int] ,[CASH2] [int] ,[CASH3] [int] ,[CASH4] [int] ,[CASH5] [int])" ;
+
+            mydatabase.execSQL(c);
+
 
             Toast.makeText(getApplicationContext(), "5.PARAGGMASTER ok", Toast.LENGTH_SHORT).show();
 
