@@ -146,7 +146,9 @@ separated[1]; // this will contain " they taste good"
 
            }
        }
-        moviesList=(GridView)findViewById(R.id.listmaster);
+       // δεν χρειαζεται
+        moviesList=findViewById(R.id.listmaster);  //kathgories eidon
+
 
        // γεμισμα της λιστας ειδώ
      /*   List<String> values=new ArrayList<>();
@@ -158,6 +160,7 @@ separated[1]; // this will contain " they taste good"
                 new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, values);
         moviesList.setAdapter(arrayAdapter);
      */
+
         create_kathg();
 
         handler2 = new Handler(new Handler.Callback() {
@@ -247,7 +250,16 @@ separated[1]; // this will contain " they taste good"
                  *You Can use parameters like position,view or id to
                  *Customize your action
                  */
-                alertDialog();
+
+                Object o = Paragg.getItemAtPosition(position);
+                // pelOrder_Items.add(o.toString() );
+
+                //ShowDisplay(o.toString());  // ονομα κατηγοριας
+
+
+
+
+                alertDialog(position);
                 return false;
             }
         });
@@ -374,20 +386,121 @@ separated[1]; // this will contain " they taste good"
    */
 
 
-    private void alertDialog() {
+    public void show_paraggelia(){
+
+        ArrayAdapter<String> OarrayAdapter;
+
+        OarrayAdapter= new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, EIDH_PARAGG)
+                //-------------------- arxh  αυτο το κομματι βαζει πλαισια στο gridview
+        {
+            public View getView(int position, View convertView, ViewGroup parent) {
+
+                // Return the GridView current item as a View
+                View view = super.getView(position,convertView,parent);
+
+                // Convert the view as a TextView widget
+                TextView tv = (TextView) view;
+
+                //tv.setTextColor(Color.DKGRAY);
+
+                // Set the layout parameters for TextView widget
+                RelativeLayout.LayoutParams lp =  new RelativeLayout.LayoutParams(
+                        RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.MATCH_PARENT
+                );
+                tv.setLayoutParams(lp);
+
+                // Get the TextView LayoutParams
+                RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams)tv.getLayoutParams();
+
+                // Set the width of TextView widget (item of GridView)
+                /*
+                    IMPORTANT
+                        Adjust the TextView widget width depending
+                        on GridView width and number of columns.
+
+                        GridView width / Number of columns = TextView width.
+
+                        Also calculate the GridView padding, margins, vertical spacing
+                        and horizontal spacing.
+                 */
+
+
+                Resources r = order.this.getResources();
+                int  px = (int) (TypedValue.applyDimension(
+                        TypedValue.COMPLEX_UNIT_DIP, 100, r.getDisplayMetrics()));
+                // tv.setLayoutParams(new GridView.LayoutParams((width/10)*6, 50));
+
+                // if (position==0 || position==5) {
+                // params.width = px/2;  // getPixelsFromDPs(EpiloghEid.this,168);
+                //   tv.setLayoutParams(new GridView.LayoutParams((px*6), 100));
+                // }else{
+                params.width = px;  // getPixelsFromDPs(EpiloghEid.this,168);
+                // }
+
+
+                // Set the TextView layout parameters
+                tv.setLayoutParams(params);
+
+                // Display TextView text in center position
+                tv.setGravity(Gravity.CENTER);
+
+                // Set the TextView text font family and text size
+                tv.setTypeface(Typeface.SANS_SERIF, Typeface.NORMAL);
+                tv.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 12);
+
+                // Set the TextView text (GridView item text)
+                tv.setText(EIDH_PARAGG.get(position));
+
+                // Set the TextView background color
+                tv.setBackgroundColor(Color.parseColor("#d9d5dc"));
+
+                // Return the TextView widget as GridView item
+                return tv;
+            }
+        };
+
+
+
+// telos αυτο το κομματι βαζει πλαισια στο gridview
+        //  ArrayAdapter<String> arrayAdapter =
+        //      new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, Order_Items);
+        Paragg.setAdapter(OarrayAdapter);
+
+
+    }
+
+
+
+
+    private void alertDialog(int position) {
         AlertDialog.Builder dialog=new AlertDialog.Builder(this);
-        dialog.setMessage("Please Select any option");
+        dialog.setMessage("Να διαγραφεί;");
         dialog.setTitle("Dialog Box");
-        dialog.setPositiveButton("YES",
+        final int n;
+        n=position-position%5;
+        dialog.setPositiveButton("Ναι",
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog,
                                         int which) {
                         Toast.makeText(getApplicationContext(),"Yes is clicked",Toast.LENGTH_LONG).show();
+                        EIDH_PARAGG.remove(n);
+                        EIDH_PARAGG.remove(n);
+                        EIDH_PARAGG.remove(n);
+                        EIDH_PARAGG.remove(n);
+                        EIDH_PARAGG.remove(n);
+
+                        show_paraggelia();
+
+
+
+
+
+
 
                     }
 
                 });
-        dialog.setNegativeButton("cancel",new DialogInterface.OnClickListener() {
+        dialog.setNegativeButton("Οχι",new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 Toast.makeText(getApplicationContext(),"cancel is clicked",Toast.LENGTH_LONG).show();
@@ -564,6 +677,9 @@ separated[1]; // this will contain " they taste good"
             e.printStackTrace();
         }
     }
+
+
+
 // ανεβαζει στο Paragg apo to ton pinaka pelOrder_Items
     public void create_order (int position) {
 
@@ -640,7 +756,8 @@ separated[1]; // this will contain " they taste good"
         String s = "0";  // αριθμος παργγελιας
         String Q;
         // αν ειναι νέα παραγγελία
-        if (fYparxSeires ==0) {
+        // "INSERT INTO PARAGGMASTER (TRAPEZI,HME,IDBARDIA,CH1) VALUES ('" + p_Trapezi + "'," + MDATE + "," + Str(gBardia) + ",'" + Format(Now(), "hh:mm") + "' )"
+        if (fYparxSeires ==0) {    //"+trapezia.idBardia+"
             Q = "INSERT INTO PARAGGMASTER (TRAPEZI,IDBARDIA,CH1) VALUES ('" + tr + "',1,datetime('now','localtime'))";
 
             mydatabase.execSQL(Q);
