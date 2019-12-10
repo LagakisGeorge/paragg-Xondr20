@@ -19,55 +19,78 @@
         android:id="@+id/button16"
         android:onClick="SendEidos"
         android:layout_toRightOf="@+id/trapezi"
-
-
         android:layout_width="wrap_content"
         android:layout_height="30dp"
+        android:layout_marginStart="0dp"
+        android:layout_marginLeft="2dp"
+        android:background="#4CAF50"
+        android:text="ΟΚ" />
 
+    <Button
+        android:id="@+id/KENO1"
+        android:onClick="SendEidos"
+        android:layout_toRightOf="@+id/button16"
+        android:layout_width="40dp"
+        android:layout_height="30dp"
         android:layout_marginStart="0dp"
         android:layout_marginLeft="2dp"
 
-        android:background="#4CAF50"
+        android:text="  " />
 
 
+    <Button
+        android:id="@+id/SYN"
+        android:layout_width="46dp"
+        android:layout_height="27dp"
+        android:layout_marginStart="0dp"
+        android:layout_marginLeft="2dp"
+        android:layout_toRightOf="@+id/KENO1"
+        android:background="#8c898f"
+        android:onClick="protheto1"
+        android:text="+" />
 
+    <TextView
+        android:id="@+id/tem"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/SYN"
+        android:text="1" />
 
-        android:text="ΟΚ" />
+    <Button
+        android:id="@+id/PLHN"
+        android:layout_width="46dp"
+        android:layout_height="27dp"
+        android:layout_marginStart="0dp"
+        android:layout_marginLeft="2dp"
+        android:layout_toRightOf="@+id/tem"
+        android:background="#8c898f"
+        android:onClick="afairo1"
+        android:text="-" />
 
+    <Button
+        android:id="@+id/KENO2"
+        android:onClick="SendEidos"
+        android:layout_toRightOf="@+id/PLHN"
+        android:layout_width="40dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="0dp"
+        android:layout_marginLeft="2dp"
 
-
-
+        android:text="  " />
 
     <Button
         android:id="@+id/button17"
         android:onClick="Akyro_Prosu"
-        android:layout_toRightOf="@+id/button16"
-
+        android:layout_toRightOf="@+id/KENO2"
         android:layout_width="wrap_content"
         android:layout_height="30dp"
-
         android:layout_marginStart="0dp"
         android:layout_marginLeft="2dp"
-
         android:background="@color/colorAccent"
-
-
         android:text="Ακυρο" />
 
-    <Button
-        android:id="@+id/button18"
-        android:layout_toRightOf="@+id/button17"
-        android:text="Button3"
 
-        android:layout_width="wrap_content"
-        android:layout_height="30dp"
 
-        android:layout_marginStart="0dp"
-        android:layout_marginLeft="2dp"
-
-        android:background="#8c898f"
-
-        />
 
     <TextView
         android:id="@+id/TextEidos"
@@ -120,12 +143,6 @@
         android:gravity="left"
         android:layout_below="@+id/prosu"
          />
-
-
-
-
-
-
 
 
 

@@ -1,64 +1,43 @@
 package com.example.ioun25;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
 
 import android.database.Cursor;
 import android.database.sqlite.SQLiteAccessPermException;
 import android.database.sqlite.SQLiteDatabase;
-import android.Manifest;
-import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.os.Environment;
 import android.os.Handler;
 import android.os.Bundle;
 import android.os.Message;
 import android.os.StrictMode;
-import android.print.PrintManager;
-import android.util.Log;
-import android.util.Xml;
 import android.view.ContextMenu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.GridView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.BufferedReader;
-import java.io.DataOutputStream;
-import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
-import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
-import java.net.ConnectException;
 import java.net.Socket;
 import java.net.UnknownHostException;
 import java.nio.ByteBuffer;
 import java.nio.CharBuffer;
 import java.nio.charset.Charset;
 import java.nio.charset.CharsetEncoder;
-import java.security.Policy;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     //  StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
@@ -84,6 +63,11 @@ public class MainActivity extends AppCompatActivity {
 
     public static ArrayList<String> pel3;
     public static ArrayList<String> pelKathg;
+    public static int gYparxoyses ;
+    public static String idBardia="0";
+
+
+
     public String arr[][];
 
 
@@ -158,7 +142,7 @@ public class MainActivity extends AppCompatActivity {
         /** Called when the user taps the Send button */
 
 
-        bb = (Button) findViewById(R.id.button2);
+     /*   bb = (Button) findViewById(R.id.parametroi);
         bb.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -174,48 +158,7 @@ public class MainActivity extends AppCompatActivity {
                 aThread.start();
             }
         });
-
-
-//==============  BUTTON  ΤΡΑΠΕΖΙΩΝ ========================================
-        button = (Button) findViewById(R.id.button);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-
-                pel.clear();
-
-                Runnable aRunnable = new Runnable() {
-                    public void run() {
-                        ResultSet rs = getData("SELECT ONO,KATEILHMENO,NUM1  FROM TABLES where NUM1=2");
-                        try {
-                            while (rs.next()) {
-                                //  System.out.println(rs.getString("EPO"));
-                                if (1 == rs.getInt("KATEILHMENO")) {
-                                    pel.add(rs.getString("ONO") + "----------");
-                                } else {
-                                    pel.add(rs.getString("ONO"));
-                                }
-                                //  Pelatis=rs.getString("ONO");
-                            }
-                        } catch (SQLException e) {
-                            e.printStackTrace();
-                        }
-
-                        handler2.sendEmptyMessage(0);
-                    }
-                };
-
-                Thread aThread = new Thread(aRunnable);
-                aThread.start();
-
-                //while ( bT.getText().toString()=="*"){
-                android.os.SystemClock.sleep(1000);
-                // };
-                Toast.makeText(getApplicationContext(), "Hello Javatpoint", Toast.LENGTH_SHORT).show();
-
-            }
-        });
+*/
 
 
 
@@ -237,39 +180,19 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-// ΤΥΠΩΝΕΙ ΕΝΑ ΚΕΙΜΕΝΟ
+// //debug    ΤΥΠΩΝΕΙ ΕΝΑ ΚΕΙΜΕΝΟ
     public void print_text(View view) {
-
-
-
-
-
-
-
-
-
-
-
-
 
         try {
             Socket sock = new Socket("192.168.1.202", 9100);
             PrintWriter oStream = new PrintWriter(sock.getOutputStream());
-
-
             String s6 = "λαγακης";
             String out = new String(s6.getBytes("UTF-8"), "ISO-8859-7");
             oStream.println(out);
 
 Character c=(char) 27;
 String d=""+c+"t15";
-
-
           //  oStream.println((char) 27);
-
-
-
-
             oStream.println("HI,test from Android Device");
             oStream.println("λσαδσξδΞΣΔΞΑΔΞΕΙΞΔΣΞΦΔΨΝΔΞΦ");
             String s = "ΛΑΓΑΚΗΣ ΓΕΩΡΓΙΟΣ,test from Android Device";// text returned by web service taking it as static for testing
@@ -295,8 +218,6 @@ String d=""+c+"t15";
 
                 oStream.println((char) i);
         }
-
-
         //    String str = new String(s.getBytes("ISO-8859-7"), "utf-8");
             //  String str = new String(s.getBytes(), "ISO-8859-7");
          //   oStream.println(str);
@@ -311,11 +232,9 @@ String d=""+c+"t15";
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-
     }
 
-
+    //debug
     public void report (View view){
 
 
@@ -412,6 +331,13 @@ String d=""+c+"t15";
 
 
 
+
+
+
+
+
+
+
     // convert internal Java String format to UTF-8
     public static String convertStringToUTF8(String s) {
         String out = null;
@@ -423,7 +349,7 @@ String d=""+c+"t15";
         return out;
     }
 
-    public String toGreek(String lexh){
+    public static String toGreek(String lexh){
         int i;
         String cc="";
         String c;
@@ -847,78 +773,6 @@ s="αβγδεζηθικλμνξοπρστυφχψωΑΒΓΔΕΖΗΘΙΚΛΜΝΞ�
 
     }
 
-//******************************   SQLLITE DATABASE   ********************************
-    public void login (View view) {
-
-        SQLiteDatabase mydatabase=null;
-        Integer n=0;
-
-        try{
-            mydatabase = openOrCreateDatabase("logins",MODE_PRIVATE,null);
-            mydatabase.execSQL("CREATE TABLE IF NOT EXISTS users(Username VARCHAR,Password VARCHAR);");
-
-            Cursor cursor = mydatabase.rawQuery("select count(*) from  users", null);
-
-            // looping through all rows and adding to list
-            if (cursor.moveToFirst()) {
-                do {
-                   n= Integer.parseInt(cursor.getString(0));
-                   // movies.add(cursor.getString(0));
-                } while (cursor.moveToNext());
-            }
-
-            if (n<12){
-                mydatabase.execSQL("INSERT INTO users VALUES('s4','004');");
-                mydatabase.execSQL("INSERT INTO users VALUES('s5','005');");
-                mydatabase.execSQL("INSERT INTO users VALUES('s6','006');");
-                mydatabase.execSQL("INSERT INTO users VALUES('s6','006');");
-
-            }
-            // ψαχνω να βρω τον κωδικο που εβαλε
-             EditText pw;
-            pw=(EditText) findViewById(R.id.editText);
-            String cpw = pw.getText().toString();
-            Cursor cursor2 = mydatabase.rawQuery("select * from  users", null);
-
-          //   Integer kodikos_ok=0;
-            // looping through all rows and adding to list
-            if (cursor2.moveToFirst()) {
-                do {
-
-                    if(Integer.parseInt(cpw)==Integer.parseInt(cursor2.getString(1))) {
-                        kodikos_ok=1;
-                        Toast.makeText(getApplicationContext(),"ok",Toast.LENGTH_SHORT).show();
-                    }
-                } while (cursor2.moveToNext());
-            }
-
-
-            if(kodikos_ok==0) {
-
-                Toast.makeText(getApplicationContext(),"λαθος",Toast.LENGTH_SHORT).show();
-            }
-
-            //  mydb = new DBHelper(this);
-            //   int eggrafes=mydb.numberOfRows();
-            //  Toast.makeText(getApplicationContext(),eggrafes,Toast.LENGTH_SHORT).show();
-        } catch (SQLiteAccessPermException e) {
-            e.printStackTrace();
-        }
-
-/*
-        Cursor cursor = mydatabase.rawQuery("select * from  TutorialsPoint", null);
-        // looping through all rows and adding to list
-        if (cursor.moveToFirst()) {
-            do {
-                movies.add(cursor.getString(0));
-            } while (cursor.moveToNext());
-        }
-        ArrayAdapter<String> arrayAdapter =
-                new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, movies);
-        moviesList.setAdapter(arrayAdapter);
-*/
-    }
-
 
 
 
@@ -1013,7 +867,7 @@ s="αβγδεζηθικλμνξοπρστυφχψωΑΒΓΔΕΖΗΘΙΚΛΜΝΞ�
 
 
 
-    public void click7 (View view) {
+  /*  public void click7 (View view) {
 
         Intent intent = new Intent(this, trapezia.class);
         EditText editText = (EditText) findViewById(R.id.editText);
@@ -1022,6 +876,39 @@ s="αβγδεζηθικλμνξοπρστυφχψωΑΒΓΔΕΖΗΘΙΚΛΜΝΞ�
         startActivity(intent);
         // Do something in response to button
     };
+*/
+
+    public void PARAMETROI (View view) {
+
+        Intent intent = new Intent(this, parameters.class);
+      //  EditText editText = (EditText) findViewById(R.id.editText);
+        String message2 ="---" ;// EditText.GetText().toString();
+        intent.putExtra(EXTRA_MESSAGE, message2);
+        startActivity(intent);
+        // Do something in response to button
+    };
+
+    public void KATHGORIES_intent (View view) {
+
+        Intent intent = new Intent(this, KATHGORIES.class);
+        //  EditText editText = (EditText) findViewById(R.id.editText);
+        String message2 ="---" ;// EditText.GetText().toString();
+        intent.putExtra(EXTRA_MESSAGE, message2);
+        startActivity(intent);
+        // Do something in response to button
+    };
+
+
+    public void GENERAL (View view) {
+
+        Intent intent = new Intent(this, GENERALPARAMETERS.class);
+        //  EditText editText = (EditText) findViewById(R.id.editText);
+        String message2 ="---" ;// EditText.GetText().toString();
+        intent.putExtra(EXTRA_MESSAGE, message2);
+        startActivity(intent);
+        // Do something in response to button
+    };
+
 
 
     private void start( String k ) {

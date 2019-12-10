@@ -39,11 +39,15 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import static com.example.ioun25.MainActivity.EXTRA_MESSAGE;
 import static com.example.ioun25.MainActivity.gYparxoyses;
+import static com.example.ioun25.MainActivity.idBardia;
 import static com.example.ioun25.MainActivity.toGreek;
 import static java.lang.Double.parseDouble;
 import static java.util.jar.Pack200.Packer.PASS;
@@ -480,6 +484,10 @@ separated[1]; // this will contain " they taste good"
 
 
     private void alertDialog(int position) {
+        if (position>gYparxoyses){
+            Toast.makeText(getApplicationContext(),"ΕΧΕΙ ΗΔΗ ΚΑΤΑΧΩΡΗΘΕΙ",Toast.LENGTH_LONG).show();
+            return;
+        }
         AlertDialog.Builder dialog=new AlertDialog.Builder(this);
         dialog.setMessage("Να διαγραφεί;");
         dialog.setTitle("Dialog Box");
@@ -510,7 +518,7 @@ separated[1]; // this will contain " they taste good"
         dialog.setNegativeButton("Οχι",new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                Toast.makeText(getApplicationContext(),"cancel is clicked",Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(),"ΑΚΥΡΩΣΗ",Toast.LENGTH_LONG).show();
             }
         });
         AlertDialog alertDialog=dialog.create();
@@ -764,8 +772,8 @@ separated[1]; // this will contain " they taste good"
         String Q;
         // αν ειναι νέα παραγγελία
         // "INSERT INTO PARAGGMASTER (TRAPEZI,HME,IDBARDIA,CH1) VALUES ('" + p_Trapezi + "'," + MDATE + "," + Str(gBardia) + ",'" + Format(Now(), "hh:mm") + "' )"
-        if (gYparxoyses ==0) {    //"+trapezia.idBardia+"
-            Q = "INSERT INTO PARAGGMASTER (TRAPEZI,IDBARDIA,CH1) VALUES ('" + tr + "',1,datetime('now','localtime'))";
+        if (gYparxoyses ==0) {    //"+idBardia+"
+            Q = "INSERT INTO PARAGGMASTER (AJIA,TRAPEZI,IDBARDIA,CH1) VALUES (0,'" + tr + "',"+idBardia+",datetime('now','localtime'))";
 
             mydatabase.execSQL(Q);
 
@@ -802,13 +810,16 @@ Double sum=0.0;
             PrintWriter oStream = new PrintWriter(sock.getOutputStream());
             int typose=0;
 
+            SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss", Locale.getDefault());  //"yyyyMMdd_HHmmss"
+            String cur = sdf.format(new Date());
+
         for(int i = gYparxoyses; i<EIDH_PARAGG.size();i=i+5)//
         {
 
             if (i == gYparxoyses){
 
 
-                oStream.println(toGreek("ΤΡΑΠΕΖΙ No ")+tr);
+                oStream.println(toGreek("ΤΡΑΠΕΖΙ No ")+tr+"  "+cur);
                 oStream.println(toGreek("=================="));
                 typose=1;
             }
@@ -847,6 +858,8 @@ Double sum=0.0;
         csum = csum.replace(",", ",");
 
         mydatabase.execSQL("UPDATE TABLES SET CH1='"+csum+"',KATEILHMENO=1,IDPARAGG=" + s + " WHERE ONO='" + tr + "'"   );
+
+        mydatabase.execSQL("UPDATE PARAGGMASTER SET AJIA=AJIA+"+csum+" WHERE ID=" + s  );
 
 
         mydatabase.close();
@@ -933,6 +946,8 @@ Double sum=0.0;
         Socket sock = new Socket("192.168.1.202", 9100);
         PrintWriter oStream = new PrintWriter(sock.getOutputStream());
         int typose=0;
+        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss", Locale.getDefault());  //"yyyyMMdd_HHmmss"
+        String cur = sdf.format(new Date());
 
         for(int i = 0; i<EIDH_PARAGG.size();i=i+5)//
         {
@@ -940,13 +955,15 @@ Double sum=0.0;
             if (i == 0){
 
 
-                oStream.println(toGreek("ΤΡΑΠΕΖΙ No ")+tr);
-                oStream.println(toGreek("=================="));
+                oStream.println(toGreek("ΤΡΑΠΕΖΙ No ")+tr+"   "+cur);
+                oStream.println(toGreek("==========================================="));
                 typose=1;
             }
             String c=toGreek(EIDH_PARAGG.get(i))+"                                   ";
+            String timh=Double.toString(parseDouble(EIDH_PARAGG.get(i+2)))+"                                   ";
              double mer=  parseDouble(EIDH_PARAGG.get(i+1))*parseDouble(EIDH_PARAGG.get(i+2));
-            oStream.println(c.substring(0,25)+"  "+EIDH_PARAGG.get(i+1)+"X"+EIDH_PARAGG.get(i+2)+"="+Double.toString(mer));
+
+            oStream.println(c.substring(0,30)+"  "+EIDH_PARAGG.get(i+1)+"X"+timh.substring(0,5)+"="+Double.toString(mer));
 
 
 
@@ -955,8 +972,8 @@ Double sum=0.0;
 
         if (typose==1){
 
-            oStream.println("=========================================");
-            oStream.println("                                  "+Double.toString(sum)+"");
+            oStream.println("===========================================");
+            oStream.println("                                       "+Double.toString(sum));
             oStream.println("\n\n\n");
             oStream.println("\n\n\n");
 

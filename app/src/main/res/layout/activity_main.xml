@@ -2,78 +2,28 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="@drawable/register_table"
+
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <EditText
-        android:id="@+id/editText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_marginEnd="-1dp"
-        android:layout_marginRight="-1dp"
-        android:layout_toRightOf="@+id/textView2"
-        android:ems="10"
-        android:inputType="textPersonName" />
-
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="79dp"
-        android:layout_height="38dp"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_marginTop="7dp"
-        android:layout_marginEnd="108dp"
-        android:layout_marginRight="108dp"
-        android:text="Κωδικός" />
-
-    <Button
-        android:id="@+id/load"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/textView2"
-        android:layout_centerHorizontal="true"
-        android:layout_marginStart="9dp"
-        android:layout_marginLeft="9dp"
-        android:layout_marginTop="16dp"
-        android:onClick="login"
-        android:text="login" />
-    <Button
-        android:id="@+id/button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/load"
-        android:layout_marginTop="0dp"
-        android:text="φορτωμα τραπεζιων" />
-
-    <Button
-        android:id="@+id/button3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/button"
-        android:layout_marginTop="-50dp"
-        android:layout_toRightOf="@+id/button"
-        android:onClick="report"
-        android:text="φορτωμα ειδων" />
-
     <Button
         android:id="@+id/trapezia"
-        android:layout_width="wrap_content"
+        android:layout_width="399dp"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/button3"
-        android:layout_centerHorizontal="true"
+
+        android:layout_marginTop="7dp"
         android:onClick="click6"
         android:text="trapezia" />
 
     <Button
-        android:id="@+id/button2"
-        android:layout_width="wrap_content"
-        android:layout_height="45dp"
+        android:id="@+id/parametroi"
+        android:layout_width="132dp"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/trapezia"
-        android:layout_centerHorizontal="true"
-        android:text="πελατες" />
+        android:layout_marginTop="0dp"
+        android:onClick="PARAMETROI"
+        android:text="ΠΑΡΑΜΕΤΡΟΙ" />
 
     <TextView
         android:id="@+id/hello"
@@ -83,16 +33,31 @@
         android:layout_centerHorizontal="true"
         android:text="TextView" />
 
+
     <Button
-        android:id="@+id/button8"
-        android:layout_width="wrap_content"
+        android:id="@+id/KATHGORIES"
+        android:layout_width="124dp"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/button9"
+        android:layout_below="@+id/SQL"
 
         android:layout_marginTop="4dp"
 
 
-        android:text="list items" />
+        android:onClick="KATHGORIES_intent"
+        android:text="ΚΑΤΗΓΟΡΙΕΣ" />
+
+
+    <Button
+        android:id="@+id/GENERAL"
+        android:layout_width="216dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/SQL"
+
+
+        android:layout_marginTop="2dp"
+        android:layout_toRightOf="@+id/KATHGORIES"
+        android:onClick="GENERAL"
+        android:text="ΡΥΘΜΙΣΕΙΣ" />
 
     <ListView
         android:id="@+id/list1"
@@ -102,29 +67,21 @@
         android:layout_marginTop="268dp" />
 
     <Button
-        android:id="@+id/button9"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="print_order"
-        android:text="τεστ πριντButton" />
-
-    <Button
-        android:id="@+id/button12"
+        android:id="@+id/SQL"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/trapezia"
-        android:layout_toRightOf="@+id/button2"
+        android:layout_toRightOf="@+id/parametroi"
         android:onClick="formaSQL"
         android:text="sql" />
 
     <Button
-        android:id="@+id/reports"
+        android:id="@+id/REPORT"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/button3"
-        android:layout_toRightOf="@+id/trapezia"
+        android:layout_height="50dp"
+        android:layout_below="@+id/trapezia"
+        android:layout_toRightOf="@+id/SQL"
         android:onClick="report"
-        android:text="Reports" />
-
+        android:text="report" />
 
 </RelativeLayout>

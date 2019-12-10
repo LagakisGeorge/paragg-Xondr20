@@ -61,7 +61,7 @@ public class reports2 extends AppCompatActivity {
             values.add("τραπεζι");
             values.add("ωρα");
             values.add("πληρωμη");
-            values.add("Αία");
+            values.add("Αξία");
             values.add("ID ΠΑΡΑΓΓ");
 
 

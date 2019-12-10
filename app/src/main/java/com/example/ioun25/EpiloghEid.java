@@ -111,12 +111,32 @@ public class EpiloghEid extends AppCompatActivity {
     }
 
 
+    // σβηνω τις επιλογές πρόσθετων
+    public void protheto1 (View view){
+        TextView tem=(TextView)findViewById(R.id.tem);  // π.χ. μετριος,καστανη
+        Integer n=Integer.parseInt(tem.getText().toString());
+        tem.setText(Integer.toString(n+1));
+    }
+
+
+    // σβηνω τις επιλογές πρόσθετων
+    public void afairo1 (View view){
+        TextView tem=(TextView)findViewById(R.id.tem);  // π.χ. μετριος,καστανη
+        Integer n=Integer.parseInt(tem.getText().toString());
+        tem.setText(Integer.toString(n-1));
+    }
+
+
+
+
+
 
     // στελνει το ειδος στο intent order
     public void SendEidos (View view){
+        TextView tem =findViewById(R.id.tem);
 
         EIDH_PARAGG.add(arr_ono[Eidos_position]);
-        EIDH_PARAGG.add("1");
+        EIDH_PARAGG.add(tem.getText().toString());
         EIDH_PARAGG.add(arr_timh[Eidos_position]);
 
 

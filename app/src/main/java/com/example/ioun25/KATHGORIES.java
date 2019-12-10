@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridView;
 
@@ -24,7 +25,7 @@ public class KATHGORIES extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_parameters);
+        setContentView(R.layout.activity_kathgories);
         // ΔΙΑΛΕΓΩ ΤΟ ΤΡΑΠΕΖΙ ΠΟΥ ΘΕΛΩ
         moviesList=(GridView)findViewById(R.id.listEidhp);
         moviesList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -90,13 +91,14 @@ public class KATHGORIES extends AppCompatActivity {
     }
 
     public void DELETE (View view) {
+        Button test=findViewById(R.id.DELETE_KATHG);
         EditText t1 = findViewById(R.id.t1);
         EditText t2 = findViewById(R.id.t2);
         EditText t4 = findViewById(R.id.t4);
         SQLiteDatabase mydatabase = null;
 
         mydatabase = openOrCreateDatabase("eidh", MODE_PRIVATE, null);
-        mydatabase.execSQL("DELETE FROM  EIDH  where ID=" + fID);
+        mydatabase.execSQL("DELETE FROM  xar1  where ID=" + fID);
 
         Show();
     }

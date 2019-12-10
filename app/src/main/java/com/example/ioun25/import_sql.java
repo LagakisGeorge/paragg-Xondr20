@@ -693,13 +693,20 @@ cursor2.moveToFirst() ;
 
 
 
-            mydatabase.execSQL("CREATE TABLE IF NOT EXISTS XAR1 (ID [int]  ,"+
+            mydatabase.execSQL("CREATE TABLE IF NOT EXISTS XAR1 (ID  INTEGER PRIMARY KEY  ,"+
                     "[KOD] [int] ,"+
                     "[ONO] [nvarchar](55)  ); ");
 
 
-        //    mydatabase.execSQL("INSERT INTO XAR1 (ONO,ID) VALUES('104',1);");
-          //  mydatabase.execSQL("INSERT INTO XAR1 (ONO,ID) VALUES('105',2);");
+
+            mydatabase.execSQL("CREATE TABLE IF NOT EXISTS MEM (ID  INTEGER PRIMARY KEY  ,"+
+                    "[KOD] [int] ,"+
+                    "[ACCESSCODE][nvarchar](155) ,"+
+                    "[IPSQL][nvarchar](155) ,"+
+                    "[IPPRINTER] [nvarchar](155)  ); ");
+
+          //  mydatabase.execSQL("INSERT INTO MEM (ONO,KOD) VALUES('192.168.1.202',1);");
+            mydatabase.execSQL("INSERT INTO MEM (IPPRINTER,IPSQL,ACCESSCODE) VALUES('192.168.1.202',  '192.168.1.7:49705/BAR;instance=SQLEXPRESS;','1');");
 
             Toast.makeText(getApplicationContext(), "1A.XAR1 ok", Toast.LENGTH_SHORT).show();
 
@@ -723,23 +730,22 @@ cursor2.moveToFirst() ;
 
 
 
-            mydatabase.execSQL("CREATE TABLE IF NOT EXISTS EIDH( [KOD] [int],\n" +
-                    "\t[ONO] [nvarchar](255) ,\n" +
-                    "\t[XAR1] [int] ,\n" +
-                    "\t[XAR2] [int] ,\n" +
-                    "\t[CH1] [nvarchar](255) ,\n" +
-                    "\t[CH2] [nvarchar](255) ,\n" +
-                    "\t[NUM1] [int] ,\n" +
-                    "\t[NUM2] [int] ,\n" +
-                    "\t[TIMH] [real] ,\n" +
-                    "\t[KATHG] [int] ,\n" +
-                    "\t[PICTURE] [nvarchar](255) ,\n" +
-                    "\t[ID] [int]  );");
+            mydatabase.execSQL("CREATE TABLE IF NOT EXISTS EIDH( ID  INTEGER PRIMARY KEY,KOD [int]," +
+                    "[ONO] [nvarchar](255) ," +
+                    "[XAR1] [int] ," +
+                    "[XAR2] [int] ," +
+                    "[CH1] [nvarchar](55) ," +
+                    "[CH2] [nvarchar](55) ," +
+                    "[NUM1] [int] ," +
+                    "[NUM2] [int] ," +
+                    "[TIMH] [real] ," +
+                    "[KATHG] [int] ," +
+                    "[PICTURE] [nvarchar](55) );");
 
 
             Toast.makeText(getApplicationContext(), "1.EIDH ok", Toast.LENGTH_SHORT).show();
 
-            mydatabase.execSQL("CREATE TABLE IF NOT EXISTS KATHG (ID [int] ,"+
+            mydatabase.execSQL("CREATE TABLE IF NOT EXISTS KATHG (ID  INTEGER PRIMARY KEY ,"+
                     "[KOD] [int] ,"+
                     "[ONO] [nvarchar](55) ,"+
                     "[PICTURE] [nvarchar](55) ,"+
@@ -840,9 +846,9 @@ cursor2.moveToFirst() ;
                     "[ID] integer PRIMARY KEY )";
 
             mydatabase.execSQL(c);
-            mydatabase.execSQL("INSERT INTO PARAGGMASTER (ID,TRAPEZI) VALUES(1,'00');");
 
-            c="CREATE TABLE BARDIA( ID integer PRIMARY KEY, HME datetime, IDERGAZ int, [NUM1] [int] ,"+
+
+            c="CREATE TABLE IF NOT EXISTS  BARDIA( ID integer PRIMARY KEY, HME datetime, IDERGAZ int, [NUM1] [int] ,"+
 	"[NUM2] [int] , [CH1] [nvarchar](25) , [CH2] [nvarchar](25) , [ISOPEN] [int] , [OPENH] [nvarchar](25) ," +
 	"[CLOSEH] [nvarchar](25) ,[CASHTOT] [int] ,[CASH1] [int] ,[CASH2] [int] ,[CASH3] [int] ,[CASH4] [int] ,[CASH5] [int])" ;
 
@@ -867,10 +873,10 @@ cursor2.moveToFirst() ;
                 mydatabase.execSQL("INSERT INTO EIDH (KOD,ONO,XAR1) VALUES('s4','004',1);");
             }
             // ψαχνω να βρω τον κωδικο που εβαλε
-            EditText pw;
-            pw=(EditText) findViewById(R.id.editText);
-            String cpw ="004"; // pw.getText().toString();
-            Cursor cursor2 = mydatabase.rawQuery("select XAR1 from  EIDH", null);
+          //  EditText pw;
+          //  pw=(EditText) findViewById(R.id.editText);
+          //  String cpw ="004"; // pw.getText().toString();
+          //  Cursor cursor2 = mydatabase.rawQuery("select XAR1 from  EIDH", null);
 
 
 

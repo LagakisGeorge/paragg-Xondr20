@@ -37,7 +37,6 @@
         android:layout_below="@+id/grid2"
 
         android:layout_marginTop="2dp"
-        android:text="TextView"
         android:textSize="18sp"
         app:fontFamily="serif"
         tools:layout_editor_absoluteX="122dp"

@@ -47,8 +47,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 
+import static android.provider.AlarmClock.EXTRA_MESSAGE;
 import static androidx.recyclerview.widget.DividerItemDecoration.VERTICAL;
-import static com.example.ioun25.MainActivity.EXTRA_MESSAGE;
+
 
 //  import static com.example.ioun25.MainActivity.pel;
 
@@ -100,7 +101,7 @@ gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
         }
     });
 */
-  public static String idBardia;
+
 
   Button bb;
    // διαλεγω τραπεζι για παραγγελια ή πληρωμή
@@ -149,14 +150,20 @@ gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
         pel=new ArrayList<String>();
 
          Intent intent = getIntent();
-        String message = intent.getStringExtra(EXTRA_MESSAGE);
+        // String message = intent.getStringExtra(EXTRA_MESSAGE);
          pel = intent.getStringArrayListExtra("mpel");
         EIDH = intent.getStringArrayListExtra("mEIDH");
         KATHG = intent.getStringArrayListExtra("mKathg");
 
-        SQLiteDatabase mydatabase=null;
-        mydatabase = openOrCreateDatabase("eidh", MODE_PRIVATE, null);
-        idBardia=MainActivity.ReadSql("select MAX(id) AS CID  from BARDIA",mydatabase);
+       // SQLiteDatabase mydatabase=null;
+      //  mydatabase = openOrCreateDatabase("eidh", MODE_PRIVATE, null);
+        MainActivity.idBardia=ReadSql("select MAX(id) AS CID  from BARDIA");
+
+
+
+
+
+
 
         bb=(Button)findViewById(R.id.payment);
         bb.setOnClickListener(new View.OnClickListener() {
@@ -406,7 +413,7 @@ Payment(Long.toString(mp) ) ;
         Intent intent = new Intent(this, MainActivity.class);
         // EditText editText = (EditText) findViewById(R.id.editText);
         String message2 ="---" ;// EditText.GetText().toString();
-        intent.putExtra(EXTRA_MESSAGE, message2);
+        // intent.putExtra(EXTRA_MESSAGE, message2);
         //  intent.putExtra("mpel", pel); // ΣΤΕΛΝΩ ΤΟΝ ΠΙΝΑΚΑ ΜΕ ΤΑ ΤΡΑΠΕΖΙΑ
         //  intent.putExtra("mEIDH", pel3); // ΣΤΕΛΝΩ ΤΟΝ ΠΙΝΑΚΑ ΜΕ ΤΑ EIDH
         //  intent.putExtra("mKathg", pelKathg); // ΣΤΕΛΝΩ ΤΟΝ ΠΙΝΑΚΑ ΜΕ ΤΑ EIDH
@@ -417,6 +424,17 @@ Payment(Long.toString(mp) ) ;
 
     // call order intent
   public void Paraggelia(View view) {
+
+      trapezi = (TextView)findViewById(R.id.textView);
+
+      String skTrapezi=trapezi.getText().toString();
+      if (skTrapezi.length()==0){
+          Toast.makeText(trapezia.this,"διαλεξτε τραπεζι", Toast.LENGTH_LONG).show();
+          return ;
+      }
+
+
+
       Intent intent = new Intent(view.getContext(), order.class);
       // intent.putExtra(EXTRA_MESSAGE, o.toString());
      // String ctrapezi;
@@ -456,7 +474,7 @@ Payment(Long.toString(mp) ) ;
 
 
         mydatabase.execSQL("UPDATE TABLES SET KATEILHMENO=0,IDPARAGG=0 WHERE ONO='" + skTrapezi + "'");
-        mydatabase.execSQL("UPDATE PARAGGMASTER SET CH2= datetime('now','localtime'),AJIA=0 ,TROPOS="+tropos+"   WHERE ID=" + idpar);
+        mydatabase.execSQL("UPDATE PARAGGMASTER SET CH2= datetime('now','localtime'),TROPOS="+tropos+"   WHERE ID=" + idpar);
   mydatabase.close();
 
 
@@ -488,7 +506,7 @@ Payment(Long.toString(mp) ) ;
                     syn="";
                     if (cursor2.getShort(1)==1){
                         kat="#";
-                        syn="€"+cursor2.getString(3);
+                        syn="€   "+cursor2.getString(3);
                     }
                     values.add(kat + cursor2.getString(0)+syn);
                     arrIdParagg[n-1]=Long.toString(cursor2.getLong(2));
@@ -584,6 +602,36 @@ Payment(Long.toString(mp) ) ;
 
 
     }
+
+
+
+    public String ReadSql (String query ){
+        String x;
+        x="";
+        SQLiteDatabase mydatabase = null;
+        mydatabase = openOrCreateDatabase("eidh",MODE_PRIVATE,null);
+
+        Cursor cursor5 = mydatabase.rawQuery(query, null);
+
+
+        if (cursor5.moveToFirst()) {
+            //do {
+                x = Integer.toString(cursor5.getInt(0));
+         //   } while (cursor5.moveToNext());
+        }
+    else{
+
+    }
+
+
+
+
+
+      return x;
+    }
+
+
+
 
 
 
