@@ -30,6 +30,10 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.net.Socket;
+import java.net.UnknownHostException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -39,6 +43,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.example.ioun25.MainActivity.EXTRA_MESSAGE;
+import static com.example.ioun25.MainActivity.gYparxoyses;
+import static com.example.ioun25.MainActivity.toGreek;
 import static java.lang.Double.parseDouble;
 import static java.util.jar.Pack200.Packer.PASS;
 
@@ -85,6 +91,7 @@ public class order extends AppCompatActivity {
 
 if (null==EIDH_PARAGG) {
     fYparxSeires=0;
+    gYparxoyses=0;
 }else{
     fYparxSeires= EIDH_PARAGG.size();
 }
@@ -757,7 +764,7 @@ separated[1]; // this will contain " they taste good"
         String Q;
         // αν ειναι νέα παραγγελία
         // "INSERT INTO PARAGGMASTER (TRAPEZI,HME,IDBARDIA,CH1) VALUES ('" + p_Trapezi + "'," + MDATE + "," + Str(gBardia) + ",'" + Format(Now(), "hh:mm") + "' )"
-        if (fYparxSeires ==0) {    //"+trapezia.idBardia+"
+        if (gYparxoyses ==0) {    //"+trapezia.idBardia+"
             Q = "INSERT INTO PARAGGMASTER (TRAPEZI,IDBARDIA,CH1) VALUES ('" + tr + "',1,datetime('now','localtime'))";
 
             mydatabase.execSQL(Q);
@@ -780,20 +787,56 @@ separated[1]; // this will contain " they taste good"
 
 Double sum=0.0;
 
-        for(int i = fYparxSeires; i<EIDH_PARAGG.size();i=i+5)//
+        for(int i = gYparxoyses; i<EIDH_PARAGG.size();i=i+5)//
         {
             //String Q;
             Q="INSERT INTO PARAGG (IDPARAGG,TRAPEZI,ONO,POSO,TIMH,PROSUETA,CH2) VALUES ("+s+",'"+tr+"','"+ EIDH_PARAGG.get(i)+"',";
     Q=Q+ EIDH_PARAGG.get(i+1)+","+ EIDH_PARAGG.get(i+2)+",'"+ EIDH_PARAGG.get(i+3)+"','"+EIDH_PARAGG.get(i+4)+"');";
-
             mydatabase.execSQL(Q);
-
             sum=sum+ parseDouble(EIDH_PARAGG.get(i+1))*parseDouble(EIDH_PARAGG.get(i+2));
+        }
+
+        try {
+
+            Socket sock = new Socket("192.168.1.202", 9100);
+            PrintWriter oStream = new PrintWriter(sock.getOutputStream());
+            int typose=0;
+
+        for(int i = gYparxoyses; i<EIDH_PARAGG.size();i=i+5)//
+        {
+
+            if (i == gYparxoyses){
 
 
+                oStream.println(toGreek("ΤΡΑΠΕΖΙ No ")+tr);
+                oStream.println(toGreek("=================="));
+                typose=1;
+            }
 
+
+            oStream.println(toGreek(EIDH_PARAGG.get(i))+" X "+EIDH_PARAGG.get(i+1));
+            oStream.println("  "+ toGreek(EIDH_PARAGG.get(i+3)));
+            oStream.println("  "+ toGreek(EIDH_PARAGG.get(i+4)));
+           // oStream.println("λσαδσξδΞΣΔΞΑΔΞΕΙΞΔΣΞΦΔΨΝΔΞΦ");
+        }
+
+        if (typose==1){
+
+            oStream.println("\n\n\n");
+            oStream.println("\n\n\n");
+            oStream.println("\n\n\n");
 
         }
+
+
+            oStream.close();
+            sock.close();
+        } catch (UnknownHostException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
 
        // DecimalFormat df = new DecimalFormat("#.##");
        // sum = Double.valueOf(df.format(sum));
@@ -841,6 +884,110 @@ Double sum=0.0;
       */
 
     }
+
+
+
+    /*
+     try {
+        Socket sock = new Socket("192.168.1.202", 9100);
+        PrintWriter oStream = new PrintWriter(sock.getOutputStream());
+        String s6 = "λαγακης";
+        String out = new String(s6.getBytes("UTF-8"), "ISO-8859-7");
+        oStream.println(out);
+
+        Character c=(char) 27;
+        String d=""+c+"t15";
+        //  oStream.println((char) 27);
+        oStream.println("HI,test from Android Device");
+        oStream.println("λσαδσξδΞΣΔΞΑΔΞΕΙΞΔΣΞΦΔΨΝΔΞΦ");
+
+            oStream.println("\n\n\n");
+            oStream.close();
+            sock.close();
+        } catch (UnknownHostException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+    */
+
+
+    public void kentriko (View view){
+        Intent intent = new Intent(this, trapezia.class);
+        String message2 ="---" ;// EditText.GetText().toString();
+        startActivity(intent);
+    }
+
+
+
+
+
+public void print_logar(View view){
+Double sum=0.0;
+    TextView textView = findViewById(R.id.textView3);
+    String tr=textView.getText().toString(); // αριθμος τραπεζιού
+    try {
+
+        Socket sock = new Socket("192.168.1.202", 9100);
+        PrintWriter oStream = new PrintWriter(sock.getOutputStream());
+        int typose=0;
+
+        for(int i = 0; i<EIDH_PARAGG.size();i=i+5)//
+        {
+
+            if (i == 0){
+
+
+                oStream.println(toGreek("ΤΡΑΠΕΖΙ No ")+tr);
+                oStream.println(toGreek("=================="));
+                typose=1;
+            }
+            String c=toGreek(EIDH_PARAGG.get(i))+"                                   ";
+             double mer=  parseDouble(EIDH_PARAGG.get(i+1))*parseDouble(EIDH_PARAGG.get(i+2));
+            oStream.println(c.substring(0,25)+"  "+EIDH_PARAGG.get(i+1)+"X"+EIDH_PARAGG.get(i+2)+"="+Double.toString(mer));
+
+
+
+            sum=sum+ mer;
+        }
+
+        if (typose==1){
+
+            oStream.println("=========================================");
+            oStream.println("                                  "+Double.toString(sum)+"");
+            oStream.println("\n\n\n");
+            oStream.println("\n\n\n");
+
+        }
+
+
+        oStream.close();
+        sock.close();
+    } catch (UnknownHostException e) {
+        e.printStackTrace();
+    } catch (IOException e) {
+        e.printStackTrace();
+    }
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 // ΦΟΡΤΩΝΩ ΤΗΝ ΗΔΗ ΥΠΑΡΧΟΥΣΑ ΠΑΡΑΓΓΕΛΙΑ
@@ -926,7 +1073,7 @@ Double sum=0.0;
                 }
             }
 
-
+            gYparxoyses=fYparxSeires;
 
 
            /* if (cursor2.moveToFirst()) {
