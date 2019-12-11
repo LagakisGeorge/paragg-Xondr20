@@ -133,19 +133,28 @@ public class EpiloghEid extends AppCompatActivity {
 
     // στελνει το ειδος στο intent order
     public void SendEidos (View view){
-        TextView tem =findViewById(R.id.tem);
+        TextView eidos_poy_dialexa=findViewById(R.id.TextEidos);
+        String eidos=eidos_poy_dialexa.getText().toString();
 
-        EIDH_PARAGG.add(arr_ono[Eidos_position]);
-        EIDH_PARAGG.add(tem.getText().toString());
-        EIDH_PARAGG.add(arr_timh[Eidos_position]);
+        if (eidos.length()==0){
+        // δεν διαλεξε κανένα είδος και επιστρεφει πισω
+        }else {
+
+            TextView tem = findViewById(R.id.tem);
+
+            EIDH_PARAGG.add(arr_ono[Eidos_position]);
+            EIDH_PARAGG.add(tem.getText().toString());
+            EIDH_PARAGG.add(arr_timh[Eidos_position]);
 
 
+            String Q = TextProsu.getText().toString();
+            EIDH_PARAGG.add(Q);
+            Q = Keim.getText().toString();
+            EIDH_PARAGG.add(Q);
+
+        }
 
 
-        String Q=TextProsu.getText().toString();
-        EIDH_PARAGG.add(Q);
-        Q=Keim.getText().toString();
-        EIDH_PARAGG.add(Q);
        // EIDH_PARAGG.add("---");  // den χρειαζεται το παραγεμισμα
 
 

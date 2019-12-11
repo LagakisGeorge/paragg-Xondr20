@@ -727,9 +727,11 @@ separated[1]; // this will contain " they taste good"
 
 // σώζει την παραγγελια σε sqlιτε   //server
     public void SAVE_ORDER (View view) {
+        SAVE_ORDER2();
+    }
 
-
-        // --------------------- ok sql server save ----------------------------------------------
+    public void SAVE_ORDER2() {
+    // --------------------- ok sql server save ----------------------------------------------
 
       /*  pel.clear();
         Runnable aRunnable = new Runnable() {
@@ -938,6 +940,7 @@ Double sum=0.0;
 
 
 public void print_logar(View view){
+    SAVE_ORDER2();
 Double sum=0.0;
     TextView textView = findViewById(R.id.textView3);
     String tr=textView.getText().toString(); // αριθμος τραπεζιού

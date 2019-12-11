@@ -79,39 +79,39 @@ android:layout_below="@+id/textView3"
             android:background="#CDDC39" />
 
 
-
-
-
-
     <Button
         android:id="@+id/button5"
+        android:layout_width="150dp"
+        android:layout_height="40dp"
         android:layout_below="@+id/listmaster"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
 
         android:onClick="SAVE_ORDER"
-        android:text="SAVE ORDER" />
+        android:text="SAVE ORDER"
+        android:textSize="10sp" />
 
     <Button
         android:id="@+id/button6"
         android:layout_width="120dp"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:layout_below="@+id/listmaster"
+        android:layout_marginLeft="0dp"
+
+
         android:layout_toRightOf="@+id/button5"
-
-
         android:onClick="print_logar"
-        android:text="ΤΥΠΩΝΩ ΛΟΓΑΡΙΑΣΜΟ" />
+        android:text="ΤΥΠΩΝΩ ΛΟΓΑΡΙΑΣΜΟ"
+        android:textSize="8sp" />
 
     <Button
         android:id="@+id/button7"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:layout_below="@+id/listmaster"
         android:layout_toRightOf="@+id/button6"
         android:onClick="kentriko"
         android:text="Button"
+        android:textSize="10sp"
         tools:text="ΕΞΟΔΟΣ" />
 
 

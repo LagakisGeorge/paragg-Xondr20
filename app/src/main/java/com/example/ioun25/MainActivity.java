@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
     Handler handler2;
 
     ListView moviesList;
-
+    public TextView tIdBardia;
     Button button3;
     Button button;
     String Pelatis;
@@ -64,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
     public static ArrayList<String> pel3;
     public static ArrayList<String> pelKathg;
     public static int gYparxoyses ;
-    public static String idBardia="0";
+    public static String idBardia;
 
 
 
@@ -88,6 +88,8 @@ public class MainActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        load_bardia();
 
 
         if (android.os.Build.VERSION.SDK_INT > 9) {
@@ -233,6 +235,47 @@ String d=""+c+"t15";
             e.printStackTrace();
         }
     }
+
+    public void load_bardia(){
+
+        int nn=0;
+
+        try{
+        SQLiteDatabase mydatabase=null;
+        Integer n=0;
+            mydatabase = openOrCreateDatabase("eidh",MODE_PRIVATE,null);
+
+          String  c="CREATE TABLE IF NOT EXISTS  BARDIA( ID integer PRIMARY KEY, HME datetime, IDERGAZ int, [NUM1] [int] ,"+
+                    "[NUM2] [int] , [CH1] [nvarchar](25) , [CH2] [nvarchar](25) , [ISOPEN] [int] , [OPENH] [nvarchar](25) ," +
+                    "[CLOSEH] [nvarchar](25) ,[CASHTOT] [int] ,[CASH1] [int] ,[CASH2] [int] ,[CASH3] [int] ,[CASH4] [int] ,[CASH5] [int])" ;
+
+            mydatabase.execSQL(c);
+
+            Cursor cursor3 = mydatabase.rawQuery("select max(ID) AS MAXID    from  BARDIA", null);
+
+            if (cursor3.moveToFirst()){
+                nn=cursor3.getInt(0);
+            } else {
+                nn=0;
+            }
+
+            mydatabase.close();
+
+
+        } catch (SQLiteAccessPermException e) {
+        e.printStackTrace();
+        }
+
+
+        idBardia=Integer.toString(nn);
+            tIdBardia=findViewById(R.id.idBardia);
+            tIdBardia.setText(idBardia);
+    }
+
+
+
+
+
 
     //debug
     public void report (View view){

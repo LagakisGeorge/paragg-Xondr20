@@ -84,4 +84,14 @@
         android:onClick="report"
         android:text="report" />
 
+
+    <TextView
+        android:id="@+id/idBardia"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/GENERAL"
+        android:layout_alignParentLeft="true"
+        android:layout_centerHorizontal="true"
+        android:text="--" />
+
 </RelativeLayout>

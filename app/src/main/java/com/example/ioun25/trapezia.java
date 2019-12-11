@@ -157,7 +157,7 @@ gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
 
        // SQLiteDatabase mydatabase=null;
       //  mydatabase = openOrCreateDatabase("eidh", MODE_PRIVATE, null);
-        MainActivity.idBardia=ReadSql("select MAX(id) AS CID  from BARDIA");
+     //   MainActivity.idBardia=ReadSql("select MAX(id) AS CID  from BARDIA");
 
 
 
