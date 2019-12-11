@@ -484,7 +484,7 @@ separated[1]; // this will contain " they taste good"
 
 
     private void alertDialog(int position) {
-        if (position>gYparxoyses){
+        if (position<gYparxoyses){
             Toast.makeText(getApplicationContext(),"ΕΧΕΙ ΗΔΗ ΚΑΤΑΧΩΡΗΘΕΙ",Toast.LENGTH_LONG).show();
             return;
         }

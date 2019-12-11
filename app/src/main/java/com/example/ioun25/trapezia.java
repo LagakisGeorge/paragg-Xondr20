@@ -133,9 +133,9 @@ gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
 
             TrapeziFull=cTable+";"+arrIdParagg[position];  // #52 ; 234
 
-            Toast.makeText(getApplicationContext(),
-                    "You have clicked " +position+ ((TextView) v).getText(),
-                    Toast.LENGTH_LONG).show();
+           // Toast.makeText(getApplicationContext(),
+            //        "You have clicked " +position+ ((TextView) v).getText(),
+              //      Toast.LENGTH_LONG).show();
         }
     }
 
