@@ -528,15 +528,15 @@ separated[1]; // this will contain " they taste good"
 
 
 
-
+/*
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.options_menu, menu);
         return true;
     }
-
-    @Override
+*/
+  /*  @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         Toast.makeText(this, "Selected Item: " +item.getTitle(), Toast.LENGTH_SHORT).show();
         switch (item.getItemId()) {
@@ -563,7 +563,7 @@ separated[1]; // this will contain " they taste good"
         }
     }
 
-
+*/
 
 
 
@@ -857,11 +857,20 @@ Double sum=0.0;
 
        // String csum = df.format(sum);
 
-        csum = csum.replace(",", ",");
-
-        mydatabase.execSQL("UPDATE TABLES SET CH1='"+csum+"',KATEILHMENO=1,IDPARAGG=" + s + " WHERE ONO='" + tr + "'"   );
+        csum = csum.replace(",", ".");
 
         mydatabase.execSQL("UPDATE PARAGGMASTER SET AJIA=AJIA+"+csum+" WHERE ID=" + s  );
+
+        if (gYparxoyses ==0) {    //"+idBardia+"
+
+            mydatabase.execSQL("UPDATE TABLES SET ch2='0',CH1='" + csum + "',KATEILHMENO=1,IDPARAGG=" + s + " WHERE ONO='" + tr + "'");
+        }else{
+            Double dd=0.0;
+            dd=ReadSqln("select AJIA FROM PARAGGMASTER WHERE ID=" + s );
+
+            mydatabase.execSQL("UPDATE TABLES SET CH1='" + dd.toString() + "',KATEILHMENO=1,IDPARAGG=" + s + " WHERE ONO='" + tr + "'");
+        }
+
 
 
         mydatabase.close();
@@ -997,7 +1006,21 @@ Double sum=0.0;
 
 
 
-
+    public Double ReadSqln (String query ){
+        Double x;
+        x=0.0;
+        SQLiteDatabase mydatabase = null;
+        mydatabase = openOrCreateDatabase("eidh",MODE_PRIVATE,null);
+        Cursor cursor5 = mydatabase.rawQuery(query, null);
+        if (cursor5.moveToFirst()) {
+            //do {
+            x = cursor5.getDouble(0);
+            //   } while (cursor5.moveToNext());
+        }
+        else{
+        }
+        return x;
+    }
 
 
 

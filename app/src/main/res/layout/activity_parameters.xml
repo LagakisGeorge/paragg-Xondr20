@@ -7,27 +7,53 @@
       tools:context=".parameters">
 
     <TableRow>
+        <RelativeLayout>
 
-        <TextView
-            android:id="@+id/TextView504"
-            android:layout_weight="1"
-            android:background="#a09f9f"
-            android:gravity="center"
-            android:padding="18dip"
-            android:text="Νέα τιμή"
-            android:textColor="#000000" />
+            <TextView
+                android:id="@+id/TextView504"
+                android:layout_width="154dp"
+                android:layout_height="51dp"
+                android:layout_weight="1"
+                android:background="#a09f9f"
+                android:gravity="center"
+                android:padding="18dip"
 
 
-        <EditText
-            android:id="@+id/t1"
-            android:layout_width="259dp"
-            android:layout_height="61dp"
+                android:text="Νέα τιμή"
+                android:textColor="#000000" />
 
-            android:layout_marginEnd="-1dp"
-            android:layout_marginRight="-1dp"
 
-            android:ems="10"
-            android:inputType="textPersonName" />
+            <EditText
+                android:id="@+id/t1"
+                android:layout_width="80dp"
+                android:layout_height="51dp"
+                android:layout_marginEnd="-1dp"
+
+                android:layout_marginRight="-1dp"
+                android:layout_toRightOf="@+id/TextView504"
+
+                android:ems="10"
+                android:inputType="textPersonName" />
+
+            <TextView
+                android:id="@+id/textView5"
+                android:layout_width="wrap_content"
+                android:layout_height="51dp"
+                android:gravity="center"
+                android:layout_toRightOf="@+id/t1"
+                android:background="#a09f9f"
+                android:textColor="#000000"
+                android:text=" Κατηγορια " />
+
+            <EditText
+                android:id="@+id/t5"
+                android:layout_width="51dp"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/textView5"
+                android:ems="10"
+                android:inputType="textPersonName" />
+
+        </RelativeLayout>
 
 
     </TableRow>
@@ -142,7 +168,7 @@
             android:layout_below="@+id/listdetail"
 
             android:background="#8c898f"
-            android:numColumns="4" />
+            android:numColumns="5" />
 
 
     </TableRow>

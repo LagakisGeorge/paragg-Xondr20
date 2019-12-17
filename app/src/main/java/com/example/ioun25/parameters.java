@@ -36,7 +36,7 @@ public ArrayList<String> values;
 
                 // ΤΙΜΗ
                 int mID ;
-                mID=position - position%4+2;
+                mID=position - position%5+2;
                 Object o = moviesList.getItemAtPosition(mID);
                 EditText t1=findViewById(R.id.t1);
                 t1.setText(o.toString());
@@ -44,7 +44,7 @@ public ArrayList<String> values;
 
                // ΟΝΟΜΑ
                 int mID2 ;
-                mID2=position - position%4+1;
+                mID2=position - position%5+1;
                 Object o2 = moviesList.getItemAtPosition(mID2);
 
                 EditText t2=findViewById(R.id.t2);
@@ -53,17 +53,31 @@ public ArrayList<String> values;
 
                 // ΙD
                 int mID3 ;
-                mID3=position - position%4;
+                mID3=position - position%5;
                 Object o3 = moviesList.getItemAtPosition(mID3);
                 fID=o3.toString();
 
                 // ΠΡΟΣΘΕΤΑ
                 int mID4 ;
-                mID4=position - position%4+3;
+                mID4=position - position%5+3;
                 Object o4 = moviesList.getItemAtPosition(mID4);
 
                 EditText t4=findViewById(R.id.t4);
                 t4.setText(o4.toString());
+
+
+
+                // ΠΡΟΣΘΕΤΑ
+                int mID5 ;
+                mID4=position - position%5+4;
+                Object o5 = moviesList.getItemAtPosition(mID4);
+
+                EditText t5=findViewById(R.id.t5);
+                t5.setText(o5.toString());
+
+
+
+
 
                 show_prosueta();
 
@@ -97,10 +111,11 @@ public ArrayList<String> values;
         EditText t1=findViewById(R.id.t1);
         EditText t2=findViewById(R.id.t2);
         EditText t4=findViewById(R.id.t4);
+        EditText t5=findViewById(R.id.t5);
         SQLiteDatabase mydatabase=null;
 
          mydatabase = openOrCreateDatabase("eidh",MODE_PRIVATE,null);
-        mydatabase.execSQL("update EIDH set timh="+t1.getText()+",ONO='"+t2.getText()+"',CH2='"+t4.getText()+"' where ID="+fID);
+        mydatabase.execSQL("update EIDH set timh="+t1.getText()+",ONO='"+t2.getText()+"',CH2='"+t4.getText()+"',CH1='"+t5.getText()+"' where ID="+fID);
 
         Show();
     }
@@ -109,11 +124,12 @@ public ArrayList<String> values;
         EditText t1=findViewById(R.id.t1);
         EditText t2=findViewById(R.id.t2);
         EditText t4=findViewById(R.id.t4);
+        EditText t5=findViewById(R.id.t5);
         SQLiteDatabase mydatabase=null;
 
         mydatabase = openOrCreateDatabase("eidh",MODE_PRIVATE,null);
         String sql;
-        sql="INSERT INTO  EIDH ( timh,ONO,CH2) VALUES ("+t1.getText()+",'"+t2.getText()+"','"+t4.getText()+"');";
+        sql="INSERT INTO  EIDH ( timh,ONO,CH2,ch1) VALUES ("+t1.getText()+",'"+t2.getText()+"','"+t4.getText()+"','"+t5.getText()+"');";
         mydatabase.execSQL(sql);
         Show();
     }
@@ -142,7 +158,7 @@ public ArrayList<String> values;
 
         try{
             mydatabase = openOrCreateDatabase("eidh",MODE_PRIVATE,null);
-            Cursor cursor2 = mydatabase.rawQuery("select ID,ONO,TIMH,CH2  from  EIDH", null);
+            Cursor cursor2 = mydatabase.rawQuery("select ID,ONO,TIMH,CH2,CH1  from  EIDH", null);
             String kat="";
             String syn="";
             if (cursor2.moveToFirst()) {
@@ -151,6 +167,7 @@ public ArrayList<String> values;
                     values.add(cursor2.getString(1));
                     values.add( Double.toString(cursor2.getDouble(2) ));
                     values.add(cursor2.getString(3));
+                    values.add(cursor2.getString(4));
                 } while (cursor2.moveToNext());
             }
             mydatabase.close();

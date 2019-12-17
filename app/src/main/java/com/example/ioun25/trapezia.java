@@ -1,5 +1,6 @@
 package com.example.ioun25;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.DividerItemDecoration;
@@ -12,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteAccessPermException;
@@ -21,6 +23,7 @@ import android.graphics.Color;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.text.InputType;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -30,6 +33,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -49,6 +53,7 @@ import java.util.List;
 
 import static android.provider.AlarmClock.EXTRA_MESSAGE;
 import static androidx.recyclerview.widget.DividerItemDecoration.VERTICAL;
+import static java.lang.Double.parseDouble;
 
 
 //  import static com.example.ioun25.MainActivity.pel;
@@ -60,10 +65,11 @@ public  class trapezia extends AppCompatActivity  implements PopupMenu.OnMenuIte
     public   List<String> values=new ArrayList<>();
     TextView trapezi;
 
+    public String TrapeziPlirisPerigrafi="";
     public String TrapeziFull;
     ArrayList<String> KATHG;
     public String[] arrIdParagg=new String[100];
-
+    private String m_Text = "";
 
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter adapter;
@@ -118,7 +124,7 @@ gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
         public void onClick(View v) {
 
 
-
+            TrapeziPlirisPerigrafi=((TextView) v).getText().toString();
             String[] separated3 = ((TextView) v).getText().toString().split("€");
             String cTable= separated3[0];  // #52
 
@@ -325,7 +331,113 @@ gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
 */
 
 
+public void meriki(View view) {
+    trapezi = (TextView)findViewById(R.id.textView);
 
+    String skTrapezi=trapezi.getText().toString();
+    if (skTrapezi.length()==0){
+        Toast.makeText(trapezia.this,"διαλεξτε τραπεζι", Toast.LENGTH_LONG).show();
+        return ;
+    }
+
+
+    show_meriki();
+}
+public void show_meriki(){
+
+    trapezi = (TextView)findViewById(R.id.textView);
+    String skTrapezi2=trapezi.getText().toString();
+    if (skTrapezi2.substring(0, 1).equals("#")){
+        //ok
+    } else {
+        Toast.makeText(trapezia.this,"το τραπέζι είναι κλειστό", Toast.LENGTH_LONG).show();
+        return;
+    }
+
+
+
+
+    AlertDialog.Builder builder = new AlertDialog.Builder(this);
+    builder.setTitle("Μετρητά");
+
+// Set up the input
+    final EditText input = new EditText(this);
+// Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
+    input.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_CLASS_NUMBER);
+    builder.setView(input);
+
+// Set up the buttons
+    builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+        @Override
+        public void onClick(DialogInterface dialog, int which) {
+            m_Text = input.getText().toString();
+            Toast.makeText(trapezia.this,m_Text, Toast.LENGTH_LONG).show();
+            m_Text = m_Text.replace(",", ".");
+
+            trapezi = (TextView)findViewById(R.id.textView);
+            String skTrapezi=trapezi.getText().toString();
+
+            String cPlir,enanti,arxiko,Pliromes;
+            cPlir="";
+            Double SynPlir=0.0;
+            if (skTrapezi.substring(0, 1).equals("#")){
+                String[] separated3 = skTrapezi.split("#");
+                String[] separated4 = TrapeziPlirisPerigrafi.split("€");
+                arxiko=separated4[1];
+                Pliromes=separated4[2];
+
+                if (Pliromes == null || Pliromes.isEmpty() || Pliromes.equalsIgnoreCase("null")) {
+                    SynPlir =  parseDouble(m_Text);
+                } else{
+                    SynPlir = parseDouble(Pliromes) + parseDouble(m_Text);
+                }
+
+
+
+                //if (parseDouble(Pliromes)==0) {
+                //    SynPlir = parseDouble(arxiko) - parseDouble(m_Text);
+                //} else {
+
+                //}
+
+
+                cPlir=Double.toString(SynPlir);
+
+                skTrapezi=separated3[1];
+            }
+
+            SQLiteDatabase mydatabase = null;
+            mydatabase = openOrCreateDatabase("eidh",MODE_PRIVATE,null);
+            mydatabase.execSQL("UPDATE TABLES SET CH2='"+cPlir+"' WHERE ONO='" + skTrapezi + "'");
+
+            String[] cTrapeziFull = TrapeziFull.split(";");
+            String idpar=cTrapeziFull[1];
+
+
+            Double cc =SynPlir*100;
+
+            // κραταω την πληρωμη σε μορφη πληρ*100 (γιατι num1 integer) για να βλεπω το υπολοιπο
+            mydatabase.execSQL("UPDATE PARAGGMASTER SET num1="+cc.toString()+"   WHERE ID=" + idpar);
+
+
+
+            mydatabase.close();
+            listTRAPEZIA();
+            runRecycler();
+
+
+
+
+        }
+    });
+    builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+        @Override
+        public void onClick(DialogInterface dialog, int which) {
+            dialog.cancel();
+        }
+    });
+    builder.show();
+}
 
 
 
@@ -496,19 +608,22 @@ Payment(Long.toString(mp) ) ;
         arrIdParagg=new String[100];
         try{
             mydatabase = openOrCreateDatabase("eidh",MODE_PRIVATE,null);
-            Cursor cursor2 = mydatabase.rawQuery("select ONO,KATEILHMENO,idparagg,CH1  from  TABLES", null);
+            Cursor cursor2 = mydatabase.rawQuery("select ONO,KATEILHMENO,idparagg,CH1,ch2  from  TABLES", null);
             String kat="";
             String syn="";
+            String syn2="";
             if (cursor2.moveToFirst()) {
                 do {
                     n++;
                     kat="";
                     syn="";
+                    syn2="";
                     if (cursor2.getShort(1)==1){
                         kat="#";
                         syn="€   "+cursor2.getString(3);
+                        syn2=" €"+cursor2.getString(4);
                     }
-                    values.add(kat + cursor2.getString(0)+syn);
+                    values.add(kat + cursor2.getString(0)+syn+syn2);
                     arrIdParagg[n-1]=Long.toString(cursor2.getLong(2));
 
                 } while (cursor2.moveToNext());
@@ -620,21 +735,9 @@ Payment(Long.toString(mp) ) ;
          //   } while (cursor5.moveToNext());
         }
     else{
-
     }
-
-
-
-
-
       return x;
     }
-
-
-
-
-
-
 
 
 

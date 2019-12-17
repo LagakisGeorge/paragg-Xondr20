@@ -14,7 +14,7 @@
 
         android:layout_marginTop="7dp"
         android:onClick="click6"
-        android:text="trapezia" />
+        android:text="ΠΑΡΑΓΓΕΛΙΕΣ" />
 
     <Button
         android:id="@+id/parametroi"
@@ -23,7 +23,7 @@
         android:layout_below="@+id/trapezia"
         android:layout_marginTop="0dp"
         android:onClick="PARAMETROI"
-        android:text="ΠΑΡΑΜΕΤΡΟΙ" />
+        android:text="ΕΙΔΗ" />
 
     <TextView
         android:id="@+id/hello"
@@ -36,7 +36,7 @@
 
     <Button
         android:id="@+id/KATHGORIES"
-        android:layout_width="124dp"
+        android:layout_width="132dp"
         android:layout_height="wrap_content"
         android:layout_below="@+id/SQL"
 
@@ -58,6 +58,8 @@
         android:layout_toRightOf="@+id/KATHGORIES"
         android:onClick="GENERAL"
         android:text="ΡΥΘΜΙΣΕΙΣ" />
+
+
 
     <ListView
         android:id="@+id/list1"
@@ -93,5 +95,14 @@
         android:layout_alignParentLeft="true"
         android:layout_centerHorizontal="true"
         android:text="--" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="132dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/GENERAL"
+        android:layout_marginTop="3dp"
+        android:onClick="addtrapezia"
+        android:text="ΤΡΑΠΕΖΙΑ" />
 
 </RelativeLayout>

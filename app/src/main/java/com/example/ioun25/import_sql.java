@@ -728,6 +728,20 @@ cursor2.moveToFirst() ;
 
 
 
+            mydatabase.execSQL("CREATE TABLE IF NOT EXISTS EIDH2( ID  INTEGER PRIMARY KEY,KOD [int]," +
+                    "[ONO] [nvarchar](255) ," +
+                    "[XAR1] [int] ," +
+                    "[XAR2] [int] ," +
+                    "[CH1] [nvarchar](55) ," +
+                    "[CH2] [nvarchar](55) ," +
+                    "[NUM1] [int] ," +
+                    "[NUM2] [int] ," +
+                    "[TIMH] [real] ," +
+                    "[KATHG] [int] ," +
+                    "[PICTURE] [nvarchar](55) );");
+
+
+
 
 
             mydatabase.execSQL("CREATE TABLE IF NOT EXISTS EIDH( ID  INTEGER PRIMARY KEY,KOD [int]," +
@@ -741,6 +755,24 @@ cursor2.moveToFirst() ;
                     "[TIMH] [real] ," +
                     "[KATHG] [int] ," +
                     "[PICTURE] [nvarchar](55) );");
+
+
+            mydatabase.execSQL("CREATE TABLE IF NOT EXISTS EIDH2( ID  INTEGER PRIMARY KEY,KOD [int]," +
+                    "[ONO] [nvarchar](255) ," +
+                    "[XAR1] [int] ," +
+                    "[XAR2] [int] ," +
+                    "[CH1] [nvarchar](55) ," +
+                    "[CH2] [nvarchar](55) ," +
+                    "[NUM1] [int] ," +
+                    "[NUM2] [int] ," +
+                    "[TIMH] [real] ," +
+                    "[KATHG] [int] ," +
+                    "[PICTURE] [nvarchar](55) );");
+
+            mydatabase.execSQL("DELETE FROM EIDH2");
+            mydatabase.execSQL("INSERT INTO EIDH2 ( ONO,CH1,CH2,KATHG,TIMH) SELECT ONO,CH1,CH2,KATHG,TIMH FROM EIDH;");
+            mydatabase.execSQL("DROP TABLE EIDH;");
+            mydatabase.execSQL("ALTER TABLE EIDH2 RENAME TO EIDH;");
 
 
             Toast.makeText(getApplicationContext(), "1.EIDH ok", Toast.LENGTH_SHORT).show();
@@ -766,7 +798,7 @@ cursor2.moveToFirst() ;
                     "[CH1] [nvarchar](55) ,"+
                     "[CH2] [nvarchar](55),"+
                     "[IDPARAGG] [int] ,"+
-                    "[ID] [int]);" );
+                    "[ID]  INTEGER PRIMARY KEY);" );
 
 
             Toast.makeText(getApplicationContext(), "3.TABLES ok", Toast.LENGTH_SHORT).show();

@@ -24,7 +24,7 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/grid2"
         android:layout_width="match_parent"
-        android:layout_height="341dp"
+        android:layout_height="532dp"
         android:layout_below="@+id/grid"
         android:layout_marginTop="10dp"
         android:background="@android:color/holo_blue_bright"
@@ -67,6 +67,16 @@
         android:layout_toRightOf="@+id/payment"
         android:onClick="kentriko"
         android:text="κεντρικο" />
+
+    <Button
+        android:id="@+id/meriki_pliromi"
+        android:layout_width="294dp"
+        android:layout_height="36dp"
+        android:layout_below="@+id/button21"
+        android:layout_marginTop="4dp"
+        android:layout_toRightOf="@+id/textView"
+        android:onClick="meriki"
+        android:text="Μερική πληρωμή" />
 
 
 </RelativeLayout>

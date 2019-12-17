@@ -65,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
     public static ArrayList<String> pelKathg;
     public static int gYparxoyses ;
     public static String idBardia;
-
+    public static String gIPPRINTER,gIPSQL;
 
 
     public String arr[][];
@@ -258,6 +258,30 @@ String d=""+c+"t15";
             } else {
                 nn=0;
             }
+
+           //
+
+            mydatabase.execSQL("CREATE TABLE IF NOT EXISTS MEM (ID  INTEGER PRIMARY KEY  ,"+
+                    "[KOD] [int] ,"+
+                    "[ACCESSCODE][nvarchar](155) ,"+
+                    "[IPSQL][nvarchar](155) ,"+
+                    "[IPPRINTER] [nvarchar](155)  ); ");
+
+            Cursor cursor4 = mydatabase.rawQuery("select IPPRINTER,IPSQL from  MEM WHERE ID=1", null);
+
+            if (cursor4.moveToFirst()){
+                gIPPRINTER=cursor4.getString(0);
+                gIPSQL=cursor4.getString(1);
+
+            } else {
+                mydatabase.execSQL("INSERT INTO MEM (IPPRINTER,IPSQL,ACCESSCODE) VALUES('192.168.1.202',  '192.168.1.7:49705/BAR;instance=SQLEXPRESS;','1');");
+                gIPPRINTER="192.168.1.202";
+                gIPSQL = "192.168.1.7:49705/BAR;instance=SQLEXPRESS;";
+            }
+
+
+
+
 
             mydatabase.close();
 
@@ -941,6 +965,16 @@ s="αβγδεζηθικλμνξοπρστυφχψωΑΒΓΔΕΖΗΘΙΚΛΜΝΞ�
         // Do something in response to button
     };
 
+
+    public void addtrapezia (View view) {
+
+        Intent intent = new Intent(this, addtrapezia.class);
+        //  EditText editText = (EditText) findViewById(R.id.editText);
+        String message2 ="---" ;// EditText.GetText().toString();
+        intent.putExtra(EXTRA_MESSAGE, message2);
+        startActivity(intent);
+        // Do something in response to button
+    };
 
     public void GENERAL (View view) {
 
