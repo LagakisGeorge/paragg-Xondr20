@@ -22,6 +22,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
 import android.widget.GridView;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -56,6 +57,9 @@ public class order extends AppCompatActivity {
 
     ArrayList<String> pel;
     ArrayList<String> EIDH_PARAGG; // ερχεται απο το trapezia class ΑΔΕΙΟς αλλα δεν το χρειαζομαι
+
+    public Long[] idArr=new Long[100];    //  // ΤΟ ΣΗΜΑΔΕΥΩ ΓΙΑ ΤΗΝ ΜΕΡΙΚΗ ΠΛΗΡΩΜΗ
+
                             // το χρησιμοποιω για τα είδη παραγγελίας τα οποία τα γεμιζω στο EpiloghEid
     ArrayList<String> KATHG;
     GridView moviesList;
@@ -67,6 +71,8 @@ public class order extends AppCompatActivity {
     //  private String PASS = "12345678";  //"p@ssw0rd";
     private String PASS = "p@ssw0rd";
 
+
+    private  static Double f_sum=0.0;
     private static ResultSet RESULT;
     private static String fIDPARAGG;  // ιδ παραγγελιασ
     private static int  fYparxSeires;  // ποσες σειρες υπαρχουν στην ηδη υπάρχουσα παραγγελια
@@ -221,29 +227,25 @@ separated[1]; // this will contain " they taste good"
 
 
 
+        CheckBox    chkIos = (CheckBox) findViewById(R.id.checkBox);
+
+        chkIos.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                //is chkIos checked?
+                if (((CheckBox) v).isChecked()) {
+                    Toast.makeText(order.this,
+                            "Πιέστε αυτό που πληρώθηκε", Toast.LENGTH_LONG).show();
+                } else {
+                    Toast.makeText(order.this,
+                            "Πιέστε αυτό που θα σβηστεί", Toast.LENGTH_LONG).show();
+                }
+
+            }
+        });
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-       // if(fYparxSeires==0){
-        //    EIDH_PARAGG=new ArrayList<String>();
-       //     return ;
-       // };
-
-     //   EIDH_PARAGG.add("ΝΕΑ ΠΑΡΑΓΓΕΛΙΑ");
 
         Paragg=(GridView)findViewById(R.id.listdetail);
 
@@ -484,6 +486,35 @@ separated[1]; // this will contain " they taste good"
 
 
     private void alertDialog(int position) {
+        CheckBox ch1;
+        ch1=findViewById(R.id.checkBox);
+
+        // μερικη πληρωμή
+        if (ch1.isChecked() ){
+            if (position>=gYparxoyses){
+                Toast.makeText(getApplicationContext(),"ΔΕΝ ΕΧΕΙ ΚΑΤΑΧΩΡΗΘΕΙ ΑΚΟΜΑ",Toast.LENGTH_LONG).show();
+                return;
+            }
+           int j=position-position%5;
+            // Modify the element at a given index
+            //  topCompanies.set(4, "Walmart");
+                EIDH_PARAGG.set(j+3,"**");  //   +EIDH_PARAGG.get(j+4));
+                f_sum=f_sum+parseDouble(EIDH_PARAGG.get(j+2));
+                TextView meriki;
+                meriki=findViewById(R.id.meriki);
+                meriki.setText(f_sum.toString());
+                show_paraggelia();
+            return;
+
+
+
+        }
+
+
+
+
+        // διαγραφη
+
         if (position<gYparxoyses){
             Toast.makeText(getApplicationContext(),"ΕΧΕΙ ΗΔΗ ΚΑΤΑΧΩΡΗΘΕΙ",Toast.LENGTH_LONG).show();
             return;
@@ -503,15 +534,7 @@ separated[1]; // this will contain " they taste good"
                         EIDH_PARAGG.remove(n);
                         EIDH_PARAGG.remove(n);
                         EIDH_PARAGG.remove(n);
-
                         show_paraggelia();
-
-
-
-
-
-
-
                     }
 
                 });
@@ -909,8 +932,6 @@ Double sum=0.0;
 
     }
 
-
-
     /*
      try {
         Socket sock = new Socket("192.168.1.202", 9100);
@@ -937,16 +958,11 @@ Double sum=0.0;
 
     */
 
-
     public void kentriko (View view){
         Intent intent = new Intent(this, trapezia.class);
         String message2 ="---" ;// EditText.GetText().toString();
         startActivity(intent);
     }
-
-
-
-
 
 public void print_logar(View view){
     SAVE_ORDER2();
@@ -1004,8 +1020,6 @@ Double sum=0.0;
 
 }
 
-
-
     public Double ReadSqln (String query ){
         Double x;
         x=0.0;
@@ -1021,17 +1035,6 @@ Double sum=0.0;
         }
         return x;
     }
-
-
-
-
-
-
-
-
-
-
-
 
 // ΦΟΡΤΩΝΩ ΤΗΝ ΗΔΗ ΥΠΑΡΧΟΥΣΑ ΠΑΡΑΓΓΕΛΙΑ
     public void LoadYparxoysa (String tr,String IDPARAGG) {
@@ -1098,11 +1101,13 @@ Double sum=0.0;
 
           //  EIDH_PARAGG.clear();
 
-            Cursor cursor2 = mydatabase.rawQuery("select ONO,POSO,TIMH,PROSUETA,CH2 from  PARAGG where idparagg="+IDPARAGG, null);
+            Cursor cursor2 = mydatabase.rawQuery("select ONO,POSO,TIMH,PROSUETA,CH2,ID from  PARAGG where idparagg="+IDPARAGG, null);
 
             if (cursor2.moveToFirst()) {
                 while (!cursor2.isAfterLast()) {
                     n++;
+                    // ΤΟ ΣΗΜΑΔΕΥΩ ΓΙΑ ΤΗΝ ΜΕΡΙΚΗ ΠΛΗΡΩΜΗ
+                    idArr[n]=cursor2.getLong(5);
                     EIDH_PARAGG.add( cursor2.getString(0));
                     EIDH_PARAGG.add( cursor2.getString(1));
                     EIDH_PARAGG.add( cursor2.getString(2));
@@ -1142,9 +1147,6 @@ Double sum=0.0;
         }
     }
 
-
-
-
     public void execData(String query) {
         Connection CON = null;
         try {
@@ -1181,24 +1183,3 @@ Double sum=0.0;
 
     };
 }
-
-/*            help  dates
-//Building the table includes:
-StringBuilder query= new StringBuilder();
-query.append("CREATE TABLE "+TABLE_NAME+ " (");
-query.append(COLUMN_ID+"int primary key autoincrement,");
-query.append(COLUMN_CREATION_DATE+" DATE)");
-
-//Inserting the data includes this:
-SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
-values.put(COLUMN_CREATION_DATE,dateFormat.format(reactionGame.getCreationDate()));
-
-// Fetching the data includes this:
-try {
-   java.util.Date creationDate = dateFormat.parse(cursor.getString(0);
-   YourObject.setCreationDate(creationDate));
-} catch (Exception e) {
-   YourObject.setCreationDate(null);
-}
- */
-
