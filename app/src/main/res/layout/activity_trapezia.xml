@@ -78,5 +78,12 @@
         android:onClick="meriki"
         android:text="Μερική πληρωμή" />
 
+    <TextView
+        android:id="@+id/ypoloipo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView"
+        android:layout_marginTop="21dp" />
+
 
 </RelativeLayout>

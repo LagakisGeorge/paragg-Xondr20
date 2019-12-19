@@ -775,7 +775,7 @@ separated[1]; // this will contain " they taste good"
         // αν ειναι νέα παραγγελία
         // "INSERT INTO PARAGGMASTER (TRAPEZI,HME,IDBARDIA,CH1) VALUES ('" + p_Trapezi + "'," + MDATE + "," + Str(gBardia) + ",'" + Format(Now(), "hh:mm") + "' )"
         if (gYparxoyses ==0) {    //"+idBardia+"
-            Q = "INSERT INTO PARAGGMASTER (AJIA,TRAPEZI,IDBARDIA,CH1) VALUES (0,'" + tr + "',"+idBardia+",datetime('now','localtime'))";
+            Q = "INSERT INTO PARAGGMASTER (NUM1,AJIA,TRAPEZI,IDBARDIA,CH1) VALUES (0,0,'" + tr + "',"+idBardia+",datetime('now','localtime'))";
 
             mydatabase.execSQL(Q);
 
@@ -800,8 +800,8 @@ Double sum=0.0;
         for(int i = gYparxoyses; i<EIDH_PARAGG.size();i=i+5)//
         {
             //String Q;
-            Q="INSERT INTO PARAGG (IDPARAGG,TRAPEZI,ONO,POSO,TIMH,PROSUETA,CH2) VALUES ("+s+",'"+tr+"','"+ EIDH_PARAGG.get(i)+"',";
-    Q=Q+ EIDH_PARAGG.get(i+1)+","+ EIDH_PARAGG.get(i+2)+",'"+ EIDH_PARAGG.get(i+3)+"','"+EIDH_PARAGG.get(i+4)+"');";
+            Q="INSERT INTO PARAGG (IDPARAGG,TRAPEZI,ONO,POSO,TIMH,PROSUETA,CH2,NUM1) VALUES ("+s+",'"+tr+"','"+ EIDH_PARAGG.get(i)+"',";
+    Q=Q+ EIDH_PARAGG.get(i+1)+","+ EIDH_PARAGG.get(i+2)+",'"+ EIDH_PARAGG.get(i+3)+"','"+EIDH_PARAGG.get(i+4)+"',0);";
             mydatabase.execSQL(Q);
             sum=sum+ parseDouble(EIDH_PARAGG.get(i+1))*parseDouble(EIDH_PARAGG.get(i+2));
         }

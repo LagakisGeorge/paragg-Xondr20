@@ -871,13 +871,41 @@ cursor2.moveToFirst() ;
                     "[IDBARDIA] [int] ,"+
                     "[AJIA] [real] ,"+
                     "[TROPOS] [int] ,"+
-                    "[NUM1] [int] ,"+
-                    "[NUM2] [int] ,"+
+                    "[NUM1] [real] ,"+
+                    "[NUM2] [real] ,"+
                     "[CH1] [varchar](55) ,"+
                     "[CH2] [varchar](55) ,"+
                     "[ID] integer PRIMARY KEY )";
 
             mydatabase.execSQL(c);
+
+         /*    c="CREATE TABLE IF NOT EXISTS PARAGGMASTER2("+
+                    "[TRAPEZI] [nvarchar](55) ,"+
+                    "[IDERGAZ] [int] ,"+
+                    "[HME] [datetime] ,"+
+                    "[IDBARDIA] [int] ,"+
+                    "[AJIA] [real] ,"+
+                    "[TROPOS] [int] ,"+
+                    "[NUM1] [real] ,"+
+                    "[NUM2] [real] ,"+
+                    "[CH1] [varchar](55) ,"+
+                    "[CH2] [varchar](55) ,"+
+                    "[ID] integer PRIMARY KEY )";
+
+            mydatabase.execSQL(c);
+
+
+
+
+
+            mydatabase.execSQL("DELETE FROM PARAGGMASTER2");
+            mydatabase.execSQL("INSERT INTO PARAGGMASTER2 ( ONO,CH1,CH2,TRAPEZI,AJIA,IDERGAZ,IDBARDIA) SELECT  ONO,CH1,CH2,TRAPEZI,AJIA,IDERGAZ,IDBARDIA FROM PARAGGMASTER;");
+            mydatabase.execSQL("DROP TABLE PARAGGMASTER;");
+            mydatabase.execSQL("ALTER TABLE PARAGGMASTER2 RENAME TO PARAGGMASTER;");
+
+*/
+
+
 
 
             c="CREATE TABLE IF NOT EXISTS  BARDIA( ID integer PRIMARY KEY, HME datetime, IDERGAZ int, [NUM1] [int] ,"+

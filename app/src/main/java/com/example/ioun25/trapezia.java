@@ -175,6 +175,20 @@ gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
         bb.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                String[] cTrapeziFull = TrapeziFull.split(";");
+                String idpar=cTrapeziFull[1];
+
+                Double nn=ReadSqln("select AJIA-NUM1 FROM PARAGGMASTER WHERE ID="+idpar) ;
+                TextView ypoloipo=findViewById(R.id.ypoloipo);
+                ypoloipo.setText(Double.toString(nn));
+
+
+
+
+
+
+
                 PopupMenu popup=new PopupMenu(getApplicationContext(),bb);
                 popup.setOnMenuItemClickListener(trapezia.this);
 
@@ -414,7 +428,7 @@ public void show_meriki(){
             String idpar=cTrapeziFull[1];
 
 
-            Double cc =SynPlir*100;
+            Double cc =SynPlir;
 
             // κραταω την πληρωμη σε μορφη πληρ*100 (γιατι num1 integer) για να βλεπω το υπολοιπο
             mydatabase.execSQL("UPDATE PARAGGMASTER SET num1="+cc.toString()+"   WHERE ID=" + idpar);
@@ -445,6 +459,11 @@ public void show_meriki(){
     // διαλεγει τροπο πληρωμης
     @Override
     public boolean onMenuItemClick(MenuItem item) { // click popup menu
+
+
+
+
+
 
         trapezi = (TextView)findViewById(R.id.textView);
 
@@ -487,7 +506,9 @@ public void show_meriki(){
               //  return true;
             }
 
-
+            case R.id.EXODOS: {
+                return true;
+            }
 
 
         }
@@ -739,6 +760,21 @@ Payment(Long.toString(mp) ) ;
       return x;
     }
 
+    public Double ReadSqln (String query ){
+        Double x;
+        x=0.0;
+        SQLiteDatabase mydatabase = null;
+        mydatabase = openOrCreateDatabase("eidh",MODE_PRIVATE,null);
+        Cursor cursor5 = mydatabase.rawQuery(query, null);
+        if (cursor5.moveToFirst()) {
+            //do {
+            x = cursor5.getDouble(0);
+            //   } while (cursor5.moveToNext());
+        }
+        else{
+        }
+        return x;
+    }
 
 
 }
