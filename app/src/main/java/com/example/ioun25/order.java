@@ -73,7 +73,7 @@ public class order extends AppCompatActivity {
     private String PASS = "p@ssw0rd";
 
 
-    private  static Double f_sum=0.0;
+    private   Double f_sum=0.0;
     private static ResultSet RESULT;
     private static String fIDPARAGG;  // ιδ παραγγελιασ
     private static int  fYparxSeires;  // ποσες σειρες υπαρχουν στην ηδη υπάρχουσα παραγγελια
@@ -500,28 +500,51 @@ separated[1]; // this will contain " they taste good"
     }
 
 public void save_meriki(){
+    SQLiteDatabase mydatabase = null;
+    mydatabase = openOrCreateDatabase("eidh",MODE_PRIVATE,null);
+
 int kn=0;
     for(int i =0;i< gYparxoyses;i=i+5)//
     {
 
         if(EIDH_PARAGG.get(i).substring(0,2).equals("**")){
-            SQLiteDatabase mydatabase = null;
-            mydatabase = openOrCreateDatabase("eidh",MODE_PRIVATE,null);
+
             if(idArr[kn]>0){
                 mydatabase.execSQL("update PARAGG SET ono='"+EIDH_PARAGG.get(i)+"' WHERE ID="+idArr[kn].toString());
             }
 
-            mydatabase.close();
-        };
+
+            // κραταω την πληρωμη σε μορφη πληρ*100 (γιατι num1 integer) για να βλεπω το υπολοιπο
+
+
+
+        } //if
+
         kn++;
 
+    } //for
 
-    }
+    Double synplir=0.0;
+
+       mydatabase.execSQL("UPDATE PARAGGMASTER SET num1=num1+"+f_sum.toString()+"   WHERE ID=" + fIDPARAGG);
+
+    Cursor cur1=mydatabase.rawQuery("select num1 from PARAGGMASTER  WHERE ID=" + fIDPARAGG,null);
+            if (cur1.moveToFirst()) {
+                synplir = cur1.getDouble(0);
+            }
+        TextView textView = findViewById(R.id.textView3);
+        String tr = textView.getText().toString(); // αριθμος τραπεζιού
+        String[] separated3 = tr.split("#");
+        tr = separated3[1];
+        mydatabase.execSQL("UPDATE TABLES SET CH2='" + synplir.toString() + "' WHERE ONO='" + tr + "'");
+        mydatabase.close();
 
 
+        Intent intent = new Intent(this, trapezia.class);
+        startActivity(intent);
+    } // save meriki
 
 
-};
 
 
     private void alertDialog(int position) {
