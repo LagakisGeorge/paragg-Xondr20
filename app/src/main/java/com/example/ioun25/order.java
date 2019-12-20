@@ -22,6 +22,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.GridView;
 import android.view.Menu;
@@ -96,7 +97,9 @@ public class order extends AppCompatActivity {
         EIDH_PARAGG = intent.getStringArrayListExtra("mEIDH");
         KATHG = intent.getStringArrayListExtra("mKATHG");
 
-
+        for (int kn=0;kn<99;kn++){
+            idArr[kn]=0L;
+        }
 
 
 if (null==EIDH_PARAGG) {
@@ -224,6 +227,20 @@ separated[1]; // this will contain " they taste good"
 
             }
         });
+
+
+
+
+
+        Button merikiB;
+        merikiB=(Button)findViewById(R.id.merikiB);
+        merikiB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                save_meriki();
+            }
+        });
+
 
 
 
@@ -482,7 +499,29 @@ separated[1]; // this will contain " they taste good"
 
     }
 
+public void save_meriki(){
+int kn=0;
+    for(int i =0;i< gYparxoyses;i=i+5)//
+    {
 
+        if(EIDH_PARAGG.get(i).substring(0,2).equals("**")){
+            SQLiteDatabase mydatabase = null;
+            mydatabase = openOrCreateDatabase("eidh",MODE_PRIVATE,null);
+            if(idArr[kn]>0){
+                mydatabase.execSQL("update PARAGG SET ono='"+EIDH_PARAGG.get(i)+"' WHERE ID="+idArr[kn].toString());
+            }
+
+            mydatabase.close();
+        };
+        kn++;
+
+
+    }
+
+
+
+
+};
 
 
     private void alertDialog(int position) {
@@ -495,10 +534,14 @@ separated[1]; // this will contain " they taste good"
                 Toast.makeText(getApplicationContext(),"ΔΕΝ ΕΧΕΙ ΚΑΤΑΧΩΡΗΘΕΙ ΑΚΟΜΑ",Toast.LENGTH_LONG).show();
                 return;
             }
-           int j=position-position%5;
-            // Modify the element at a given index
-            //  topCompanies.set(4, "Walmart");
-                EIDH_PARAGG.set(j+3,"**");  //   +EIDH_PARAGG.get(j+4));
+            int j=position-position%5;
+            if( EIDH_PARAGG.get(j).substring(0,2).equals("**")){
+                return;
+            }
+
+                // Modify the element at a given index
+                //  topCompanies.set(4, "Walmart");
+                EIDH_PARAGG.set(j,"**"+EIDH_PARAGG.get(j));  //   +EIDH_PARAGG.get(j+4));
                 f_sum=f_sum+parseDouble(EIDH_PARAGG.get(j+2));
                 TextView meriki;
                 meriki=findViewById(R.id.meriki);
@@ -839,22 +882,22 @@ Double sum=0.0;
             String cur = sdf.format(new Date());
 
         for(int i = gYparxoyses; i<EIDH_PARAGG.size();i=i+5)//
-        {
+            {
 
-            if (i == gYparxoyses){
+                if (i == gYparxoyses){
 
 
-                oStream.println(toGreek("ΤΡΑΠΕΖΙ No ")+tr+"  "+cur);
-                oStream.println(toGreek("=================="));
-                typose=1;
+                    oStream.println(toGreek("ΤΡΑΠΕΖΙ No ")+tr+"  "+cur);
+                    oStream.println(toGreek("=================="));
+                    typose=1;
+                }
+
+
+                oStream.println(toGreek(EIDH_PARAGG.get(i))+" X "+EIDH_PARAGG.get(i+1));
+                oStream.println("  "+ toGreek(EIDH_PARAGG.get(i+3)));
+                oStream.println("  "+ toGreek(EIDH_PARAGG.get(i+4)));
+                // oStream.println("λσαδσξδΞΣΔΞΑΔΞΕΙΞΔΣΞΦΔΨΝΔΞΦ");
             }
-
-
-            oStream.println(toGreek(EIDH_PARAGG.get(i))+" X "+EIDH_PARAGG.get(i+1));
-            oStream.println("  "+ toGreek(EIDH_PARAGG.get(i+3)));
-            oStream.println("  "+ toGreek(EIDH_PARAGG.get(i+4)));
-           // oStream.println("λσαδσξδΞΣΔΞΑΔΞΕΙΞΔΣΞΦΔΨΝΔΞΦ");
-        }
 
         if (typose==1){
 
@@ -1105,9 +1148,10 @@ Double sum=0.0;
 
             if (cursor2.moveToFirst()) {
                 while (!cursor2.isAfterLast()) {
+                    idArr[n]=cursor2.getLong(5);
                     n++;
                     // ΤΟ ΣΗΜΑΔΕΥΩ ΓΙΑ ΤΗΝ ΜΕΡΙΚΗ ΠΛΗΡΩΜΗ
-                    idArr[n]=cursor2.getLong(5);
+
                     EIDH_PARAGG.add( cursor2.getString(0));
                     EIDH_PARAGG.add( cursor2.getString(1));
                     EIDH_PARAGG.add( cursor2.getString(2));
