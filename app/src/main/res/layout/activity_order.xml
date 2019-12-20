@@ -26,41 +26,30 @@
             android:text="TextView" />
 
 
+    <GridView
+        android:id="@+id/listdetail"
+        android:layout_width="wrap_content"
+        android:layout_height="345dp"
+        android:layout_below="@+id/textView3"
+        android:background="@android:color/darker_gray"
+        android:gravity="fill_horizontal"
+        android:horizontalSpacing="0dp"
+        android:numColumns="5"
+        android:padding="2dp"
+        android:scrollbarAlwaysDrawHorizontalTrack="true"
+
+        android:stretchMode="columnWidth"
+
+        android:verticalSpacing="1dp" />
 
 
-
-
-        <GridView
-            android:id="@+id/listdetail"
-            android:layout_width="wrap_content"
-            android:layout_height="345dp"
-            android:background="#8c898f"
-android:layout_below="@+id/textView3"
-            android:gravity="left"
-            android:horizontalSpacing="1dp"
-            android:numColumns="5"
-            android:padding="1dp"
-            android:scrollbarAlwaysDrawHorizontalTrack="true"
-
-            android:stretchMode="columnWidth"
-
-            android:verticalSpacing="0dp" />
-
-
-
-
-
-
-
-
-
-        <GridView
-            android:id="@+id/listKathg"
-            android:layout_width="match_parent"
-            android:layout_height="145dp"
-            android:layout_below="@+id/listdetail"
-            android:numColumns="3"
-            android:background="@color/colorAccent" />
+    <GridView
+        android:id="@+id/listKathg"
+        android:layout_width="match_parent"
+        android:layout_height="185dp"
+        android:layout_below="@+id/listdetail"
+        android:background="#d9d5dc"
+        android:numColumns="3" />
 
 
 
@@ -68,22 +57,14 @@ android:layout_below="@+id/textView3"
 
 
 
-        <GridView
-            android:id="@+id/listmaster"
-            android:layout_below="@+id/listKathg"
-            android:layout_width="399dp"
-            android:layout_height="15dp"
 
-            android:layout_marginTop="18dp"
-
-            android:background="#CDDC39" />
 
 
     <Button
         android:id="@+id/button5"
         android:layout_width="150dp"
         android:layout_height="40dp"
-        android:layout_below="@+id/listmaster"
+        android:layout_below="@+id/listKathg"
         android:layout_alignParentLeft="true"
 
         android:onClick="SAVE_ORDER"
@@ -94,7 +75,7 @@ android:layout_below="@+id/textView3"
         android:id="@+id/button6"
         android:layout_width="120dp"
         android:layout_height="40dp"
-        android:layout_below="@+id/listmaster"
+        android:layout_below="@+id/listKathg"
         android:layout_marginLeft="0dp"
 
 
@@ -107,10 +88,10 @@ android:layout_below="@+id/textView3"
         android:id="@+id/button7"
         android:layout_width="wrap_content"
         android:layout_height="40dp"
-        android:layout_below="@+id/listmaster"
+        android:layout_below="@+id/listKathg"
         android:layout_toRightOf="@+id/button6"
         android:onClick="kentriko"
-        android:text="Button"
+        android:text="ΕΞΟΔΟΣ"
         android:textSize="10sp"
         tools:text="ΕΞΟΔΟΣ" />
 

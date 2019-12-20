@@ -125,7 +125,7 @@ gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
 
 
             TrapeziPlirisPerigrafi=((TextView) v).getText().toString();
-            String[] separated3 = ((TextView) v).getText().toString().split("€");
+            String[] separated3 = ((TextView) v).getText().toString().split("/");
             String cTable= separated3[0];  // #52
 
 
@@ -212,9 +212,9 @@ gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
             public void onItemClick(AdapterView<?> parent, View view, int position,
                                     long id) {
                 Object o = moviesList.getItemAtPosition(position);
-                trapezi = (TextView)findViewById(R.id.textView);   // #52 €45.70
+                trapezi = (TextView)findViewById(R.id.textView);   // #52 /45.70
                 //  textView.setText(message);
-                String[] separated3 = o.toString().split("€");
+                String[] separated3 = o.toString().split("/");
                 String cTable= separated3[0];  // #52
                 TrapeziFull=cTable+";"+arrIdParagg[position];  // #52 ; 234
                 //  String[] separated2 = message.split("#");
@@ -290,7 +290,7 @@ gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
                
                 // αν θελω εικονα
 
-                if (values.get(position).indexOf("€")>0){
+                if (values.get(position).indexOf("/")>0){
                     tv.setCompoundDrawablePadding(24);
                     tv.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_stars_white_24dp , 0, 0, 0);
 
@@ -396,7 +396,7 @@ public void show_meriki(){
             Double SynPlir=0.0;
             if (skTrapezi.substring(0, 1).equals("#")){
                 String[] separated3 = skTrapezi.split("#");
-                String[] separated4 = TrapeziPlirisPerigrafi.split("€");
+                String[] separated4 = TrapeziPlirisPerigrafi.split("/");
                 arxiko=separated4[1];
                 Pliromes=separated4[2];
 
@@ -641,8 +641,8 @@ Payment(Long.toString(mp) ) ;
                     syn2="";
                     if (cursor2.getShort(1)==1){
                         kat="#";
-                        syn="€   "+cursor2.getString(3);
-                        syn2=" €"+cursor2.getString(4);
+                        syn="/   "+cursor2.getString(3);
+                        syn2=" /"+cursor2.getString(4);
                     }
                     values.add(kat + cursor2.getString(0)+syn+syn2);
                     arrIdParagg[n-1]=Long.toString(cursor2.getLong(2));
@@ -677,8 +677,34 @@ Payment(Long.toString(mp) ) ;
 
 //==============================================================================================
         mRecyclerView = (RecyclerView) findViewById(R.id.grid2);
-        //  mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        //  palio                                  mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mRecyclerView.setLayoutManager(new GridLayoutManager(this,3));
+
+
+
+
+       /*   GridLayoutManager manager = new GridLayoutManager(this, 10); // 3 cols of 3 + 1 col of 1
+        manager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+            @Override
+            public int getSpanSize(int position) {
+                if (position % 4 == 3)
+                    return 1; // Fourth column is 1x
+                else
+                    return 3; // Remaining columns are 3x
+            }
+        });
+        mRecyclerView.setLayoutManager(manager);
+        */
+
+
+
+
+
+
+
+
+
+
 
 
         // με την βιβλιοθηκη 'com.bignerdranch.android:simple-item-decoration:1.0.0'
@@ -710,7 +736,7 @@ Payment(Long.toString(mp) ) ;
 
                 // αν θελω εικονα
 
-                if (values.get(position).indexOf("€")>0){
+                if (values.get(position).indexOf("/")>0){
                     tv.setCompoundDrawablePadding(24);
                     tv.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_stars_white_24dp , 0, 0, 0);
 
@@ -731,7 +757,6 @@ Payment(Long.toString(mp) ) ;
                 return values.size();
             }
         });
-
 
 
 

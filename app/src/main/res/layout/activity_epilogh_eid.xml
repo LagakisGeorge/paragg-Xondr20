@@ -138,7 +138,7 @@
         android:numColumns="2"
         android:background="#8c898f"
         android:verticalSpacing="2dp"
-        android:horizontalSpacing="2dp"
+        android:horizontalSpacing="0dp"
         android:stretchMode="columnWidth"
         android:gravity="left"
         android:layout_below="@+id/prosu"

@@ -28,6 +28,7 @@ import android.widget.GridView;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -167,7 +168,7 @@ separated[1]; // this will contain " they taste good"
            }
        }
        // δεν χρειαζεται
-        moviesList=findViewById(R.id.listmaster);  //kathgories eidon
+       // moviesList=findViewById(R.id.listmaster);  //kathgories eidon
 
 
        // γεμισμα της λιστας ειδώ
@@ -214,7 +215,7 @@ separated[1]; // this will contain " they taste good"
             }
         });
 
-
+/*
         moviesList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position,
@@ -228,7 +229,7 @@ separated[1]; // this will contain " they taste good"
             }
         });
 
-
+*/
 
 
 
@@ -313,6 +314,13 @@ separated[1]; // this will contain " they taste good"
         OarrayAdapter= new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, EIDH_PARAGG)
                 //-------------------- arxh  αυτο το κομματι βαζει πλαισια στο gridview
         {
+
+
+
+
+
+
+
             public View getView(int position, View convertView, ViewGroup parent) {
 
                 // Return the GridView current item as a View
@@ -320,8 +328,12 @@ separated[1]; // this will contain " they taste good"
 
                 // Convert the view as a TextView widget
                 TextView tv = (TextView) view;
+               //  if (position%5==0) {
+                     tv.setTextColor(Color.DKGRAY);
+               //  }else{
+               //      tv.setTextColor(Color.GREEN);
+               //  }
 
-                //tv.setTextColor(Color.DKGRAY);
 
                 // Set the layout parameters for TextView widget
                 RelativeLayout.LayoutParams lp =  new RelativeLayout.LayoutParams(
@@ -351,18 +363,29 @@ separated[1]; // this will contain " they taste good"
                 // tv.setLayoutParams(new GridView.LayoutParams((width/10)*6, 50));
 
                // if (position==0 || position==5) {
-                   // params.width = px/2;  // getPixelsFromDPs(EpiloghEid.this,168);
+                //    params.width = px/2;  // getPixelsFromDPs(EpiloghEid.this,168);
                  //   tv.setLayoutParams(new GridView.LayoutParams((px*6), 100));
                // }else{
                     params.width = px;  // getPixelsFromDPs(EpiloghEid.this,168);
                // }
 
 
+
+
+
+
+
+
                 // Set the TextView layout parameters
                 tv.setLayoutParams(params);
 
                 // Display TextView text in center position
-                tv.setGravity(Gravity.CENTER);
+                  if (position%5==0 ||position%5==3 ||position%5==4)
+                  {
+                tv.setGravity(Gravity.LEFT);
+                  } else{
+                      tv.setGravity(Gravity.CENTER);  //center
+                  }
 
                 // Set the TextView text font family and text size
                 tv.setTypeface(Typeface.SANS_SERIF, Typeface.NORMAL);
@@ -377,6 +400,9 @@ separated[1]; // this will contain " they taste good"
                 // Return the TextView widget as GridView item
                 return tv;
             }
+
+
+
         };
 
 
@@ -1106,7 +1132,7 @@ Double sum=0.0;
     public void LoadYparxoysa (String tr,String IDPARAGG) {
         SQLiteDatabase mydatabase=null;
         Integer n=0;
-        moviesList=(GridView)findViewById(R.id.listmaster);
+      //  moviesList=(GridView)findViewById(R.id.listmaster);
       //  final List<String> values=new ArrayList<>();
         Paragg=(GridView)findViewById(R.id.listdetail);
         try{
