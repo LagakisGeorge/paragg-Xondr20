@@ -28,6 +28,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.example.ioun25.MainActivity.EXTRA_MESSAGE;
+import static com.example.ioun25.order.EIDH_PARAGG;
 
 public class EpiloghEid extends AppCompatActivity {
     GridView moviesList;
@@ -37,7 +38,7 @@ public class EpiloghEid extends AppCompatActivity {
     GridView prosuGrid;
     TextView TextEidos;
     public static ArrayList<String> prosu;
-    public static  ArrayList<String> EIDH_PARAGG;
+    // public static  ArrayList<String> EIDH_PARAGG;
     public int Eidos_position=-1;
 
     public String[] arr=new String[100];

@@ -8,10 +8,11 @@ public class Phonebook {
     private String prosu;
     private String sxolia;
 
-    private int status;
+    private Integer status;
+    private Integer pointer;
 
     // Constructor for the Phonebook class
-    public Phonebook(String name, String posothta, String timh,String prosu,String sxolia,Integer status) {
+    public Phonebook(String name, String posothta, String timh,String prosu,String sxolia,Integer status,Integer pointer) {
         super();
         this.name = name;
         this.posothta = posothta;
@@ -20,6 +21,7 @@ public class Phonebook {
         this.prosu = prosu;
         this.sxolia = sxolia;
         this.status = status;
+        this.pointer = pointer;
     }
 
     // Getter and setter methods for all the fields.
@@ -39,10 +41,11 @@ public class Phonebook {
     public void setPosothta(String posothta) {
         this.posothta = posothta;
     }
+
+
     public String getTimh() {
         return timh;
     }
-
     public void setTimh(String timh) {
         this.timh = timh;
     }
@@ -72,6 +75,13 @@ public class Phonebook {
         this.status = status;
     }
 
+
+    public int getPointer() {
+        return pointer;
+    }
+    public void setStatus(Integer pointer) {
+        this.pointer = pointer;
+    }
 
 
 

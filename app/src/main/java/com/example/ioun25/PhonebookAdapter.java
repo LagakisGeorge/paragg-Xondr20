@@ -10,18 +10,21 @@ import android.view.View.OnClickListener;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.ColorInt;
 
 import static android.graphics.Color.GRAY;
 import static android.graphics.Color.GREEN;
 import static android.graphics.Color.RED;
+import static com.example.ioun25.order.EIDH_PARAGG;
 
 
-public class PhonebookAdapter extends BaseAdapter implements OnClickListener {
+public class PhonebookAdapter extends BaseAdapter  {  // implements OnClickListener
     private Context context;
 
     private List<Phonebook> listPhonebook;
+    private Integer nPointer;
 
     public PhonebookAdapter(Context context, List<Phonebook> listPhonebook) {
         this.context = context;
@@ -80,25 +83,62 @@ public class PhonebookAdapter extends BaseAdapter implements OnClickListener {
         TextView tvSxolia = (TextView) convertView.findViewById(R.id.tvSxolia);
         tvSxolia.setText(entry.getSxolia());
 
+        nPointer=entry.getPointer();
+
         // Set the onClick Listener on this button
         Button btnRemove = (Button) convertView.findViewById(R.id.btnRemove);
         if (entry.getStatus()>0){  // μολις παραγγειλε
             tvName.setTextColor(RED);
           //  tvName.setEnabled(true);
-            tvName.setText(entry.getStatus()+entry.getName());
+          //  tvName.setText(entry.getPointer()+entry.getName());
 
         } else{ //παλια
             tvName.setTextColor(GRAY );
           //  tvName.setEnabled(false);
             btnRemove.setWidth(70);
           //debug  tvName.setText(entry.getStatus()+entry.getName());
-
-
         }
+
+        if (entry.getName().substring(0,1).equals("*")){
+            tvName.setTextColor(GREEN);
+        }
+
+
+
+
+
 
         btnRemove.setFocusableInTouchMode(false);
         btnRemove.setFocusable(false);
-        btnRemove.setOnClickListener(this);
+
+
+
+
+        //To lazy to implement interface
+        btnRemove.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Phonebook entry = (Phonebook) v.getTag();
+
+
+                Toast.makeText(context,nPointer.toString(),Toast.LENGTH_SHORT).show();
+              //  listPhonebook.remove(entry);
+                // listPhonebook.remove(view.getId());
+
+
+                notifyDataSetChanged();
+
+            }
+        });
+
+
+
+
+
+     //debug   btnRemove.setOnClickListener(this);
+
+
         // Set the entry, so that you can capture which item was clicked and
         // then remove it
         // As an alternative, you can use the id/position of the item to capture
@@ -112,14 +152,14 @@ public class PhonebookAdapter extends BaseAdapter implements OnClickListener {
         return convertView;
     }
 
-    @Override
-    public void onClick(View view) {
-        Phonebook entry = (Phonebook) view.getTag();
-        listPhonebook.remove(entry);
-        // listPhonebook.remove(view.getId());
-        notifyDataSetChanged();
-
-    }
+    //  @Override   // θα χρειαστεί στον ορισμό της κλάσης ... implements OnClickListener {...
+                    // και στο getView()       btnRemove.setOnClickListener(this);
+    //public void onClick(View view) {
+     //   Phonebook entry = (Phonebook) view.getTag();
+     //   listPhonebook.remove(entry);
+    //    // listPhonebook.remove(view.getId());
+    //    notifyDataSetChanged();
+   // }
 
     private void showDialog(Phonebook entry) {
         // Create and show your dialog

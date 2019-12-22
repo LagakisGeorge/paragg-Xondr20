@@ -59,8 +59,8 @@ import static java.util.jar.Pack200.Packer.PASS;
 public class order extends AppCompatActivity {
 
     ArrayList<String> pel;
-    ArrayList<String> EIDH_PARAGG; // ερχεται απο το trapezia class ΑΔΕΙΟς αλλα δεν το χρειαζομαι
-
+  //  ArrayList<String> EIDH_PARAGG; // ερχεται απο το trapezia class ΑΔΕΙΟς αλλα δεν το χρειαζομαι
+    public static  ArrayList<String> EIDH_PARAGG;
     public Long[] idArr=new Long[100];    //  // ΤΟ ΣΗΜΑΔΕΥΩ ΓΙΑ ΤΗΝ ΜΕΡΙΚΗ ΠΛΗΡΩΜΗ
 
                             // το χρησιμοποιω για τα είδη παραγγελίας τα οποία τα γεμιζω στο EpiloghEid
@@ -176,7 +176,7 @@ separated[1]; // this will contain " they taste good"
             for (int j = EIDH_PARAGG.size()-5;j>=0; j = j - 5){
             if (j<gYparxoyses){status2=0;}else{status2=1;}
 
-            listOfPhonebook.add(new Phonebook( EIDH_PARAGG.get(j), EIDH_PARAGG.get(j+1), EIDH_PARAGG.get(j+2),EIDH_PARAGG.get(j+3),EIDH_PARAGG.get(j+4),status2));
+            listOfPhonebook.add(new Phonebook( EIDH_PARAGG.get(j), EIDH_PARAGG.get(j+1), EIDH_PARAGG.get(j+2),EIDH_PARAGG.get(j+3),EIDH_PARAGG.get(j+4),status2,j));
         }
 
         //  listOfPhonebook.add(new Phonebook("FREDDO ESSPRESSO", "2", "12"));
@@ -188,9 +188,16 @@ separated[1]; // this will contain " they taste good"
 
             @Override
             public void onItemClick(AdapterView<?> arg0, View view, int position, long index) {
-                System.out.println("sadsfsf");
+              //  System.out.println("sadsfsf");
 
                Toast.makeText(order.this, listOfPhonebook.get(position).getName(), Toast.LENGTH_LONG).show();
+               ListalertDialog(listOfPhonebook.get(position).getPointer());
+
+
+
+
+
+
             }
         });
 
@@ -471,6 +478,101 @@ separated[1]; // this will contain " they taste good"
         }
     }
    */
+// πληρωνω ενα είδος ή το διαγράφω apo LISTVIEW
+ private void ListalertDialog(int position) {
+     CheckBox ch1;
+     ch1=findViewById(R.id.checkBox);
+
+     // μερικη πληρωμή
+     if (ch1.isChecked() ){
+         if (position>=gYparxoyses){
+             Toast.makeText(getApplicationContext(),"ΔΕΝ ΕΧΕΙ ΚΑΤΑΧΩΡΗΘΕΙ ΑΚΟΜΑ",Toast.LENGTH_LONG).show();
+             return;
+         }
+         int j=position-position%5; // ειναι το ιδιο με το position
+         if( EIDH_PARAGG.get(j).substring(0,2).equals("**")){
+             return;
+         }
+
+         // Modify the element at a given index
+         //  topCompanies.set(4, "Walmart");
+         EIDH_PARAGG.set(j,"**"+EIDH_PARAGG.get(j));  //   +EIDH_PARAGG.get(j+4));
+         f_sum=f_sum+parseDouble(EIDH_PARAGG.get(j+2));
+         TextView meriki;
+         meriki=findViewById(R.id.meriki);
+         meriki.setText(f_sum.toString());
+         show_paraggelia();
+         show_Listparaggelia();
+         return;
+
+
+
+     }
+
+
+
+
+     // διαγραφη
+
+     if (position<gYparxoyses){
+         Toast.makeText(getApplicationContext(),"ΕΧΕΙ ΗΔΗ ΚΑΤΑΧΩΡΗΘΕΙ",Toast.LENGTH_LONG).show();
+         return;
+     }
+     AlertDialog.Builder dialog=new AlertDialog.Builder(this);
+     dialog.setMessage("Να διαγραφεί;");
+     dialog.setTitle("Dialog Box");
+     final int n;
+     n=position-position%5;
+     dialog.setPositiveButton("Ναι",
+             new DialogInterface.OnClickListener() {
+                 public void onClick(DialogInterface dialog,
+                                     int which) {
+                     Toast.makeText(getApplicationContext(),"Yes is clicked",Toast.LENGTH_LONG).show();
+                     EIDH_PARAGG.remove(n);
+                     EIDH_PARAGG.remove(n);
+                     EIDH_PARAGG.remove(n);
+                     EIDH_PARAGG.remove(n);
+                     EIDH_PARAGG.remove(n);
+                     show_paraggelia(); //grid
+                     show_Listparaggelia();  //Listbox
+                 }
+
+             });
+     dialog.setNegativeButton("Οχι",new DialogInterface.OnClickListener() {
+         @Override
+         public void onClick(DialogInterface dialog, int which) {
+             Toast.makeText(getApplicationContext(),"ΑΚΥΡΩΣΗ",Toast.LENGTH_LONG).show();
+         }
+     });
+     AlertDialog alertDialog=dialog.create();
+     alertDialog.show();
+
+ }
+
+
+    public void show_Listparaggelia(){
+
+        ListView list = (ListView) findViewById(R.id.listview01);
+        list.setClickable(true);
+        final List<Phonebook> listOfPhonebook = new ArrayList<Phonebook>();
+        Integer status2;
+        // for (int j = 0; j < EIDH_PARAGG.size(); j = j + 5){
+        for (int j = EIDH_PARAGG.size()-5;j>=0; j = j - 5){
+            if (j<gYparxoyses){status2=0;}else{status2=1;}
+
+            listOfPhonebook.add(new Phonebook( EIDH_PARAGG.get(j), EIDH_PARAGG.get(j+1), EIDH_PARAGG.get(j+2),EIDH_PARAGG.get(j+3),EIDH_PARAGG.get(j+4),status2,j));
+        }
+
+        //  listOfPhonebook.add(new Phonebook("FREDDO ESSPRESSO", "2", "12"));
+        //  listOfPhonebook.add(new Phonebook("FREDDO CAPPUCCINO", "1", "1.5"));
+
+        PhonebookAdapter adapter = new PhonebookAdapter(this, listOfPhonebook);
+        list.setAdapter(adapter);
+        //notifyDataSetChanged();
+
+    }
+
+
 
 
     public void show_paraggelia(){
@@ -557,6 +659,15 @@ separated[1]; // this will contain " they taste good"
     }
 
 public void save_meriki(){
+
+     if (f_sum==0){
+         Toast.makeText(getApplicationContext(),"ΔΕΝ ΕΧΕΤΕ ΔΙΑΛΕΞΕΙ ΕΙΔΗ ΑΚΟΜΑ",Toast.LENGTH_LONG).show();
+         return;
+     }
+
+
+
+
     SQLiteDatabase mydatabase = null;
     mydatabase = openOrCreateDatabase("eidh",MODE_PRIVATE,null);
 
@@ -603,7 +714,7 @@ int kn=0;
 
 
 
-
+// πληρωνω ενα είδος ή το διαγράφω
     private void alertDialog(int position) {
         CheckBox ch1;
         ch1=findViewById(R.id.checkBox);
@@ -892,20 +1003,6 @@ int kn=0;
         // };
         Toast.makeText(getApplicationContext(), "OK ENHMEROTHIKE", Toast.LENGTH_SHORT).show();
       */
-
-
-
-
-  //   apo vbnet :   ExecuteSQLQuery("INSERT INTO PARAGGMASTER (TRAPEZI,HME,IDBARDIA,CH1) VALUES ('" + p_Trapezi + "'," + MDATE + "," //+ Str(gBardia) + ",'" + Format(Now(), "hh:mm") + "' )", DT)
-   //     'ExecuteSQLQuery("UPDATE PARAGGMASTER SET CH2='" + Format(Now(), "hh:mm") + "',AJIA=" + SS + ",TROPOS=" + F.LoginName + " WHERE ID=" + p_IDPARAGG, DT)
-
-  //      ExecuteSQLQuery("SELECT MAX(ID) FROM PARAGGMASTER", DT)
-    //    Dim N As Integer = DT(0)(0)
-      //  Dim pr As String = ""
-
-
-
-
 
 
         //-----------------------------------  sql lite save order --------------------------
