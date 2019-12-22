@@ -84,14 +84,14 @@ public class PhonebookAdapter extends BaseAdapter implements OnClickListener {
         Button btnRemove = (Button) convertView.findViewById(R.id.btnRemove);
         if (entry.getStatus()>0){  // μολις παραγγειλε
             tvName.setTextColor(RED);
-            tvName.setEnabled(true);
+          //  tvName.setEnabled(true);
             tvName.setText(entry.getStatus()+entry.getName());
 
         } else{ //παλια
             tvName.setTextColor(GRAY );
-            tvName.setEnabled(false);
+          //  tvName.setEnabled(false);
             btnRemove.setWidth(70);
-            tvName.setText(entry.getStatus()+entry.getName());
+          //debug  tvName.setText(entry.getStatus()+entry.getName());
 
 
         }

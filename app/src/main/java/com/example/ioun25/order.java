@@ -172,10 +172,11 @@ separated[1]; // this will contain " they taste good"
 
         final List<Phonebook> listOfPhonebook = new ArrayList<Phonebook>();
          Integer status2;
-        for (int j = 0; j < EIDH_PARAGG.size(); j = j + 5){
+            // for (int j = 0; j < EIDH_PARAGG.size(); j = j + 5){
+            for (int j = EIDH_PARAGG.size()-5;j>=0; j = j - 5){
             if (j<gYparxoyses){status2=0;}else{status2=1;}
 
-            listOfPhonebook.add(new Phonebook(status2.toString()+ EIDH_PARAGG.get(j), EIDH_PARAGG.get(j+1), EIDH_PARAGG.get(j+2),EIDH_PARAGG.get(j+3),EIDH_PARAGG.get(j+4),status2));
+            listOfPhonebook.add(new Phonebook( EIDH_PARAGG.get(j), EIDH_PARAGG.get(j+1), EIDH_PARAGG.get(j+2),EIDH_PARAGG.get(j+3),EIDH_PARAGG.get(j+4),status2));
         }
 
         //  listOfPhonebook.add(new Phonebook("FREDDO ESSPRESSO", "2", "12"));
@@ -194,25 +195,6 @@ separated[1]; // this will contain " they taste good"
         });
 
         list.setAdapter(adapter);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
