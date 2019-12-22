@@ -29,6 +29,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -77,7 +78,7 @@ public class order extends AppCompatActivity {
     private   Double f_sum=0.0;
     private static ResultSet RESULT;
     private static String fIDPARAGG;  // ιδ παραγγελιασ
-    private static int  fYparxSeires;  // ποσες σειρες υπαρχουν στην ηδη υπάρχουσα παραγγελια
+    private static int  fYparxSeires;  // ποσες σειρες υπαρχουν στην  παραγγελια(μαζι με αυτες που δεν τυπωθηκαν)
 
     Handler handler2;
   public final  List<String> pelOrder_Items=new ArrayList<>();// pelOrder_Items;
@@ -98,23 +99,22 @@ public class order extends AppCompatActivity {
         EIDH_PARAGG = intent.getStringArrayListExtra("mEIDH");
         KATHG = intent.getStringArrayListExtra("mKATHG");
 
-        for (int kn=0;kn<99;kn++){
-            idArr[kn]=0L;
+        for (int kn = 0; kn < 99; kn++) {
+            idArr[kn] = 0L;
         }
 
 
-if (null==EIDH_PARAGG) {
-    fYparxSeires=0;
-    gYparxoyses=0;
-}else{
-    fYparxSeires= EIDH_PARAGG.size();
-}
-
+        if (null == EIDH_PARAGG) {
+            fYparxSeires = 0;
+            gYparxoyses = 0;
+        } else {
+            fYparxSeires = EIDH_PARAGG.size();
+        }
 
 
         // κραταω αυτο που ερχεται απο το trapazia μονο που κόβω το αστερακι για να μην  ξαναδιαβαζεται οταν ερχεται απο το epilogheid  δηλαδη ανα ερχεται *62;1200  => 62;1200
         String message2;
-        message2=message;
+        message2 = message;
         if (message2.substring(0, 1).equals("#")) {
             String[] separated3 = message2.split("#");
             message2 = separated3[1];
@@ -124,12 +124,10 @@ if (null==EIDH_PARAGG) {
         Trapezi_idparagg.setText(message2);
 
 
-
-
         // pelOrder_Items = new ArrayList<String>();
 
-      //  pel = intent.getStringArrayListExtra("mpel");
-       // pel = intent.getStringArrayListExtra("mpel");
+        //  pel = intent.getStringArrayListExtra("mpel");
+        // pel = intent.getStringArrayListExtra("mpel");
         // Capture the layout's TextView and set the string as its text
 
 
@@ -142,31 +140,82 @@ separated[1]; // this will contain " they taste good"
 
 
         String[] separated = message.split(";");
-        message=separated[0];
-        fIDPARAGG=separated[1];
+        message = separated[0];
+        fIDPARAGG = separated[1];
 
 
         TextView textView = findViewById(R.id.textView3);
         textView.setText(message); // αριθμος τραπεζιού
-     //   String hallostring = "hallo";
-     //   String asubstring = hallostring.substring(0, 1);
+        //   String hallostring = "hallo";
+        //   String asubstring = hallostring.substring(0, 1);
 
 
-     //   boolean resultOfComparison=stringA.equals(stringB);
-        fYparxSeires=0;
-       if (message.substring(0, 1).equals("#")){
+        //   boolean resultOfComparison=stringA.equals(stringB);
+        fYparxSeires = 0;
+        if (message.substring(0, 1).equals("#")) {
 
-           String[] separated2 = message.split("#");
-           message=separated[1];
-              LoadYparxoysa(message,fIDPARAGG);
-       } else{
+            String[] separated2 = message.split("#");
+            message = separated[1];
+            LoadYparxoysa(message, fIDPARAGG);
+        } else {
 
-           if (Who.equals("trapezia")){
-               EIDH_PARAGG=new ArrayList<String>();
+            if (Who.equals("trapezia")) {
+                EIDH_PARAGG = new ArrayList<String>();
 
 
-           }
-       }
+            }
+        }
+
+
+        ListView list = (ListView) findViewById(R.id.listview01);
+        list.setClickable(true);
+
+        final List<Phonebook> listOfPhonebook = new ArrayList<Phonebook>();
+         Integer status2;
+        for (int j = 0; j < EIDH_PARAGG.size(); j = j + 5){
+            if (j<gYparxoyses){status2=0;}else{status2=1;}
+
+            listOfPhonebook.add(new Phonebook(status2.toString()+ EIDH_PARAGG.get(j), EIDH_PARAGG.get(j+1), EIDH_PARAGG.get(j+2),EIDH_PARAGG.get(j+3),EIDH_PARAGG.get(j+4),status2));
+        }
+
+        //  listOfPhonebook.add(new Phonebook("FREDDO ESSPRESSO", "2", "12"));
+       //  listOfPhonebook.add(new Phonebook("FREDDO CAPPUCCINO", "1", "1.5"));
+
+        PhonebookAdapter adapter = new PhonebookAdapter(this, listOfPhonebook);
+
+        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> arg0, View view, int position, long index) {
+                System.out.println("sadsfsf");
+
+               Toast.makeText(order.this, listOfPhonebook.get(position).getName(), Toast.LENGTH_LONG).show();
+            }
+        });
+
+        list.setAdapter(adapter);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
        // δεν χρειαζεται
        // moviesList=findViewById(R.id.listmaster);  //kathgories eidon
 

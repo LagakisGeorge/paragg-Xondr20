@@ -76,7 +76,7 @@
             android:text="Update from SQLServer" />
 
         <Button
-            android:id="@+id/parametroi"
+            android:id="@+id/arx_eidon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="loginEidh"

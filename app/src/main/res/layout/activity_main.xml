@@ -2,14 +2,14 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-
+    android:background="@drawable/register_table"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
     <Button
         android:id="@+id/trapezia"
-        android:layout_width="399dp"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
 
         android:layout_marginTop="7dp"
@@ -17,13 +17,13 @@
         android:text="ΠΑΡΑΓΓΕΛΙΕΣ" />
 
     <Button
-        android:id="@+id/parametroi"
-        android:layout_width="132dp"
+        android:id="@+id/arx_eidon"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/trapezia"
+        android:layout_below="@+id/KATHGORIES"
         android:layout_marginTop="0dp"
         android:onClick="PARAMETROI"
-        android:text="ΕΙΔΗ" />
+        android:text="ΑΡΧΕΙΟ ΕΙΔΩΝ" />
 
     <TextView
         android:id="@+id/hello"
@@ -36,56 +36,58 @@
 
     <Button
         android:id="@+id/KATHGORIES"
-        android:layout_width="132dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/SQL"
+        android:layout_below="@+id/arx_trapezion"
 
         android:layout_marginTop="4dp"
 
 
         android:onClick="KATHGORIES_intent"
-        android:text="ΚΑΤΗΓΟΡΙΕΣ" />
+        android:text="ΑΡΧΕΙΟ ΚΑΤΗΓΟΡΙΩΝ" />
 
 
     <Button
         android:id="@+id/GENERAL"
-        android:layout_width="216dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/SQL"
+        android:layout_below="@+id/trapezia"
 
 
-        android:layout_marginTop="2dp"
-        android:layout_toRightOf="@+id/KATHGORIES"
+
+        android:layout_marginTop="95dp"
+
         android:onClick="GENERAL"
         android:text="ΡΥΘΜΙΣΕΙΣ" />
-
-
 
     <ListView
         android:id="@+id/list1"
         android:layout_width="387dp"
-        android:layout_height="461dp"
-        android:layout_below="@+id/button8"
+        android:layout_height="61dp"
+        android:layout_below="@+id/SQL"
+
         android:layout_marginTop="268dp" />
 
     <Button
         android:id="@+id/SQL"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/trapezia"
-        android:layout_toRightOf="@+id/parametroi"
+        android:layout_below="@+id/arx_eidon"
+
         android:onClick="formaSQL"
         android:text="sql" />
 
+
     <Button
         android:id="@+id/REPORT"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_below="@+id/trapezia"
-        android:layout_toRightOf="@+id/SQL"
+        android:layout_marginLeft="3dp"
+        android:layout_marginTop="36dp"
+
         android:onClick="report"
         android:text="report" />
-
 
     <TextView
         android:id="@+id/idBardia"
@@ -97,12 +99,13 @@
         android:text="--" />
 
     <Button
-        android:id="@+id/button"
-        android:layout_width="132dp"
+        android:id="@+id/arx_trapezion"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="86dp"
         android:layout_below="@+id/GENERAL"
-        android:layout_marginTop="3dp"
+
         android:onClick="addtrapezia"
-        android:text="ΤΡΑΠΕΖΙΑ" />
+        android:text="ΑΡΧΕΙΟ ΤΡΑΠΕΖΙΩΝ" />
 
 </RelativeLayout>
