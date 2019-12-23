@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="@drawable/register_table"
+    android:background="@drawable/dessert"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
@@ -98,11 +98,12 @@
         android:layout_centerHorizontal="true"
         android:text="--" />
 
+
     <Button
         android:id="@+id/arx_trapezion"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="86dp"
+        android:layout_marginTop="286dp"
         android:layout_below="@+id/GENERAL"
 
         android:onClick="addtrapezia"

@@ -2,8 +2,6 @@ package com.example.ioun25;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.database.Cursor;
@@ -18,7 +16,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.BaseAdapter;
 import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.RelativeLayout;
@@ -64,7 +61,7 @@ public class EpiloghEid extends AppCompatActivity {
 
      //   prosu = new ArrayList<String>();
         prosuGrid=(GridView)findViewById(R.id.prosu);
-        TextProsu=(TextView)findViewById(R.id.textView4);  // π.χ. μετριος,καστανη
+        TextProsu=(TextView)findViewById(R.id.Perigrafh);  // π.χ. μετριος,καστανη
         TextEidos=(TextView)findViewById(R.id.TextEidos);
          Keim=(EditText)findViewById(R.id.editText2); // π.χ. θελει ψηλο ποτηρι
 
@@ -105,7 +102,7 @@ public class EpiloghEid extends AppCompatActivity {
 
     // σβηνω τις επιλογές πρόσθετων
     public void Akyro_Prosu (View view){
-        TextProsu=(TextView)findViewById(R.id.textView4);  // π.χ. μετριος,καστανη
+        TextProsu=(TextView)findViewById(R.id.Perigrafh);  // π.χ. μετριος,καστανη
 
         TextProsu.setText("");
 

@@ -122,7 +122,7 @@ public class order extends AppCompatActivity {
         }
         TextView Trapezi_idparagg = findViewById(R.id.textView32); //   *51;1256   trapezi;idparagg
         Trapezi_idparagg.setText(message2);
-
+        Trapezi_idparagg.setVisibility(View.INVISIBLE );
 
         // pelOrder_Items = new ArrayList<String>();
 
@@ -479,7 +479,7 @@ separated[1]; // this will contain " they taste good"
     }
    */
 // πληρωνω ενα είδος ή το διαγράφω apo LISTVIEW
- private void ListalertDialog(int position) {
+ public void ListalertDialog(int position) {
      CheckBox ch1;
      ch1=findViewById(R.id.checkBox);
 

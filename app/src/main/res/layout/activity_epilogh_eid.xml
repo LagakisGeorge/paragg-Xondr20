@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F1F0EC"
+
+    android:background="@drawable/register_table"
     tools:context=".EpiloghEid">
 
     <TextView
@@ -95,11 +96,12 @@
     <TextView
         android:id="@+id/TextEidos"
         android:layout_width="wrap_content"
+
         android:layout_height="wrap_content"
-        android:layout_below="@+id/trapezi" />
+        android:layout_below="@+id/button16" />
 
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/Perigrafh"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/TextEidos" />
@@ -107,14 +109,14 @@
 
     <EditText
         android:id="@+id/editText2"
+        style="@style/Widget.MaterialComponents.TextInputEditText.FilledBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/textView4"
+        android:layout_below="@+id/Perigrafh"
         android:layout_alignParentRight="true"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text=""
-        tools:text="" />
+        tools:text="Σχόλια" />
 
     <GridView
         android:id="@+id/prosu"
@@ -136,7 +138,7 @@
         android:layout_height="wrap_content"
         android:padding="2dp"
         android:numColumns="2"
-        android:background="#8c898f"
+
         android:verticalSpacing="2dp"
         android:horizontalSpacing="0dp"
         android:stretchMode="columnWidth"

@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import androidx.annotation.ColorInt;
 
+import static android.graphics.Color.BLACK;
 import static android.graphics.Color.GRAY;
 import static android.graphics.Color.GREEN;
 import static android.graphics.Color.RED;
@@ -93,7 +94,7 @@ public class PhonebookAdapter extends BaseAdapter  {  // implements OnClickListe
           //  tvName.setText(entry.getPointer()+entry.getName());
 
         } else{ //παλια
-            tvName.setTextColor(GRAY );
+            tvName.setTextColor(BLACK );
           //  tvName.setEnabled(false);
             btnRemove.setWidth(70);
           //debug  tvName.setText(entry.getStatus()+entry.getName());
@@ -126,8 +127,7 @@ public class PhonebookAdapter extends BaseAdapter  {  // implements OnClickListe
               //  listPhonebook.remove(entry);
                 // listPhonebook.remove(view.getId());
 
-
-                notifyDataSetChanged();
+              //  notifyDataSetChanged();
 
             }
         });

@@ -4,26 +4,34 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/register_table"
 
 
     tools:context=".order">
 
-
+    <TextView
+        android:id="@+id/cTrapezi"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="140dp"
+        android:layout_alignParentTop="true"
+        android:text="Τραπέζι :" />
 
         <TextView
             android:id="@+id/textView3"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/cTrapezi"
             android:layout_alignParentTop="true"
 
             android:text="TextView" />
-        <TextView
-            android:id="@+id/textView32"
-            android:layout_width="50dp"
-            android:layout_height="wrap_content"
-            android:layout_toRightOf="@+id/textView3"
-            android:layout_alignParentTop="true"
-            android:text="TextView" />
+
+    <TextView
+        android:id="@+id/textView32"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/textView3"
+        android:text="TextView" />
 
 
     <GridView
@@ -53,18 +61,10 @@
     <GridView
         android:id="@+id/listKathg"
         android:layout_width="match_parent"
-        android:layout_height="185dp"
+        android:layout_height="235dp"
         android:layout_below="@+id/listview01"
-        android:background="#d9d5dc"
+
         android:numColumns="3" />
-
-
-
-
-
-
-
-
 
 
     <Button
@@ -75,7 +75,7 @@
         android:layout_alignParentLeft="true"
 
         android:onClick="SAVE_ORDER"
-        android:text="SAVE ORDER"
+        android:text="Aποθήκευση"
         android:textSize="10sp" />
 
     <Button
@@ -111,10 +111,20 @@
         android:layout_toRightOf="@+id/button6"
         android:text="Μερική Πληρωμή" />
 
+
+    <TextView
+        android:id="@+id/cmeriki"
+        android:layout_below="@+id/button6"
+        android:layout_alignParentLeft="true"
+        android:layout_width="10dp"
+        android:layout_height="wrap_content"
+        android:text="€  " />
+
     <TextView
         android:id="@+id/meriki"
         android:layout_below="@+id/button6"
-        android:layout_alignParentLeft="true"
+        android:layout_toRightOf="@id/cmeriki"
+        android:layout_marginLeft="5dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="" />
