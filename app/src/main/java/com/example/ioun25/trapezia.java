@@ -176,6 +176,14 @@ gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
             @Override
             public void onClick(View v) {
 
+                trapezi = (TextView)findViewById(R.id.textView);
+
+                String skTrapezi=trapezi.getText().toString();
+                if (skTrapezi.length()==0){
+                    Toast.makeText(trapezia.this,"διαλεξτε τραπεζι", Toast.LENGTH_LONG).show();
+                    return ;
+                }
+
                 String[] cTrapeziFull = TrapeziFull.split(";");
                 String idpar=cTrapeziFull[1];
 
@@ -586,6 +594,7 @@ Payment(Long.toString(mp) ) ;
   }
 
   public void Payment(String tropos) {
+
 
 
 

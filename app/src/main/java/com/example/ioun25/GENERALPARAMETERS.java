@@ -34,6 +34,8 @@ public class GENERALPARAMETERS extends AppCompatActivity {
     public ArrayList<String> values;
      public Button tropos;
     public Button deleteall;
+
+    public Button analisi;
     public Button test;
     public Button typoma;
     public Button button_kl;
@@ -100,6 +102,14 @@ public class GENERALPARAMETERS extends AppCompatActivity {
         });
 
 
+        analisi=findViewById(R.id.list_anal);
+        analisi.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                analisi();
+            }
+        });
+
         deleteall=findViewById(R.id.deleteall);
         deleteall.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -107,8 +117,6 @@ public class GENERALPARAMETERS extends AppCompatActivity {
                 deleteall();
             }
         });
-
-
 
 
 
@@ -377,6 +385,158 @@ public class GENERALPARAMETERS extends AppCompatActivity {
 
 
 
+
+    public void analisi (){
+        EditText t2=findViewById(R.id.t2);
+        EditText t4=findViewById(R.id.t4);
+
+        t2.setText("");
+        t4.setText("");
+
+        moviesList=(GridView)findViewById(R.id.listEidhp);
+        //recyclerView=(RecyclerView) findViewById(R.id.grid2);
+        final List<String> values=new ArrayList<>();
+
+
+
+
+        try{
+            SQLiteDatabase mydatabase=null;
+
+            values.add("τραπεζι");
+            values.add("ωρα");
+            values.add("πληρωμη");
+            values.add("Αξία");
+
+
+            mydatabase = openOrCreateDatabase("eidh",MODE_PRIVATE,null);
+
+           /* if (MainActivity.idBardia.equals("0")){
+                Cursor cursor = mydatabase.rawQuery("select MAX(id) AS CID  from BARDIA",null);
+                if (cursor.moveToFirst()) {
+                    MainActivity.idBardia=Integer.toString(cursor.getInt(0));
+                }
+            }*/
+
+
+
+
+            //  SUBSTR(ch2,11,6)'
+            Cursor cursor2 = mydatabase.rawQuery("select TRAPEZI,ifnull(SUBSTR(ch2,11,6),'') AS ORA,0 as tropos,ajia  from  PARAGGMASTER where  IDBARDIA="+MainActivity.idBardia+"  order by ID", null);
+
+
+            // final List<String> values=new ArrayList<>();
+          //  Cursor cursor2 = mydatabase.rawQuery("select TRAPEZI,trapezi AS ORA,0 as tropos,0 as ajia  from  PARAGGMASTER where  IDBARDIA="+MainActivity.idBardia+"  order by ID", null);
+
+            if (cursor2.moveToFirst()) {
+                do {
+
+                    values.add(cursor2.getString(0));
+                    values.add(cursor2.getString(1));
+                    values.add(Integer.toString(cursor2.getInt(2)));
+                    values.add(Double.toString(cursor2.getDouble(3)));
+                    // for(int i = 0; i<4;i++)  {
+
+                    //    int index = c.getColumnIndex("description");
+                    //  String str = cursor2.getString(i);
+                    //  if (str == null || str.isEmpty() || str.equalsIgnoreCase("null")) {
+                    //       values.add("");
+                    //   } else {
+                    //       values.add(str);
+                    //    }
+
+
+                    //  }
+
+                } while (cursor2.moveToNext());
+            }
+            mydatabase.close();
+            ArrayAdapter<String> arrayAdapter =
+                    new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, values)
+                            //-------------------- arxh  αυτο το κομματι βαζει πλαισια στο gridview
+                    {
+                        public View getView(int position, View convertView, ViewGroup parent) {
+
+                            // Return the GridView current item as a View
+                            View view = super.getView(position,convertView,parent);
+
+                            // Convert the view as a TextView widget
+                            TextView tv = (TextView) view;
+
+                            //tv.setTextColor(Color.DKGRAY);
+
+                            // Set the layout parameters for TextView widget
+                            RelativeLayout.LayoutParams lp =  new RelativeLayout.LayoutParams(
+                                    RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.MATCH_PARENT
+                            );
+                            tv.setLayoutParams(lp);
+
+                            // Get the TextView LayoutParams
+                            RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams)tv.getLayoutParams();
+
+                            // Set the width of TextView widget (item of GridView)
+                /*
+                    IMPORTANT
+                        Adjust the TextView widget width depending
+                        on GridView width and number of columns.
+
+                        GridView width / Number of columns = TextView width.
+
+                        Also calculate the GridView padding, margins, vertical spacing
+                        and horizontal spacing.
+                 */
+
+
+                            Resources r = GENERALPARAMETERS.this.getResources();
+                            int  px = (int) (TypedValue.applyDimension(
+                                    TypedValue.COMPLEX_UNIT_DIP, 100, r.getDisplayMetrics()));
+                            // tv.setLayoutParams(new GridView.LayoutParams((width/10)*6, 50));
+
+                            // if (position==0 || position==5) {
+                            // params.width = px/2;  // getPixelsFromDPs(EpiloghEid.this,168);
+                            //   tv.setLayoutParams(new GridView.LayoutParams((px*6), 100));
+                            // }else{
+                            params.width = px;  // getPixelsFromDPs(EpiloghEid.this,168);
+                            // }
+
+
+                            // Set the TextView layout parameters
+                            tv.setLayoutParams(params);
+
+                            // Display TextView text in center position
+                            tv.setGravity(Gravity.CENTER);
+
+                            // Set the TextView text font family and text size
+                            tv.setTypeface(Typeface.SANS_SERIF, Typeface.NORMAL);
+                            tv.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 12);
+
+                            // Set the TextView text (GridView item text)
+                            tv.setText(values.get(position));
+
+                            // Set the TextView background color
+                            tv.setBackgroundColor(Color.parseColor("#d9d5dc"));
+
+                            // Return the TextView widget as GridView item
+                            return tv;
+                        }
+                    };
+            ;
+            moviesList.setAdapter(arrayAdapter);
+
+        } catch (SQLiteAccessPermException e) {
+            e.printStackTrace();
+        }
+
+
+
+
+
+    }
+
+
+
+
+
     public void list_tropos_pliromis (){
         EditText t2=findViewById(R.id.t2);
         EditText t4=findViewById(R.id.t4);
@@ -451,24 +611,32 @@ public class GENERALPARAMETERS extends AppCompatActivity {
             values.add("ωρα");
             values.add("πληρωμη");
             values.add("Αξία");
+            //  SUBSTR(ch2,11,6)'
+            //Cursor cursor2 = mydatabase.rawQuery("select TRAPEZI,SUBSTR(ch2,11,6) AS ORA,tropos,ajia  from  PARAGGMASTER where  IDBARDIA="+MainActivity.idBardia+"  order by ID", null);
 
-            Cursor cursor2 = mydatabase.rawQuery("select TRAPEZI,SUBSTR(ch2,11,6),tropos,ajia  from  PARAGGMASTER where  IDBARDIA="+MainActivity.idBardia+"  order by TRAPEZI", null);
+
+           // final List<String> values=new ArrayList<>();
+            Cursor cursor2 = mydatabase.rawQuery("select TRAPEZI,trapezi AS ORA,0 as tropos,0 as ajia  from  PARAGGMASTER where  IDBARDIA="+MainActivity.idBardia+"  order by ID", null);
 
             if (cursor2.moveToFirst()) {
                 do {
 
-                    for(int i = 0; i<4;i++)  {
+                    values.add(cursor2.getString(0));
+                    values.add(cursor2.getString(1));
+                    values.add(Integer.toString(cursor2.getInt(2)));
+                    values.add(Double.toString(cursor2.getDouble(3)));
+                   // for(int i = 0; i<4;i++)  {
 
                         //    int index = c.getColumnIndex("description");
-                        String str = cursor2.getString(i);
-                        if (str == null || str.isEmpty() || str.equalsIgnoreCase("null")) {
-                            values.add("");
-                        } else {
-                            values.add(str);
-                        }
+                      //  String str = cursor2.getString(i);
+                      //  if (str == null || str.isEmpty() || str.equalsIgnoreCase("null")) {
+                     //       values.add("");
+                     //   } else {
+                     //       values.add(str);
+                    //    }
 
 
-                    }
+                  //  }
 
                 } while (cursor2.moveToNext());
             }

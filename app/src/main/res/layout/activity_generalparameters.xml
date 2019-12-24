@@ -156,7 +156,7 @@
 
         <Button
             android:id="@+id/list_tropos"
-            android:layout_width="102dp"
+            android:layout_width="82dp"
             android:layout_height="50dp"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
@@ -165,17 +165,29 @@
             android:textSize="10sp"
             android:visibility="visible" />
 
+
+        <Button
+            android:id="@+id/list_anal"
+            android:layout_width="82dp"
+            android:layout_height="50dp"
+            android:layout_toRightOf="@+id/list_tropos"
+            android:layout_alignParentTop="true"
+
+            android:text="ΑΝΑΛΥΣΗ ΒΑΡΔΙΑΣ"
+            android:textSize="10sp"
+            android:visibility="visible" />
+
         <Button
             android:id="@+id/button_t"
-            android:layout_width="102dp"
+            android:layout_width="82dp"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@+id/list_tropos"
+            android:layout_toRightOf="@+id/list_anal"
             android:text="Eκτυπωση"
             android:textSize="10sp" />
 
         <Button
             android:id="@+id/button_kl"
-            android:layout_width="102dp"
+            android:layout_width="82dp"
             android:layout_height="wrap_content"
             android:layout_toRightOf="@+id/button_t"
             android:text="ΚΛΕΙΣΙΜΟΣ ΒΑΡΔΙΑΣ"

@@ -3,6 +3,7 @@ package com.example.ioun25;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
@@ -17,11 +18,13 @@ import android.os.Message;
 import android.util.TypedValue;
 import android.view.ContextMenu;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.GridView;
@@ -49,6 +52,9 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+import static android.graphics.Color.BLACK;
+import static android.graphics.Color.GREEN;
+import static android.graphics.Color.RED;
 import static com.example.ioun25.MainActivity.EXTRA_MESSAGE;
 import static com.example.ioun25.MainActivity.gYparxoyses;
 import static com.example.ioun25.MainActivity.idBardia;
@@ -58,6 +64,8 @@ import static java.util.jar.Pack200.Packer.PASS;
 
 public class order extends AppCompatActivity {
 
+
+    TextView total_price; // μερικο συνολο
     ArrayList<String> pel;
   //  ArrayList<String> EIDH_PARAGG; // ερχεται απο το trapezia class ΑΔΕΙΟς αλλα δεν το χρειαζομαι
     public static  ArrayList<String> EIDH_PARAGG;
@@ -88,6 +96,8 @@ public class order extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order);
+
+        total_price = (TextView) findViewById(R.id.meriki);
 
 
         String Who;
@@ -182,7 +192,7 @@ separated[1]; // this will contain " they taste good"
         //  listOfPhonebook.add(new Phonebook("FREDDO ESSPRESSO", "2", "12"));
        //  listOfPhonebook.add(new Phonebook("FREDDO CAPPUCCINO", "1", "1.5"));
 
-        PhonebookAdapter adapter = new PhonebookAdapter(this, listOfPhonebook);
+        Phonebook2Adapter adapter = new Phonebook2Adapter(this, listOfPhonebook);
 
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
@@ -1403,4 +1413,184 @@ Double sum=0.0;
         startActivity(intent);
 
     };
+
+
+
+
+    public class Phonebook2Adapter extends BaseAdapter {  // implements OnClickListener
+        private Context context;
+
+        private List<Phonebook> listPhonebook;
+        private Integer nPointer;
+
+        public Phonebook2Adapter(Context context, List<Phonebook> listPhonebook) {
+            this.context = context;
+            this.listPhonebook = listPhonebook;
+        }
+
+        public int getCount() {
+            return listPhonebook.size();
+        }
+
+
+
+        public Object getItem(int position) {
+
+            return listPhonebook.get(position);
+            // return listPhonebook.get(getCount() - position - 1);
+        }
+
+        public long getItemId(int position) {
+
+            return position;  // κανονικη : το τελευταιο κατω
+            //  return  ( getCount() - position - 1);
+        }
+
+        //  @Override
+        //  public Object getItem(int position) {
+        //      return getCount() - position - 1;
+        //  }
+
+
+
+
+        public View getView(int position, View convertView, ViewGroup viewGroup) {
+            Phonebook entry = listPhonebook.get(position);
+            if (convertView == null) {
+                LayoutInflater inflater = (LayoutInflater) context
+                        .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                convertView = inflater.inflate(R.layout.phone_row, null);
+            }
+            TextView tvName = (TextView) convertView.findViewById(R.id.tvName);
+            tvName.setText(entry.getName());
+
+
+            //   tvName.setTextColor(RED);
+
+            TextView tvPhone = (TextView) convertView.findViewById(R.id.tvPosothta);
+            tvPhone.setText(entry.getPosothta());
+
+
+            TextView tvMail = (TextView) convertView.findViewById(R.id.tvTimh);
+            tvMail.setText(entry.getTimh());
+
+            TextView tvProsu = (TextView) convertView.findViewById(R.id.tvProsu);
+            tvProsu.setText(entry.getProsu());
+
+            TextView tvSxolia = (TextView) convertView.findViewById(R.id.tvSxolia);
+            tvSxolia.setText(entry.getSxolia());
+
+            nPointer=entry.getPointer();
+
+            // Set the onClick Listener on this button
+            Button btnRemove = (Button) convertView.findViewById(R.id.btnRemove);
+            if (entry.getStatus()>0){  // μολις παραγγειλε
+                tvName.setTextColor(RED);
+                //  tvName.setEnabled(true);
+                //  tvName.setText(entry.getPointer()+entry.getName());
+
+            } else{ //παλια
+                tvName.setTextColor(BLACK );
+                //  tvName.setEnabled(false);
+                btnRemove.setWidth(70);
+                //debug  tvName.setText(entry.getStatus()+entry.getName());
+            }
+
+            if (entry.getName().substring(0,1).equals("*")){
+                tvName.setTextColor(GREEN);
+            }
+
+
+
+
+
+
+            btnRemove.setFocusableInTouchMode(false);
+            btnRemove.setFocusable(false);
+
+
+
+
+            //To lazy to implement interface
+            btnRemove.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+
+                    Phonebook entry = (Phonebook) v.getTag();
+                    nPointer=entry.getPointer();
+                   // EIDH_PARAGG.remove(nPointer);
+                   // EIDH_PARAGG.remove(nPointer);
+                   // EIDH_PARAGG.remove(nPointer);
+                   // EIDH_PARAGG.remove(nPointer);
+                   // EIDH_PARAGG.remove(nPointer);
+
+
+                    Toast.makeText(context,"koympi"+nPointer.toString(),Toast.LENGTH_SHORT).show();
+                 //   listPhonebook.remove(entry);
+
+                    ListalertDialog(nPointer);
+
+
+
+
+                //ok δουλεύει    f_sum=f_sum+parseDouble(entry.getTimh());
+                // ok δουλεύει      total_price.setText(f_sum.toString()) ;
+
+
+                    // TextView tvMail = (TextView) order.findViewById(R.id.tvTimh);
+
+                    //              Button mer=super.findViewById(R.id.merikiB);
+
+
+
+
+
+
+                    // listPhonebook.remove(view.getId());
+
+                    //  notifyDataSetChanged();
+
+                }
+            });
+
+
+
+
+
+            //debug   btnRemove.setOnClickListener(this);
+
+
+            // Set the entry, so that you can capture which item was clicked and
+            // then remove it
+            // As an alternative, you can use the id/position of the item to capture
+            // the item
+            // that was clicked.
+            btnRemove.setTag(entry);
+
+            // btnRemove.setId(position);
+
+
+            return convertView;
+        }
+
+        //  @Override   // θα χρειαστεί στον ορισμό της κλάσης ... implements OnClickListener {...
+        // και στο getView()       btnRemove.setOnClickListener(this);
+        //public void onClick(View view) {
+        //   Phonebook entry = (Phonebook) view.getTag();
+        //   listPhonebook.remove(entry);
+        //    // listPhonebook.remove(view.getId());
+        //    notifyDataSetChanged();
+        // }
+
+        private void showDialog(Phonebook entry) {
+            // Create and show your dialog
+            // Depending on the Dialogs button clicks delete it or do nothing
+        }
+
+    }
+
+
+
+
 }

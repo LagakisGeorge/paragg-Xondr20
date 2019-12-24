@@ -121,7 +121,9 @@ public class PhonebookAdapter extends BaseAdapter  {  // implements OnClickListe
             public void onClick(View v) {
 
                 Phonebook entry = (Phonebook) v.getTag();
+               // TextView tvMail = (TextView) order.findViewById(R.id.tvTimh);
 
+                //              Button mer=super.findViewById(R.id.merikiB);
 
                 Toast.makeText(context,nPointer.toString(),Toast.LENGTH_SHORT).show();
               //  listPhonebook.remove(entry);
