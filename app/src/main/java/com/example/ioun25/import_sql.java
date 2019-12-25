@@ -763,7 +763,7 @@ cursor2.moveToFirst() ;
                     "[XAR2] [int] ," +
                     "[CH1] [nvarchar](55) ," +
                     "[CH2] [nvarchar](55) ," +
-                    "[NUM1] [int] ," +
+                    "[NUM1] [real] ," +
                     "[NUM2] [int] ," +
                     "[TIMH] [real] ," +
                     "[KATHG] [int] ," +

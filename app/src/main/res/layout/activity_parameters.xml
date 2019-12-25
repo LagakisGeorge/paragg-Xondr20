@@ -7,20 +7,53 @@
       tools:context=".parameters">
 
     <TableRow>
+
+        <TextView
+            android:id="@+id/ip1"
+
+            android:layout_width="100dp"
+            android:layout_height="61dp"
+            android:layout_weight="1"
+            android:background="@android:color/background_light"
+            android:gravity="center"
+            android:padding="18dip"
+            android:text="ΠΕΡΙΓΡΑΦΗ"
+            android:textColor="#000000"
+            android:textSize="10sp" />
+
+
+        <EditText
+            android:id="@+id/t2"
+            android:layout_width="259dp"
+
+            android:layout_height="41dp"
+            android:layout_marginEnd="-1dp"
+
+            android:layout_marginRight="-1dp"
+            android:ems="10"
+            android:inputType="textPersonName" />
+
+    </TableRow>
+
+
+
+    <TableRow>
         <RelativeLayout>
 
             <TextView
                 android:id="@+id/TextView504"
                 android:layout_width="154dp"
-                android:layout_height="51dp"
+                android:layout_height="60dp"
                 android:layout_weight="1"
-                android:background="#a09f9f"
+                android:background="@android:color/background_light"
                 android:gravity="center"
-                android:padding="18dip"
 
-
+                android:textSize="12sp"
                 android:text="Νέα τιμή"
-                android:textColor="#000000" />
+
+
+                android:textColor="#000000"
+                />
 
 
             <EditText
@@ -28,28 +61,28 @@
                 android:layout_width="80dp"
                 android:layout_height="51dp"
                 android:layout_marginEnd="-1dp"
-
+                android:textSize="11sp"
                 android:layout_marginRight="-1dp"
                 android:layout_toRightOf="@+id/TextView504"
 
-                android:ems="10"
+                android:ems="12"
                 android:inputType="textPersonName" />
 
             <TextView
-                android:id="@+id/textView5"
+                android:id="@+id/textView52"
                 android:layout_width="wrap_content"
                 android:layout_height="51dp"
-                android:gravity="center"
                 android:layout_toRightOf="@+id/t1"
-                android:background="#a09f9f"
-                android:textColor="#000000"
-                android:text=" Κατηγορια " />
+                android:background="@android:color/background_light"
+                android:gravity="center"
+                android:text="Τιμ.Πακ."
+                android:textColor="#000000" />
 
             <EditText
-                android:id="@+id/t5"
+                android:id="@+id/Timhp"
                 android:layout_width="51dp"
                 android:layout_height="wrap_content"
-                android:layout_toRightOf="@+id/textView5"
+                android:layout_toRightOf="@+id/textView52"
                 android:ems="10"
                 android:inputType="textPersonName" />
 
@@ -59,41 +92,18 @@
     </TableRow>
 
 
-    <TableRow>
 
-        <TextView
-            android:id="@+id/ip1"
-
-            android:layout_weight="1"
-            android:layout_width="100dp"
-            android:background="#a09f9f"
-            android:gravity="center"
-            android:padding="18dip"
-            android:text="ΠΕΡΙΓΡΑΦΗ"
-            android:textColor="#000000" />
-
-
-        <EditText
-            android:id="@+id/t2"
-            android:layout_width="259dp"
-            android:layout_height="61dp"
-
-            android:layout_marginEnd="-1dp"
-            android:layout_marginRight="-1dp"
-
-            android:ems="10"
-            android:inputType="textPersonName" />
-
-    </TableRow>
 
     <TableRow>
 
 
         <TextView
             android:id="@+id/ip2"
+            android:layout_height="60dp"
             android:layout_weight="1"
-            android:background="#a09f9f"
+            android:background="@android:color/background_light"
             android:gravity="center"
+            android:textSize="10sp"
             android:padding="18dip"
             android:text="ΠΡΟΣΘΕΤΑ"
             android:textColor="#000000" />
@@ -102,7 +112,7 @@
         <EditText
             android:id="@+id/t4"
             android:layout_width="259dp"
-            android:layout_height="61dp"
+            android:layout_height="41dp"
 
             android:layout_marginEnd="-1dp"
             android:layout_marginRight="-1dp"
@@ -112,6 +122,37 @@
 
 
     </TableRow>
+
+
+<TableRow>
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_height="60dp"
+        android:layout_weight="1"
+        android:background="@android:color/background_light"
+        android:gravity="center"
+        android:textSize="10sp"
+        android:padding="18dip"
+        android:text="ΚΑΤΗΓΟΡΙΑ"
+        android:textColor="#000000" />
+
+
+    <EditText
+        android:id="@+id/t5"
+        android:layout_width="259dp"
+        android:layout_height="41dp"
+
+        android:layout_marginEnd="-1dp"
+        android:layout_marginRight="-1dp"
+
+        android:ems="10"
+        android:inputType="textPersonName" />
+
+
+</TableRow>
+
+
+
 
     <TableRow
         android:layout_width="wrap_content"
@@ -123,20 +164,19 @@
         <RelativeLayout>
 
 
-
-        <Button
-            android:id="@+id/button5"
-            android:layout_width="132dp"
-            android:layout_height="60dp"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:onClick="SAVE"
-            android:text="ΔΙΟΡΘΩΣΗ" />
+            <Button
+                android:id="@+id/button5"
+                android:layout_width="132dp"
+                android:layout_height="40dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:onClick="SAVE"
+                android:text="ΔΙΟΡΘΩΣΗ" />
 
             <Button
                 android:id="@+id/button6"
                 android:layout_width="132dp"
-                android:layout_height="60dp"
+                android:layout_height="40dp"
                 android:layout_alignParentTop="true"
                 android:layout_toRightOf="@+id/button5"
                 android:onClick="NEO_EIDOS"
@@ -146,7 +186,7 @@
             <Button
                 android:id="@+id/button7"
                 android:layout_width="132dp"
-                android:layout_height="60dp"
+                android:layout_height="40dp"
                 android:layout_alignParentTop="true"
                 android:layout_toRightOf="@+id/button6"
                 android:onClick="DELETE"
@@ -160,17 +200,25 @@
     </TableRow>
 
     <TableRow android:layout_height="315dp">
+    <RelativeLayout>
 
         <GridView
             android:id="@+id/listEidhp"
             android:layout_width="wrap_content"
-            android:layout_height="245dp"
-            android:layout_below="@+id/listdetail"
+            android:layout_height="4dp"
+
 
             android:background="#8c898f"
-            android:numColumns="5" />
+            android:numColumns="5"></GridView>
+
+        <ListView
+            android:id="@+id/listEIDH"
+            android:layout_width="match_parent"
+            android:layout_height="245dp"
+            android:layout_below="@+id/listEidhp" />
 
 
+    </RelativeLayout>
     </TableRow>
 
     <TableRow android:layout_height="315dp">
@@ -179,7 +227,7 @@
             android:id="@+id/listKathgp"
             android:layout_width="match_parent"
             android:layout_height="145dp"
-            android:layout_below="@+id/listdetail"
+            android:layout_below="@+id/listEIDH"
             android:background="@color/colorAccent"
             android:numColumns="2" />
 

@@ -3,6 +3,7 @@ package com.example.ioun25;
 import java.util.List;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,10 +15,7 @@ import android.widget.Toast;
 
 import androidx.annotation.ColorInt;
 
-import static android.graphics.Color.BLACK;
-import static android.graphics.Color.GRAY;
-import static android.graphics.Color.GREEN;
-import static android.graphics.Color.RED;
+
 import static com.example.ioun25.order.EIDH_PARAGG;
 
 
@@ -89,19 +87,19 @@ public class PhonebookAdapter extends BaseAdapter  {  // implements OnClickListe
         // Set the onClick Listener on this button
         Button btnRemove = (Button) convertView.findViewById(R.id.btnRemove);
         if (entry.getStatus()>0){  // μολις παραγγειλε
-            tvName.setTextColor(RED);
+            tvName.setTextColor(Color.GREEN);
           //  tvName.setEnabled(true);
           //  tvName.setText(entry.getPointer()+entry.getName());
 
         } else{ //παλια
-            tvName.setTextColor(BLACK );
+            tvName.setTextColor(Color.BLACK );
           //  tvName.setEnabled(false);
             btnRemove.setWidth(70);
           //debug  tvName.setText(entry.getStatus()+entry.getName());
         }
 
         if (entry.getName().substring(0,1).equals("*")){
-            tvName.setTextColor(GREEN);
+            tvName.setTextColor(Color.GREEN);
         }
 
 

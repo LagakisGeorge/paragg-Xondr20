@@ -202,12 +202,6 @@ separated[1]; // this will contain " they taste good"
 
                Toast.makeText(order.this, listOfPhonebook.get(position).getName(), Toast.LENGTH_LONG).show();
                ListalertDialog(listOfPhonebook.get(position).getPointer());
-
-
-
-
-
-
             }
         });
 
@@ -1485,7 +1479,7 @@ Double sum=0.0;
             // Set the onClick Listener on this button
             Button btnRemove = (Button) convertView.findViewById(R.id.btnRemove);
             if (entry.getStatus()>0){  // μολις παραγγειλε
-                tvName.setTextColor(RED);
+                tvName.setTextColor(GREEN);
                 //  tvName.setEnabled(true);
                 //  tvName.setText(entry.getPointer()+entry.getName());
 
