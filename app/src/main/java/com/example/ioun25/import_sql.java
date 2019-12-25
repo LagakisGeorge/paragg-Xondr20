@@ -770,10 +770,11 @@ cursor2.moveToFirst() ;
                     "[PICTURE] [nvarchar](55) );");
 
             mydatabase.execSQL("DELETE FROM EIDH2");
-            mydatabase.execSQL("INSERT INTO EIDH2 ( ONO,CH1,CH2,KATHG,TIMH) SELECT ONO,CH1,CH2,KATHG,TIMH FROM EIDH;");
+            mydatabase.execSQL("INSERT INTO EIDH2 ( ONO,CH1,CH2,KATHG,TIMH,NUM1,NUM2) SELECT ONO,CH1,CH2,KATHG,TIMH,NUM1,NUM2 FROM EIDH;");
             mydatabase.execSQL("DROP TABLE EIDH;");
             mydatabase.execSQL("ALTER TABLE EIDH2 RENAME TO EIDH;");
-
+            mydatabase.execSQL("UPDATE EIDH SET NUM1=TIMH WHERE NUM1=0 ;");
+            mydatabase.execSQL("UPDATE EIDH SET NUM1=TIMH WHERE NUM1 IS NULL ;");
 
             Toast.makeText(getApplicationContext(), "1.EIDH ok", Toast.LENGTH_SHORT).show();
 

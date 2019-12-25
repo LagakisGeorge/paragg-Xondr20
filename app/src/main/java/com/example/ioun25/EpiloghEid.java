@@ -301,6 +301,18 @@ public class EpiloghEid extends AppCompatActivity {
 
 
     public void ListEidh () {
+
+
+        TextView tr = findViewById(R.id.trapezi);
+      String trapezi=  tr.getText().toString(); // αριθμος τραπεζιού;idparagg
+
+        Boolean isPaketo=false;
+        if (trapezi.substring(0,2).equals("90")){
+            isPaketo=true;
+        }
+
+
+
         SQLiteDatabase mydatabase=null;
         Integer n=0;
         moviesList=(GridView)findViewById(R.id.listmaster);
@@ -318,7 +330,7 @@ public class EpiloghEid extends AppCompatActivity {
        // prosu.clear();
         try{
             mydatabase = openOrCreateDatabase("eidh",MODE_PRIVATE,null);
-            String c="select ONO, ID,TIMH,CH2,PICTURE FROM EIDH WHERE CH1 like '"+message +"%'";
+            String c="select ONO, ID,TIMH,CH2,PICTURE,NUM1 FROM EIDH WHERE CH1 like '"+message +"%'";
      Cursor cursor2 = mydatabase.rawQuery(c, null);
 
             if (cursor2.moveToFirst()) {
@@ -328,7 +340,9 @@ public class EpiloghEid extends AppCompatActivity {
                    //  prosu.add(cursor2.getString(3));
                        arr[n-1]=cursor2.getString(3);
                        arr_ono[n-1]=cursor2.getString(0);
-                       arr_timh[n-1]=Float.toString(cursor2.getFloat(2));
+
+if (isPaketo){arr_timh[n-1]=Float.toString(cursor2.getFloat(5));
+}else{ arr_timh[n-1]=Float.toString(cursor2.getFloat(2)); }
 
 
                 } while (cursor2.moveToNext());
