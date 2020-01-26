@@ -163,7 +163,7 @@ public class PARAGGELIAX extends AppCompatActivity {
                 EditText tp=findViewById(R.id.Timhp);
                 tp.setText(""); //kathg
 
-             //  show_EGGTIM();
+               show_EGGTIM();
             }
         });
 
@@ -368,7 +368,57 @@ public class PARAGGELIAX extends AppCompatActivity {
 
     public void show_EGGTIM () {
 
+        SQLiteDatabase mydatabase=null;
+        mydatabase = openOrCreateDatabase("eidh",MODE_PRIVATE,null);
+        String SQL="";
+        // if ( fSearchEidh==0){
+        // SQL="select  ID,ONO,IFNULL(AFM,'') AS CCH2,KOD from  PEL   WHERE ONO LIKE '%"+mName+"%' order by ONO limit 300; ";
+        // }else{
+        SQL="select  ONO,POSO,TIMH  from  PARAGG   WHERE  IDPARAGG="+fArParagg +" order by id ";
+        //  }
+        Cursor cursor2 = mydatabase.rawQuery(SQL, null);  // WHERE ONO LIKE '%"+mName+"%'
+        listOfEIDOS = new ArrayList<EIDOS>();
 
+        String kat="";
+        String syn="";
+        if (cursor2.moveToFirst()) {
+            do {
+                // Integer ID,String name, Double timh,String prosu,String kathg,Double timhp,Integer status
+              //  if ( fSearchEidh==0) {
+                listOfEIDOS.add(new EIDOS(0 , cursor2.getString(0),cursor2.getDouble(2),"","",cursor2.getDouble(1),0));
+               // } else {
+                 //   listOfEIDOS.add(new EIDOS(cursor2.getInt(0) , cursor2.getString(1),cursor2.getDouble(2),cursor2.getString(3),cursor2.getString(4),cursor2.getDouble(5),0));
+              //  }
+
+
+                // values.add( Integer.toString(cursor2.getInt(1) ));
+                // values.add(cursor2.getString(0));
+
+            } while (cursor2.moveToNext());
+        }
+
+        PARAGGELIAX.EIDHadapter adapter = new PARAGGELIAX.EIDHadapter(PARAGGELIAX.this, listOfEIDOS);
+        ListView list = (ListView) findViewById(R.id.listEGGTIM);
+        list.setAdapter(adapter);
+
+
+
+
+
+
+
+
+
+
+
+mydatabase.close();
+
+
+
+
+    }
+
+   /*
         Integer n=0;
        // moviesList=findViewById(R.id.listKathgp);
         //recyclerView=(RecyclerView) findViewById(R.id.grid2);
@@ -410,7 +460,7 @@ public class PARAGGELIAX extends AppCompatActivity {
             mydatabase.close();
 
 
-         /*
+
 
             PARAGGELIAX.EIDHadapter adapter = new PARAGGELIAX.EIDHadapter(PARAGGELIAX.this, listOfEIDOS);
             ListView list = (ListView) findViewById(R.id.listEGGTIM);
@@ -421,11 +471,14 @@ public class PARAGGELIAX extends AppCompatActivity {
       //              new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, values);
       //      moviesList.setAdapter(arrayAdapter);
 
-         */
+
         } catch (SQLiteAccessPermException e) {
             e.printStackTrace();
         }
     }
+*/
+
+
 
     public class EIDHadapter extends BaseAdapter {  // implements OnClickListener
         private Context context;
