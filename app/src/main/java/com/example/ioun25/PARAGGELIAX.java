@@ -28,7 +28,8 @@ import java.util.List;
 import static com.example.ioun25.MainActivity.gYparxoyses;
 
 public class PARAGGELIAX extends AppCompatActivity {
-    GridView moviesList;
+    ListView moviesList;
+
     public List<EIDOS> listOfEIDOS = new ArrayList<EIDOS>();
     GridView prosueta;
     public ArrayList<String> values;
@@ -138,6 +139,35 @@ public class PARAGGELIAX extends AppCompatActivity {
         IP2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                if (fSearchEidh==0 ){
+                    return;
+                }
+
+                SQLiteDatabase mydatabase=null;
+                mydatabase = openOrCreateDatabase("eidh",MODE_PRIVATE,null);
+
+                String Q;
+                Q="INSERT INTO PARAGG (IDPARAGG,TRAPEZI,ONO,POSO,TIMH) VALUES ("+fArParagg+",'','"+ listOfEIDOS.get(fPosition).getName()+"',";
+                Q=Q+ listOfEIDOS.get(fPosition).getTimhp()+","+ listOfEIDOS.get(fPosition).getTimh()+");";
+                mydatabase.execSQL(Q);
+
+                mydatabase.close();
+
+                // μηδενιζω τα υπολοιπα κουτάκια
+                EditText t2=findViewById(R.id.t2);  // onoma
+                t2.setText("");
+
+                EditText t1=findViewById(R.id.t1);  // timh
+                t1.setText("");
+                EditText tp=findViewById(R.id.Timhp);
+                tp.setText(""); //kathg
+
+             //  show_EGGTIM();
+            }
+        });
+
+        /*
                 if (fSearchEidh==0 ){
                     return;
                 }
@@ -166,9 +196,9 @@ public class PARAGGELIAX extends AppCompatActivity {
 
                 show_EGGTIM();
 
-            }
-        });
-
+                 }
+             });
+       */
 
 
 
@@ -184,6 +214,17 @@ public class PARAGGELIAX extends AppCompatActivity {
                 String a=listOfEIDOS.get(position).getName();
 
 
+                EditText t1=findViewById(R.id.t1);  // timh
+                t1.setText(listOfEIDOS.get(position).getTimh().toString());
+                EditText tp=findViewById(R.id.Timhp);
+                tp.setText(listOfEIDOS.get(position).getTimhp().toString()); //kathg
+
+                EditText t2=findViewById(R.id.t2);  // onoma
+                t2.setText(listOfEIDOS.get(position).getName());
+                fID=Integer.toString(listOfEIDOS.get(position).getID());  //id
+
+                EditText t4=findViewById(R.id.t4);//prosu
+                t4.setText(listOfEIDOS.get(position).getProsu());
 
 
 
@@ -265,10 +306,10 @@ public class PARAGGELIAX extends AppCompatActivity {
 
         SQLiteDatabase mydatabase=null;
         Integer n=0;
-        moviesList=(GridView)findViewById(R.id.listEidhp);
+       // moviesList2=(ListView)findViewById(R.id.listEidhp);
         //recyclerView=(RecyclerView) findViewById(R.id.grid2);
         //   List<String> values=new ArrayList<>();
-        values=new ArrayList<String>();
+     //   values=new ArrayList<String>();
 
         try{
             /*mydatabase = openOrCreateDatabase("eidh",MODE_PRIVATE,null);
@@ -327,21 +368,23 @@ public class PARAGGELIAX extends AppCompatActivity {
 
     public void show_EGGTIM () {
 
-        SQLiteDatabase mydatabase=null;
+
         Integer n=0;
-        moviesList=(GridView)findViewById(R.id.listKathgp);
+       // moviesList=findViewById(R.id.listKathgp);
         //recyclerView=(RecyclerView) findViewById(R.id.grid2);
         //   List<String> values=new ArrayList<>();
-        values=new ArrayList<String>();
+        //values=new ArrayList<String>();
 
         try{
+
+            SQLiteDatabase mydatabase=null;
             mydatabase = openOrCreateDatabase("eidh",MODE_PRIVATE,null);
            String SQL="";
-            if ( fSearchEidh==0){
+           // if ( fSearchEidh==0){
                // SQL="select  ID,ONO,IFNULL(AFM,'') AS CCH2,KOD from  PEL   WHERE ONO LIKE '%"+mName+"%' order by ONO limit 300; ";
-            }else{
+           // }else{
                 SQL="select  ID,ONO,TIMH,IFNULL(CH2,'') AS CCH2,IFNULL(CH1,'') AS CCH1 ,IFNULL(num1,0) AS TIMHP  from  EIDH   WHERE  IDPARAGG="+fArParagg +" order by id ";
-            }
+          //  }
             Cursor cursor2 = mydatabase.rawQuery(SQL, null);  // WHERE ONO LIKE '%"+mName+"%'
 
 
@@ -366,16 +409,19 @@ public class PARAGGELIAX extends AppCompatActivity {
             }
             mydatabase.close();
 
+
+         /*
+
             PARAGGELIAX.EIDHadapter adapter = new PARAGGELIAX.EIDHadapter(PARAGGELIAX.this, listOfEIDOS);
-        //    ListView list = (ListView) findViewById(R.id.listEIDH);
-        //    list.setAdapter(adapter);
-            moviesList.setAdapter(adapter);
+            ListView list = (ListView) findViewById(R.id.listEGGTIM);
+            list.setAdapter(adapter);
+        //    moviesList.setAdapter(adapter);
 
      //       ArrayAdapter<String> arrayAdapter =
       //              new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, values);
       //      moviesList.setAdapter(arrayAdapter);
 
-
+         */
         } catch (SQLiteAccessPermException e) {
             e.printStackTrace();
         }
