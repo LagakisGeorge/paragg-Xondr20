@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:id="@+id/LinearLayout01"
+    android:layout_width="fill_parent" xmlns:android="http://schemas.android.com/apk/res/android"
+    android:paddingLeft="10sp" android:paddingRight="10sp"
+    android:layout_height="wrap_content"
+    android:orientation="vertical" android:paddingTop="2sp">
+
+
+    <LinearLayout android:id="@+id/LinearLayout12"
+        android:layout_height="wrap_content"
+        android:layout_width="fill_parent">
+
+        <TextView
+            android:id="@+id/tvID"
+            android:layout_width="40dp"
+            android:layout_height="wrap_content"
+            android:text="ID"
+            android:textSize="13sp">
+
+        </TextView>
+
+        <TextView android:layout_height="wrap_content"
+            android:layout_width="180dp"
+            android:id="@+id/tvName"
+            android:text="Περιγραφη"
+            android:typeface="sans"
+            android:textSize="13sp"
+            android:textStyle="bold">
+
+        </TextView>
+
+
+        <TextView
+
+            android:id="@+id/tvTimh"
+            android:layout_width="10dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Τιμ"
+            android:textSize="12sp">
+
+        </TextView>
+
+
+
+        <TextView
+
+            android:id="@+id/tvTimhp"
+            android:layout_width="20dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="ΤιμΠακ"
+            android:textSize="12sp">
+
+        </TextView>
+
+        <Button
+            android:id="@+id/btnRemove"
+            android:layout_width="1dp"
+            android:layout_height="40dip"
+            android:text="X">
+
+        </Button>
+
+
+        <TextView
+            android:id="@+id/tvSxolia"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:textSize="12sp">
+
+        </TextView>
+
+        <TextView
+            android:id="@+id/tvProsu"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+
+            android:text="Πρόσθ"
+            android:textSize="13sp">
+
+        </TextView>
+
+
+    </LinearLayout>
+
+
+
+
+
+
+
+</LinearLayout>

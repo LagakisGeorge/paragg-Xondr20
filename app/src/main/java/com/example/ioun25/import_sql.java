@@ -23,6 +23,7 @@ import java.sql.SQLException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.PatternSyntaxException;
 
 public class import_sql extends AppCompatActivity {
     Handler handler2;
@@ -41,10 +42,10 @@ public class import_sql extends AppCompatActivity {
     EditText e1;
 
     // dell οικιας .7  49702  p@ssw0rd
-    private String URL = "jdbc:jtds:sqlserver://192.168.1.7:49705/BAR;instance=SQLEXPRESS;";
+    private String URL = "jdbc:jtds:sqlserver://192.168.1.7:51403/EMP;instance=SQL17;";  //49705
     private String USER = "sa";
-    // private String PASS = "12345678";  // fujitsu laptop
-    private String PASS = "p@ssw0rd";   // oikia
+     private String PASS = "12345678";  // fujitsu laptop
+   // private String PASS = "p@ssw0rd";   // oikia
     private static ResultSet RESULT;
 
 
@@ -83,24 +84,26 @@ public class import_sql extends AppCompatActivity {
             }
         });
 
+
+        // META TO DIABASMA TOY PINAKA PEL
         handlerXAR1 = new Handler(new Handler.Callback() {
             @Override
             public boolean handleMessage(Message msg) {
-                Array2_xar1ToSQLite();
-                Toast.makeText(getApplicationContext(), "ok διαβαστηκε", Toast.LENGTH_SHORT).show();
-                loadKathg();
+                Array2_PELToSQLite();
+                Toast.makeText(getApplicationContext(), "PEL ok διαβαστηκε", Toast.LENGTH_SHORT).show();
+              //  loadKathg();
                 return true;
             }
         });
 
-
+          // μετά το διάβασμα των ειδών
         handlerEIDH = new Handler(new Handler.Callback() {
             @Override
             public boolean handleMessage(Message msg) {
                // View view=new View();
                 Array3_EIDHToSQLite();
-                Toast.makeText(getApplicationContext(), "ok διαβαστηκε", Toast.LENGTH_SHORT).show();
-                LoadXar1SQLSERVER();
+                Toast.makeText(getApplicationContext(), "EID ok διαβαστηκε", Toast.LENGTH_SHORT).show();
+                LoadPELSQLSERVER();
                 return true;
             }
         });
@@ -115,7 +118,7 @@ public class import_sql extends AppCompatActivity {
 
     }
 
-
+    // μετά το διάβασμα των ειδών
     public void Array3_EIDHToSQLite() {
         SQLiteDatabase mydatabase = null;
         mydatabase = openOrCreateDatabase("eidh",MODE_PRIVATE,null);
@@ -160,20 +163,32 @@ public class import_sql extends AppCompatActivity {
     }
 }
 
-    public void Array2_xar1ToSQLite() {
+    // META TO DIABASMA TOY PINAKA PEL
+    public void Array2_PELToSQLite() {
     SQLiteDatabase mydatabase = null;
     mydatabase = openOrCreateDatabase("eidh",MODE_PRIVATE,null);
-        mydatabase.execSQL("DELETE FROM XAR1");
+        mydatabase.execSQL("DELETE FROM PEL");
+        Integer n=pel3.size();
+        Toast.makeText(getApplicationContext(), "PEL size "+n.toString(), Toast.LENGTH_SHORT).show();
         for(int i = 0; i<pel3.size();i++)
     {
-        String Q;
-        Q = "INSERT INTO XAR1 (ONO,ID) VALUES (" + pel3.get(i) + ")";
+        String Q=pel3.get(i);
+      //  Q = "INSERT INTO PEL (ONO,KOD) VALUES (" + pel3.get(i) + ")";
+try {
+    mydatabase.execSQL(Q);
 
-        mydatabase.execSQL(Q);
+
+
+    } catch (SQLiteAccessPermException e) {
+            e.printStackTrace();
+            Toast.makeText(getApplicationContext(), Q+" ERROR", Toast.LENGTH_SHORT).show();
+    }
+
+
+
+
     }
 }
-
-
 
     //============xar1  FROM Array to  sqllite ====================
     public void Array_xar1ToSQLite (View view) {
@@ -296,31 +311,68 @@ cursor2.moveToFirst() ;
 
     }
 
-
-    // διαβαζει τον πίνακα XAR1 από τον sqlserver
-    public void LoadXar1SQLSERVER() {
+    // διαβαζει τον πίνακα PEL από τον sqlserver
+    public void LoadPELSQLSERVER() {
         pel3.clear();
+        EditText    t1;
+        t1=(EditText)findViewById(R.id.t1);
+       final String cc2 =t1.getText().toString();
+
         Runnable aRunnable = new Runnable() {
+
+
             public void run() {
-                ResultSet rs = getData("SELECT *  FROM XAR1 ");
+
+                ResultSet rs = getData("SELECT  TOP "+cc2 +"  isnull(KOD,'') AS KOD2,REPLACE(isnull(EPO,''),'\"','`') AS EPO2,isnull(AFM,'') AS AFM2  FROM PEL WHERE EIDOS='e'  ");
                 try {
                     while (rs.next()) {
-                        pel3.add("'"+rs.getString("ONO") + "',"+ Integer.toString(rs.getInt("ID")) );
-                        String KOD, ONO, CH1, CH2;
+                        // pel3.add("'"+rs.getString("ONO") + "',"+ Integer.toString(rs.getInt("ID")) );
+
+
+                        String KOD, ONO, AFM, CH2;
                         int ID, KAT;
                         double TIMH;
+
+                        KOD = rs.getString("KOD2");
+                        ONO = rs.getString("EPO2");
+                        ONO=ONO.replace("'","`");
+                        ONO=ONO.replace("\"","`");
+
+                        // print_text(ONO);
+                        AFM = rs.getString("AFM2");
+
+                     //   CH2 = rs.getString("CH2");
+                       // ID = rs.getInt("ID");
+                        // KAT = rs.getInt("KATHG");
+
+
+                         //    try{
+                             String Q;
+                             Q = "INSERT INTO PEL (KOD,ONO,AFM) VALUES";
+                             Q =Q+  " ('" + KOD + "','" + ONO + "','" + AFM + "');";
+                             pel3.add(Q);
+                          //   }  catch ( PatternSyntaxException e) {
+                           //     e.printStackTrace();
+                           //     Toast.makeText(getApplicationContext(), "PEL ΛΑΘΟΣ", Toast.LENGTH_SHORT).show();
+                           //  }
+
+
+
+
+
                     }
                 } catch (SQLException e) {
                     e.printStackTrace();
-                    Toast.makeText(getApplicationContext(), "XAR1 ΛΑΘΟΣ", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "PEL ΛΑΘΟΣ", Toast.LENGTH_SHORT).show();
                 }
+            //    Toast.makeText(getApplicationContext(), "6.ok PEL", Toast.LENGTH_SHORT).show();
                 handlerXAR1.sendEmptyMessage(0);
             }
         };
         Thread aThread = new Thread(aRunnable);
         aThread.start();
         android.os.SystemClock.sleep(1000);// };
-        Toast.makeText(getApplicationContext(), "XAR1 ok", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(), "PEL ok", Toast.LENGTH_SHORT).show();
     }
 
     public void LoadKATHGSQLSERVER() {
@@ -348,24 +400,12 @@ cursor2.moveToFirst() ;
         Toast.makeText(getApplicationContext(), "XAR1 ok", Toast.LENGTH_SHORT).show();
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
     // διαβαζει τον πίνακα XAR1 από τον sqlserver
     public void Load2EIDHSQLSERVER(View view) {
         pel3.clear();
         Runnable aRunnable = new Runnable() {
             public void run() {
-                ResultSet rs = getData("SELECT *  FROM EIDH ");
+                ResultSet rs = getData("SELECT  *  FROM EID WHERE NOT KOD IS NULL ORDER BY KOD"); //   WHERE NOT KOD IS NULL ORDER BY ONO
                 try {
                     while (rs.next()) {
                        // pel3.add("'"+rs.getString("ONO") + "',"+ Integer.toString(rs.getInt("ID")) );
@@ -377,20 +417,21 @@ cursor2.moveToFirst() ;
 
                         KOD = rs.getString("KOD");
                         ONO = rs.getString("ONO");
+                        ONO=ONO.replace("'","`");
                         // print_text(ONO);
                         CH1 = rs.getString("CH1");
                         CH2 = rs.getString("CH2");
                         ID = rs.getInt("ID");
-                        KAT = rs.getInt("KATHG");
-                        TIMH = rs.getDouble("TIMH");
+                       // KAT = rs.getInt("KATHG");
+                        TIMH = rs.getDouble("LTI5");
                         DecimalFormat decimalFormat = new DecimalFormat("#.00");
                         String cTIMH = decimalFormat.format(TIMH);
                         cTIMH = cTIMH.replace(",", ".");
 
 
                         String Q;
-                        Q = "INSERT INTO EIDH (KOD,ONO,CH1,CH2,ID,KATHG,TIMH) VALUES";
-                        Q =Q+  "('" + KOD + "','" + ONO + "','" + CH1 + "','" + CH2 + "'," + Integer.toString(ID) + "," + Integer.toString(KAT) + "," + cTIMH + ")";
+                        Q = "INSERT INTO EIDH (KOD,ONO,CH1,CH2,TIMH) VALUES";
+                        Q =Q+  "('" + KOD + "','" + ONO + "','" + CH1 + "','" + CH2 + "',"  + cTIMH + ")";
                          pel3.add(Q);
 
 
@@ -398,8 +439,9 @@ cursor2.moveToFirst() ;
                     }
                 } catch (SQLException e) {
                     e.printStackTrace();
-                    Toast.makeText(getApplicationContext(), "EIDH 2 ΛΑΘΟΣ", Toast.LENGTH_SHORT).show();
+                   // Toast.makeText(getApplicationContext(), "EIDH 2 ΛΑΘΟΣ", Toast.LENGTH_SHORT).show();
                 }
+              //  Toast.makeText(getApplicationContext(), "5.ok EIDH", Toast.LENGTH_SHORT).show();
                 handlerEIDH.sendEmptyMessage(0);
             }
         };
@@ -563,7 +605,7 @@ cursor2.moveToFirst() ;
 
         try {
 
-            //   LoadXar1SQLSERVER(view);
+             LoadPELSQLSERVER();
 
             //  Load2EIDHSQLSERVER(view);
              Toast.makeText(getApplicationContext(), "4.ok XAR1", Toast.LENGTH_SHORT).show();
@@ -573,7 +615,7 @@ cursor2.moveToFirst() ;
         }
 
 
-
+/*
         try {
 
             Load2EIDHSQLSERVER(view);
@@ -582,7 +624,7 @@ cursor2.moveToFirst() ;
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-
+*/
 
 
     }
@@ -728,17 +770,14 @@ cursor2.moveToFirst() ;
 
 
 
-            mydatabase.execSQL("CREATE TABLE IF NOT EXISTS EIDH2( ID  INTEGER PRIMARY KEY,KOD [int]," +
-                    "[ONO] [nvarchar](255) ," +
-                    "[XAR1] [int] ," +
-                    "[XAR2] [int] ," +
-                    "[CH1] [nvarchar](55) ," +
+            mydatabase.execSQL("CREATE TABLE IF NOT EXISTS PEL( ID  INTEGER PRIMARY KEY,KOD [nvarchar](15)," +
+                    "[ONO] [nvarchar](55) ," +
+                    "[LTI] [REAL] ," +
+                    "[LTI5] [REAL] ," +
+                    "[AFM] [nvarchar](9) ," +
                     "[CH2] [nvarchar](55) ," +
                     "[NUM1] [int] ," +
-                    "[NUM2] [int] ," +
-                    "[TIMH] [real] ," +
-                    "[KATHG] [int] ," +
-                    "[PICTURE] [nvarchar](55) );");
+                    "[NUM2] [REAL]  );");
 
 
 
@@ -843,25 +882,6 @@ cursor2.moveToFirst() ;
 
 
 
-   //     } catch (SQLiteAccessPermException e) {
-     //       e.printStackTrace();
-     //   }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -880,31 +900,6 @@ cursor2.moveToFirst() ;
 
             mydatabase.execSQL(c);
 
-         /*    c="CREATE TABLE IF NOT EXISTS PARAGGMASTER2("+
-                    "[TRAPEZI] [nvarchar](55) ,"+
-                    "[IDERGAZ] [int] ,"+
-                    "[HME] [datetime] ,"+
-                    "[IDBARDIA] [int] ,"+
-                    "[AJIA] [real] ,"+
-                    "[TROPOS] [int] ,"+
-                    "[NUM1] [real] ,"+
-                    "[NUM2] [real] ,"+
-                    "[CH1] [varchar](55) ,"+
-                    "[CH2] [varchar](55) ,"+
-                    "[ID] integer PRIMARY KEY )";
-
-            mydatabase.execSQL(c);
-
-
-
-
-
-            mydatabase.execSQL("DELETE FROM PARAGGMASTER2");
-            mydatabase.execSQL("INSERT INTO PARAGGMASTER2 ( ONO,CH1,CH2,TRAPEZI,AJIA,IDERGAZ,IDBARDIA) SELECT  ONO,CH1,CH2,TRAPEZI,AJIA,IDERGAZ,IDBARDIA FROM PARAGGMASTER;");
-            mydatabase.execSQL("DROP TABLE PARAGGMASTER;");
-            mydatabase.execSQL("ALTER TABLE PARAGGMASTER2 RENAME TO PARAGGMASTER;");
-
-*/
 
 
 

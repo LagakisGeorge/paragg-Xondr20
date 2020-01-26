@@ -921,7 +921,7 @@ s="αβγδεζηθικλμνξοπρστυφχψωΑΒΓΔΕΖΗΘΙΚΛΜΝΞ�
         intent.putExtra("intExtra", mValue);
         startActivity(intent);
   */
-        Intent intent = new Intent(this, trapezia.class);
+        Intent intent = new Intent(this, PARAGGELIAX.class);
        // EditText editText = (EditText) findViewById(R.id.editText);
         String message2 ="---" ;// EditText.GetText().toString();
         intent.putExtra(EXTRA_MESSAGE, message2);

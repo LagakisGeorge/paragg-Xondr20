@@ -14,7 +14,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".addtrapezia"></activity>
+        <activity android:name=".PARAGGELIAX"></activity>
+        <activity android:name=".addtrapezia" />
         <activity android:name=".GENERALPARAMETERS" />
         <activity android:name=".KATHGORIES" />
         <activity android:name=".parameters" />

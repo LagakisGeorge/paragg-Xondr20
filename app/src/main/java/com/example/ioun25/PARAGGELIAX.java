@@ -27,34 +27,173 @@ import java.util.List;
 
 import static com.example.ioun25.MainActivity.gYparxoyses;
 
-public class parameters extends AppCompatActivity {
-GridView moviesList;
+public class PARAGGELIAX extends AppCompatActivity {
+    GridView moviesList;
     public List<EIDOS> listOfEIDOS = new ArrayList<EIDOS>();
     GridView prosueta;
-public ArrayList<String> values;
-   public String fID;
+    public ArrayList<String> values;
+    public String fID;
+    public Integer fPosition=-1 ;
+    public  Integer fSearchEidh=0;
+    public String fArParagg="0";  // αριθμος παραγγελίας =id ParaggMaster
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_parameters);
+        setContentView(R.layout.activity_paraggeliax);
 
 
         ListView list = (ListView) findViewById(R.id.listEIDH);
         list.setClickable(true);
-
-Show();
-
+  //      Show();
 
 
-        parameters.EIDHadapter adapter = new parameters.EIDHadapter(parameters.this, listOfEIDOS);
 
+
+        // ΑΝΑΖΗΤΗΣΗ ΜΕ ΟΝΟΜΑ ΠΕΛΑΤΗ
+        TextView ip1;
+        ip1=findViewById(R.id.ip1);
+        ip1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if ( fSearchEidh==1) {   // ψαχχνω είδη)
+
+                    Show();
+                }else{
+                    Show();
+                }
+                PARAGGELIAX.EIDHadapter adapter = new PARAGGELIAX.EIDHadapter(PARAGGELIAX.this, listOfEIDOS);
+                ListView list = (ListView) findViewById(R.id.listEIDH);
+                list.setAdapter(adapter);
+
+            }
+        });
+
+        // ΚΛΕΙΔΩΝΩ ΤΟΝ ΠΕΛΑΤΗ
+        TextView tV5;
+        tV5=findViewById(R.id.textView5);
+        tV5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (fSearchEidh==1 ){
+                    return;
+                }
+
+                fSearchEidh=1; //απο δω και περα ψαχχνω είδη
+               // κατεβαζω τον πελάτη
+                  EditText t5=findViewById(R.id.t5);    // getProsu => ο κωδικος του πελατη
+                  t5.setText(listOfEIDOS.get(fPosition).getName()+";"+fID+";"+listOfEIDOS.get(fPosition).getProsu()); //kathg
+
+                // μηδενιζω τα υπολοιπα κουτάκια
+                EditText t2=findViewById(R.id.t2);  // onoma
+                t2.setText("");
+
+                EditText t1=findViewById(R.id.t1);  // timh
+                t1.setText("");
+                EditText tp=findViewById(R.id.Timhp);
+                tp.setText(""); //kathg
+
+                TextView ip1;
+                ip1=findViewById(R.id.ip1);
+                ip1.setText("ΠΕΡΙΓΡΑΦΗ ΕΙΔΟΥΣ");
+
+
+
+                SQLiteDatabase mydatabase=null;
+                mydatabase = openOrCreateDatabase("eidh",MODE_PRIVATE,null);
+                String s = "0";  // αριθμος παργγελιας
+                String Q;
+
+                    Q = "INSERT INTO PARAGGMASTER (NUM1,AJIA,TRAPEZI,IDBARDIA,CH1) VALUES (0,0,'" + fID + "',"+fID+",datetime('now','localtime'))";
+
+                    mydatabase.execSQL(Q);
+
+                    Cursor cursor5 = mydatabase.rawQuery("select max(ID) from PARAGGMASTER ", null);
+                    // long n=0;
+                    // looping through all rows and adding to list
+
+                    if (cursor5.moveToFirst()) {
+                        do {
+                            s = cursor5.getString(0);
+                            // n= Integer.parseInt(cursor5.
+                            // movies.add(cursor.getString(0));
+                        } while (cursor5.moveToNext());
+                    }
+              //  }else{
+              //      s=fIDPARAGG;
+              //  }
+
+                fArParagg=s;
+
+
+
+            }
+        });
+
+
+
+        // ΚΛΕΙΔΩΝΩ ΤΟ ειδος
+        TextView IP2;
+        IP2=findViewById(R.id.ip2);
+        IP2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (fSearchEidh==0 ){
+                    return;
+                }
+
+                SQLiteDatabase mydatabase=null;
+                mydatabase = openOrCreateDatabase("eidh",MODE_PRIVATE,null);
+
+                String Q;
+                Q="INSERT INTO PARAGG (IDPARAGG,TRAPEZI,ONO,POSO,TIMH,PROSUETA) VALUES ("+fArParagg+",'','"+ listOfEIDOS.get(fPosition).getName()+"',";
+                Q=Q+ listOfEIDOS.get(fPosition).getTimhp()+","+ listOfEIDOS.get(fPosition).getTimh()+",'"+ listOfEIDOS.get(fPosition).getProsu()+"');";
+                mydatabase.execSQL(Q);
+                mydatabase.close();
+
+                // κατεβαζω τον πελάτη
+                EditText t5=findViewById(R.id.t5);    // getProsu => ο κωδικος του πελατη
+                t5.setText(""); //kathg
+
+                // μηδενιζω τα υπολοιπα κουτάκια
+                EditText t2=findViewById(R.id.t2);  // onoma
+                t2.setText("");
+
+                EditText t1=findViewById(R.id.t1);  // timh
+                t1.setText("");
+                EditText tp=findViewById(R.id.Timhp);
+                tp.setText(""); //kathg
+
+                show_EGGTIM();
+
+            }
+        });
+
+
+
+
+
+
+        PARAGGELIAX.EIDHadapter adapter = new PARAGGELIAX.EIDHadapter(PARAGGELIAX.this, listOfEIDOS);
+       // SHMADEYV TO EIDOS  // PELATH
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
             public void onItemClick(AdapterView<?> arg0, View view, int position, long index) {
-                //  System.out.println("sadsfsf");
+                fPosition=position;
+                String a=listOfEIDOS.get(position).getName();
 
-               String a=listOfEIDOS.get(position).getName();
+
+
+
+
+            }
+        });
+
+         /*
+                //  System.out.println("sadsfsf");
+                fPosition=position;
+                String a=listOfEIDOS.get(position).getName();
 
 
                 EditText t1=findViewById(R.id.t1);  // timh
@@ -65,78 +204,24 @@ Show();
                 EditText t2=findViewById(R.id.t2);  // onoma
                 t2.setText(listOfEIDOS.get(position).getName());
                 fID=Integer.toString(listOfEIDOS.get(position).getID());  //id
+
                 EditText t4=findViewById(R.id.t4);//prosu
                 t4.setText(listOfEIDOS.get(position).getProsu());
-                EditText t5=findViewById(R.id.t5);
-                t5.setText(listOfEIDOS.get(position).getKathg()); //kathg
-                show_prosueta();
+             //   EditText t5=findViewById(R.id.t5);
+              //  t5.setText(listOfEIDOS.get(position).getKathg()); //kathg
+                show_EGGTIM();
 
-            }
-        });
+               }
+            });
+        */
+
+
+
 
         list.setAdapter(adapter);
 
-
-/*
-        // ΔΙΑΛΕΓΩ ΤΟ ΤΡΑΠΕΖΙ ΠΟΥ ΘΕΛΩ
-        moviesList=(GridView)findViewById(R.id.listEidhp);
-        moviesList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position,
-                                    long id) {
-                // ΤΙΜΗ
-                int mID ;
-                mID=position - position%5+2;
-                Object o = moviesList.getItemAtPosition(mID);
-                EditText t1=findViewById(R.id.t1);
-                t1.setText(o.toString());
-               // ΟΝΟΜΑ
-                int mID2 ;
-                mID2=position - position%5+1;
-                Object o2 = moviesList.getItemAtPosition(mID2);
-
-                EditText t2=findViewById(R.id.t2);
-                t2.setText(o2.toString());
-                // ΙD
-                int mID3 ;
-                mID3=position - position%5;
-                Object o3 = moviesList.getItemAtPosition(mID3);
-                fID=o3.toString();
-                // ΠΡΟΣΘΕΤΑ
-                int mID4 ;
-                mID4=position - position%5+3;
-                Object o4 = moviesList.getItemAtPosition(mID4);
-
-                EditText t4=findViewById(R.id.t4);
-                t4.setText(o4.toString());
-
-                // ΠΡΟΣΘΕΤΑ
-                int mID5 ;
-                mID4=position - position%5+4;
-                Object o5 = moviesList.getItemAtPosition(mID4);
-
-                EditText t5=findViewById(R.id.t5);
-                t5.setText(o5.toString());
-                show_prosueta();
-
-            }
-        });
-
-        Show();
-     */
-
-
-
     }
-  /*  public void KATHGORIES_intent (View view) {
 
-        Intent intent = new Intent(this, KATHGORIES.class);
-        //  EditText editText = (EditText) findViewById(R.id.editText);
-
-        startActivity(intent);
-        // Do something in response to button
-    };
-*/
 
 
     public void SAVE (View view) {
@@ -147,7 +232,7 @@ Show();
         EditText tp=findViewById(R.id.Timhp);
         SQLiteDatabase mydatabase=null;
 
-         mydatabase = openOrCreateDatabase("eidh",MODE_PRIVATE,null);
+        mydatabase = openOrCreateDatabase("eidh",MODE_PRIVATE,null);
         mydatabase.execSQL("update EIDH set  num1="+tp.getText()+", timh="+t1.getText()+",ONO='"+t2.getText()+"',CH2='"+t4.getText()+"',CH1='"+t5.getText()+"' where ID="+fID);
 
         Show();
@@ -207,54 +292,40 @@ Show();
 
             listOfEIDOS = new ArrayList<EIDOS>();
 
+
+
+            String mName;
+            EditText t2=findViewById(R.id.t2);  // onoma
+            mName=t2.getText().toString();
             mydatabase = openOrCreateDatabase("eidh",MODE_PRIVATE,null);
-            Cursor cursor2 = mydatabase.rawQuery("select  ID,ONO,TIMH,IFNULL(CH2,'') AS CCH2,IFNULL(CH1,'') AS CCH1 ,IFNULL(num1,0) AS TIMHP  from  EIDH order by ONO desc limit 300 ", null);
+            String SQL;
+            if ( fSearchEidh==0){
+                SQL="select  ID,ONO,IFNULL(AFM,'') AS CCH2,KOD from  PEL   WHERE ONO LIKE '%"+mName+"%' order by ONO limit 300; ";
+            }else{
+                SQL="select  ID,ONO,TIMH,IFNULL(CH2,'') AS CCH2,IFNULL(CH1,'') AS CCH1 ,IFNULL(num1,0) AS TIMHP  from  EIDH   WHERE ONO LIKE '%"+mName+"%' order by ONO desc limit 300 ";
+            }
+            Cursor cursor2 = mydatabase.rawQuery(SQL, null);  // WHERE ONO LIKE '%"+mName+"%'
             String kat="";
             String syn="";
             if (cursor2.moveToFirst()) {
                 do {
-                    listOfEIDOS.add(new EIDOS(cursor2.getInt(0) , cursor2.getString(1),cursor2.getDouble(2),cursor2.getString(3),cursor2.getString(4),cursor2.getDouble(5),0));
+                    if ( fSearchEidh==0) {
+                        listOfEIDOS.add(new EIDOS(cursor2.getInt(0) , cursor2.getString(1),0.0,cursor2.getString(2),cursor2.getString(3),0.0,0));
+                    } else {
+                        listOfEIDOS.add(new EIDOS(cursor2.getInt(0) , cursor2.getString(1),cursor2.getDouble(2),cursor2.getString(3),cursor2.getString(4),cursor2.getDouble(5),0));
+                    }
+
+
                 } while (cursor2.moveToNext());
             }
             mydatabase.close();
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-            // TrapeziaList.setAdapter(arrayAdapter);
-
-            //final MyAdapter adapter = new MyAdapter();
-            //  rv.setAdapter(adapter);
-            //   GridLayoutManager mLayoutManager = new GridLayoutManager(this, 2);
-            //  rv.setLayoutManager(mLayoutManager);
-
-// set up the RecyclerView
-            //   RecyclerView recyclerView = findViewById(R.id.rvAnimals);
-            //    TrapeziaList.setLayoutManager(new LinearLayoutManager(this));
-            //   adapter = new MyRecyclerViewAdapter(this, animalNames);
-            //   adapter.setClickListener(this);
-            //   recyclerView.setAdapter(adapter);
-
         } catch (SQLiteAccessPermException e) {
             e.printStackTrace();
         }
     }
-    public void show_prosueta () {
+
+
+    public void show_EGGTIM () {
 
         SQLiteDatabase mydatabase=null;
         Integer n=0;
@@ -265,41 +336,45 @@ Show();
 
         try{
             mydatabase = openOrCreateDatabase("eidh",MODE_PRIVATE,null);
-            Cursor cursor2 = mydatabase.rawQuery("SELECT ONO,ID FROM XAR1 ", null);
+           String SQL="";
+            if ( fSearchEidh==0){
+               // SQL="select  ID,ONO,IFNULL(AFM,'') AS CCH2,KOD from  PEL   WHERE ONO LIKE '%"+mName+"%' order by ONO limit 300; ";
+            }else{
+                SQL="select  ID,ONO,TIMH,IFNULL(CH2,'') AS CCH2,IFNULL(CH1,'') AS CCH1 ,IFNULL(num1,0) AS TIMHP  from  EIDH   WHERE  IDPARAGG="+fArParagg +" order by id ";
+            }
+            Cursor cursor2 = mydatabase.rawQuery(SQL, null);  // WHERE ONO LIKE '%"+mName+"%'
+
+
+            listOfEIDOS = new ArrayList<EIDOS>();
+
+         //   Cursor cursor2 = mydatabase.rawQuery("SELECT ID,ONO,POSO,TIMH FROM PARAGG WHERE IDPARAGG="+fArParagg, null);
             String kat="";
             String syn="";
             if (cursor2.moveToFirst()) {
                 do {
-                    values.add( Integer.toString(cursor2.getInt(1) ));
-                    values.add(cursor2.getString(0));
+                    if ( fSearchEidh==0) {
+                        listOfEIDOS.add(new EIDOS(cursor2.getInt(0) , cursor2.getString(1),0.0,cursor2.getString(2),cursor2.getString(3),0.0,0));
+                    } else {
+                        listOfEIDOS.add(new EIDOS(cursor2.getInt(0) , cursor2.getString(1),cursor2.getDouble(2),cursor2.getString(3),cursor2.getString(4),cursor2.getDouble(5),0));
+                    }
+
+
+                   // values.add( Integer.toString(cursor2.getInt(1) ));
+                   // values.add(cursor2.getString(0));
 
                 } while (cursor2.moveToNext());
             }
             mydatabase.close();
-            ArrayAdapter<String> arrayAdapter =
-                    new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, values);
-            moviesList.setAdapter(arrayAdapter);
 
+            PARAGGELIAX.EIDHadapter adapter = new PARAGGELIAX.EIDHadapter(PARAGGELIAX.this, listOfEIDOS);
+        //    ListView list = (ListView) findViewById(R.id.listEIDH);
+        //    list.setAdapter(adapter);
+            moviesList.setAdapter(adapter);
 
+     //       ArrayAdapter<String> arrayAdapter =
+      //              new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, values);
+      //      moviesList.setAdapter(arrayAdapter);
 
-
-
-
-
-
-            // TrapeziaList.setAdapter(arrayAdapter);
-
-            //final MyAdapter adapter = new MyAdapter();
-            //  rv.setAdapter(adapter);
-            //   GridLayoutManager mLayoutManager = new GridLayoutManager(this, 2);
-            //  rv.setLayoutManager(mLayoutManager);
-
-// set up the RecyclerView
-            //   RecyclerView recyclerView = findViewById(R.id.rvAnimals);
-            //    TrapeziaList.setLayoutManager(new LinearLayoutManager(this));
-            //   adapter = new MyRecyclerViewAdapter(this, animalNames);
-            //   adapter.setClickListener(this);
-            //   recyclerView.setAdapter(adapter);
 
         } catch (SQLiteAccessPermException e) {
             e.printStackTrace();
@@ -355,7 +430,7 @@ Show();
 
 
 
-           TextView tvPhone = (TextView) convertView.findViewById(R.id.tvID);
+            TextView tvPhone = (TextView) convertView.findViewById(R.id.tvID);
             tvPhone.setText(entry.getID().toString());
 
 
@@ -372,7 +447,7 @@ Show();
             tvKathg.setText(entry.getKathg());
             tvKathg.setTextColor(Color.GREEN);
 
-          //  nPointer=entry.getPointer();
+            //  nPointer=entry.getPointer();
 
             // Set the onClick Listener on this button
             Button btnRemove = (Button) convertView.findViewById(R.id.btnRemove);
@@ -457,7 +532,6 @@ Show();
         }
 
     }
-
 
 
 }

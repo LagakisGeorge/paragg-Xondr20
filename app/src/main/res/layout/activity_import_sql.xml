@@ -40,7 +40,8 @@
             android:layout_marginRight="-1dp"
 
             android:ems="10"
-            android:inputType="textPersonName" />
+            android:inputType="textPersonName"
+            android:text="300" />
 
 
     </TableRow>
@@ -61,7 +62,6 @@
             android:id="@+id/button15"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:onClick="Array3_EIDHToSQLite"
             android:text="Button" />
     </TableRow>
     <TableRow
