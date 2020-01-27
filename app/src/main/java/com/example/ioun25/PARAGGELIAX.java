@@ -26,7 +26,10 @@ import java.util.List;
 public class PARAGGELIAX extends AppCompatActivity {
     ListView moviesList;
 
+
     public List<EIDOS> listOfEIDOS = new ArrayList<EIDOS>();
+    public List<EIDOS> listOfEIDOS2 = new ArrayList<EIDOS>(); // gia show Eggtim
+
     GridView prosueta;
     public ArrayList<String> values;
     public String fID;
@@ -52,6 +55,15 @@ public class PARAGGELIAX extends AppCompatActivity {
         ANAZ.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+
+                EditText t2=findViewById(R.id.t2);
+                String str=t2.getText().toString();
+                if (str == null || str.isEmpty() || str.equalsIgnoreCase("null")){
+                    return;
+                }
+
+
 
                 if ( fSearchEidh==1) {   // ψαχχνω είδη)
 
@@ -312,7 +324,7 @@ public class PARAGGELIAX extends AppCompatActivity {
         SQL="select  ONO,POSO,TIMH  from  PARAGG   WHERE  IDPARAGG="+fArParagg +" order by id ";
         //  }
         Cursor cursor2 = mydatabase.rawQuery(SQL, null);  // WHERE ONO LIKE '%"+mName+"%'
-        listOfEIDOS = new ArrayList<EIDOS>();
+        listOfEIDOS2 = new ArrayList<EIDOS>();
 
         String kat="";
         String syn="";
@@ -320,7 +332,7 @@ public class PARAGGELIAX extends AppCompatActivity {
             do {
                 // Integer ID,String name, Double timh,String prosu,String kathg,Double timhp,Integer status
               //  if ( fSearchEidh==0) {
-                listOfEIDOS.add(new EIDOS(0 , cursor2.getString(0),cursor2.getDouble(2),"","",cursor2.getDouble(1),0));
+                listOfEIDOS2.add(new EIDOS(0 , cursor2.getString(0),cursor2.getDouble(2),"","",cursor2.getDouble(1),0));
                // } else {
                  //   listOfEIDOS.add(new EIDOS(cursor2.getInt(0) , cursor2.getString(1),cursor2.getDouble(2),cursor2.getString(3),cursor2.getString(4),cursor2.getDouble(5),0));
               //  }
@@ -332,7 +344,7 @@ public class PARAGGELIAX extends AppCompatActivity {
             } while (cursor2.moveToNext());
         }
 
-        PARAGGELIAX.EIDHadapter adapter = new PARAGGELIAX.EIDHadapter(PARAGGELIAX.this, listOfEIDOS);
+        PARAGGELIAX.EIDHadapter adapter = new PARAGGELIAX.EIDHadapter(PARAGGELIAX.this, listOfEIDOS2);
         ListView list = (ListView) findViewById(R.id.listEGGTIM);
         list.setAdapter(adapter);
 
