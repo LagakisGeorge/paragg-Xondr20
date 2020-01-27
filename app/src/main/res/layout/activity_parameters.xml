@@ -116,7 +116,7 @@
 
 <TableRow>
     <TextView
-        android:id="@+id/textView5"
+        android:id="@+id/ip2"
         android:layout_height="60dp"
         android:layout_weight="1"
         android:background="@android:color/background_light"

@@ -7,25 +7,26 @@
 
 
     <LinearLayout android:id="@+id/LinearLayout12"
-        android:layout_height="wrap_content"
+        android:layout_height="30dp"
         android:layout_width="fill_parent">
 
         <TextView
             android:id="@+id/tvID"
-            android:layout_width="40dp"
+            android:layout_width="1dp"
             android:layout_height="wrap_content"
             android:text="ID"
             android:textSize="13sp">
 
         </TextView>
 
-        <TextView android:layout_height="wrap_content"
-            android:layout_width="180dp"
+        <TextView
             android:id="@+id/tvName"
+            android:layout_width="316dp"
+            android:layout_height="wrap_content"
             android:text="Περιγραφη"
-            android:typeface="sans"
             android:textSize="13sp"
-            android:textStyle="bold">
+            android:textStyle="bold"
+            android:typeface="sans">
 
         </TextView>
 
@@ -42,12 +43,11 @@
         </TextView>
 
 
-
         <TextView
 
             android:id="@+id/tvTimhp"
             android:layout_width="20dp"
-            android:layout_height="wrap_content"
+            android:layout_height="30dp"
             android:layout_weight="1"
             android:text="ΤιμΠακ"
             android:textSize="12sp">
@@ -56,8 +56,8 @@
 
         <Button
             android:id="@+id/btnRemove"
-            android:layout_width="1dp"
-            android:layout_height="40dip"
+            android:layout_width="5dp"
+            android:layout_height="match_parent"
             android:text="X">
 
         </Button>

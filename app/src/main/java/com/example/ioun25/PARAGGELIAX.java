@@ -3,7 +3,6 @@ package com.example.ioun25;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
-import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteAccessPermException;
 import android.database.sqlite.SQLiteDatabase;
@@ -13,7 +12,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -24,8 +22,6 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static com.example.ioun25.MainActivity.gYparxoyses;
 
 public class PARAGGELIAX extends AppCompatActivity {
     ListView moviesList;
@@ -51,9 +47,9 @@ public class PARAGGELIAX extends AppCompatActivity {
 
 
         // ΑΝΑΖΗΤΗΣΗ ΜΕ ΟΝΟΜΑ ΠΕΛΑΤΗ
-        TextView ip1;
-        ip1=findViewById(R.id.ip1);
-        ip1.setOnClickListener(new View.OnClickListener() {
+        Button ANAZ;
+        ANAZ=findViewById(R.id.ANAZ);
+        ANAZ.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -71,8 +67,8 @@ public class PARAGGELIAX extends AppCompatActivity {
         });
 
         // ΚΛΕΙΔΩΝΩ ΤΟΝ ΠΕΛΑΤΗ
-        TextView tV5;
-        tV5=findViewById(R.id.textView5);
+        Button tV5;
+        tV5=findViewById(R.id.kataxPEL);
         tV5.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -134,9 +130,9 @@ public class PARAGGELIAX extends AppCompatActivity {
 
 
         // ΚΛΕΙΔΩΝΩ ΤΟ ειδος
-        TextView IP2;
-        IP2=findViewById(R.id.ip2);
-        IP2.setOnClickListener(new View.OnClickListener() {
+        Button kataxEID;
+        kataxEID=findViewById(R.id.kataxEID);
+        kataxEID.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -167,38 +163,6 @@ public class PARAGGELIAX extends AppCompatActivity {
             }
         });
 
-        /*
-                if (fSearchEidh==0 ){
-                    return;
-                }
-
-                SQLiteDatabase mydatabase=null;
-                mydatabase = openOrCreateDatabase("eidh",MODE_PRIVATE,null);
-
-                String Q;
-                Q="INSERT INTO PARAGG (IDPARAGG,TRAPEZI,ONO,POSO,TIMH,PROSUETA) VALUES ("+fArParagg+",'','"+ listOfEIDOS.get(fPosition).getName()+"',";
-                Q=Q+ listOfEIDOS.get(fPosition).getTimhp()+","+ listOfEIDOS.get(fPosition).getTimh()+",'"+ listOfEIDOS.get(fPosition).getProsu()+"');";
-                mydatabase.execSQL(Q);
-                mydatabase.close();
-
-                // κατεβαζω τον πελάτη
-                EditText t5=findViewById(R.id.t5);    // getProsu => ο κωδικος του πελατη
-                t5.setText(""); //kathg
-
-                // μηδενιζω τα υπολοιπα κουτάκια
-                EditText t2=findViewById(R.id.t2);  // onoma
-                t2.setText("");
-
-                EditText t1=findViewById(R.id.t1);  // timh
-                t1.setText("");
-                EditText tp=findViewById(R.id.Timhp);
-                tp.setText(""); //kathg
-
-                show_EGGTIM();
-
-                 }
-             });
-       */
 
 
 
@@ -225,45 +189,16 @@ public class PARAGGELIAX extends AppCompatActivity {
 
                 EditText t4=findViewById(R.id.t4);//prosu
                 t4.setText(listOfEIDOS.get(position).getProsu());
-
-
-
             }
         });
-
-         /*
-                //  System.out.println("sadsfsf");
-                fPosition=position;
-                String a=listOfEIDOS.get(position).getName();
-
-
-                EditText t1=findViewById(R.id.t1);  // timh
-                t1.setText(listOfEIDOS.get(position).getTimh().toString());
-                EditText tp=findViewById(R.id.Timhp);
-                tp.setText(listOfEIDOS.get(position).getTimhp().toString()); //kathg
-
-                EditText t2=findViewById(R.id.t2);  // onoma
-                t2.setText(listOfEIDOS.get(position).getName());
-                fID=Integer.toString(listOfEIDOS.get(position).getID());  //id
-
-                EditText t4=findViewById(R.id.t4);//prosu
-                t4.setText(listOfEIDOS.get(position).getProsu());
-             //   EditText t5=findViewById(R.id.t5);
-              //  t5.setText(listOfEIDOS.get(position).getKathg()); //kathg
-                show_EGGTIM();
-
-               }
-            });
-        */
-
-
-
 
         list.setAdapter(adapter);
 
     }
 
+    public void KATAXORISI (View view){
 
+    }
 
     public void SAVE (View view) {
         EditText t1=findViewById(R.id.t1);
@@ -522,7 +457,7 @@ mydatabase.close();
             if (convertView == null) {
                 LayoutInflater inflater = (LayoutInflater) context
                         .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                convertView = inflater.inflate(R.layout.eidos, null);
+                convertView = inflater.inflate(R.layout.paragg_line, null);
             }
             TextView tvName = (TextView) convertView.findViewById(R.id.tvName);
             tvName.setText(entry.getName());

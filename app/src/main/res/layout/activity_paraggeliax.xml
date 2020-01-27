@@ -7,29 +7,45 @@
     tools:context=".parameters">
 
     <TableRow>
+        <RelativeLayout>
 
-        <TextView
-            android:id="@+id/ip1"
+            <Button
+                android:id="@+id/ANAZ"
+                android:layout_width="132dp"
+                android:layout_height="40dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:background="@color/colorPrimary"
 
-            android:layout_width="100dp"
-            android:layout_height="61dp"
-            android:layout_weight="1"
-            android:background="@android:color/background_light"
-            android:gravity="center"
-            android:padding="18dip"
-            android:text="ΟΝΟΜΑ ΠΕΛΑΤΗ"
-            android:textColor="#000000"
-            android:textSize="10sp" />
+
+                android:text="ΑΝΑΖΗΤΗΣΗ" />
+
+
+            <TextView
+                android:id="@+id/ip1"
+                android:layout_width="2dp"
+                android:layout_height="40dp"
+                android:layout_toRightOf="@+id/ANAZ"
+                android:layout_weight="1"
+                android:background="@android:color/background_light"
+                android:gravity="center"
+                android:padding="18dip"
+
+                android:text="ΟΝΟΜΑ ΠΕΛΑΤΗ"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                android:textColor="#000000"
+                android:textSize="10sp" />
 
 
         <EditText
             android:id="@+id/t2"
             android:layout_width="259dp"
-
+            android:layout_toRightOf="@+id/ip1"
             android:layout_height="41dp"
 
             android:ems="10"
             android:inputType="textPersonName" />
+        </RelativeLayout>
 
     </TableRow>
 
@@ -38,15 +54,26 @@
     <TableRow>
         <RelativeLayout>
 
+            <Button
+                android:id="@+id/kataxEID"
+                android:layout_width="132dp"
+                android:layout_height="40dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:background="@color/colorPrimary"
+
+
+                android:text="ΚΑΤΑΧ.ΕΙΔΟΥΣ" />
+
             <TextView
                 android:id="@+id/textView55"
                 android:layout_width="wrap_content"
                 android:layout_height="51dp"
-
+                android:layout_toRightOf="@+id/kataxEID"
                 android:background="@android:color/background_light"
                 android:gravity="center"
 
-                android:text="                  Τιμή   "
+                android:text="  Τιμή   "
                 android:textColor="#000000" />
 
             <EditText
@@ -75,6 +102,16 @@
                 android:layout_toRightOf="@+id/textView52"
                 android:ems="10"
                 android:inputType="textPersonName" />
+            <EditText
+                android:id="@+id/t4"
+                android:layout_width="3dp"
+                android:layout_height="3dp"
+                android:layout_toRightOf="@+id/Timhp"
+                android:layout_marginEnd="-1dp"
+                android:layout_marginRight="-1dp"
+
+                android:ems="10"
+                android:inputType="textPersonName" />
 
         </RelativeLayout>
 
@@ -84,61 +121,36 @@
 
 
 
-    <TableRow>
-
-
-        <TextView
-            android:id="@+id/ip2"
-            android:layout_height="60dp"
-            android:layout_weight="1"
-            android:background="@android:color/background_light"
-            android:gravity="center"
-            android:padding="18dip"
-            android:text="ΚΑΤΑΧΩΡΗΣΗ ΕΙΔΟΥΣ"
-            android:textColor="#000000"
-            android:textSize="10sp" />
-
-
-        <EditText
-            android:id="@+id/t4"
-            android:layout_width="259dp"
-            android:layout_height="41dp"
-
-            android:layout_marginEnd="-1dp"
-            android:layout_marginRight="-1dp"
-
-            android:ems="10"
-            android:inputType="textPersonName" />
-
-
-    </TableRow>
-
 
     <TableRow>
-        <TextView
-            android:id="@+id/textView5"
-            android:layout_height="60dp"
-            android:layout_weight="1"
-            android:background="@android:color/background_light"
-            android:gravity="center"
-            android:textSize="10sp"
-            android:padding="18dip"
-            android:text="ΚΑΤΗΓΟΡΙΑ"
-            android:textColor="#000000" />
+        <RelativeLayout>
+
+
+            <Button
+                android:id="@+id/kataxPEL"
+                android:layout_width="132dp"
+                android:layout_height="40dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:background="@color/colorPrimary"
+                android:onClick="KATAXORISI"
+
+                android:text="ΚΑΤΑΧΩΡΗΣΗ" />
+
 
 
         <EditText
             android:id="@+id/t5"
             android:layout_width="259dp"
             android:layout_height="41dp"
-
+            android:layout_toRightOf="@+id/kataxPEL"
             android:layout_marginEnd="-1dp"
             android:layout_marginRight="-1dp"
 
             android:ems="10"
             android:inputType="textPersonName" />
 
-
+        </RelativeLayout>
     </TableRow>
 
 
@@ -193,11 +205,10 @@
         <RelativeLayout>
 
 
-
             <ListView
                 android:id="@+id/listEIDH"
                 android:layout_width="match_parent"
-                android:layout_height="245dp"
+                android:layout_height="345dp"
                 android:layout_below="@+id/listEidhp" />
 
 
@@ -209,10 +220,9 @@
         <ListView
             android:id="@+id/listEGGTIM"
             android:layout_width="match_parent"
-            android:layout_height="145dp"
+            android:layout_height="200dp"
             android:layout_below="@+id/listEIDH"
-            android:background="@color/colorAccent"
-           />
+            android:background="@color/colorAccent" />
 
 
     </TableRow>
