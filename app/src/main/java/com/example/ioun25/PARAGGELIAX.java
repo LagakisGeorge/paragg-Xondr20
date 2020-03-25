@@ -23,6 +23,8 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
+import static android.graphics.Color.YELLOW;
+
 public class PARAGGELIAX extends AppCompatActivity {
     ListView moviesList;
 
@@ -135,6 +137,18 @@ public class PARAGGELIAX extends AppCompatActivity {
                 fArParagg=s;
 
 
+               Button ANAZ=findViewById(R.id.ANAZ);
+                ANAZ.setText("ΑΝΑΖ.ΕΙΔΟΥΣ");
+                t2=findViewById(R.id.t2);
+                t2.setFocusable(false); //setText("ΔΩΣΕ ΚΩΔ.ΕΙΔΟΥΣ")  ;
+
+                Button  kataxEID=findViewById(R.id.kataxEID);
+                kataxEID.setVisibility(View.VISIBLE);
+
+
+                Button  kataxPEL=findViewById(R.id.kataxPEL);
+                kataxPEL.setVisibility(View.INVISIBLE);
+
 
             }
         });
@@ -164,14 +178,27 @@ public class PARAGGELIAX extends AppCompatActivity {
 
                 // μηδενιζω τα υπολοιπα κουτάκια
                 EditText t2=findViewById(R.id.t2);  // onoma
-                t2.setText("");
+                t2.setText("         ");
 
                 EditText t1=findViewById(R.id.t1);  // timh
-                t1.setText("");
+                t1.setText("  ");
                 EditText tp=findViewById(R.id.Timhp);
                 tp.setText(""); //kathg
 
                show_EGGTIM();
+
+            /*    Button tV5;
+                tV5=findViewById(R.id.kataxPEL);
+                tV5.setVisibility(View.VISIBLE);
+                tV5.setText("ok "+listOfEIDOS.get(fPosition).getName().substring(0,10));
+
+
+w
+
+                t2.setFocusable(false);
+                t2.setBackgroundColor(YELLOW);
+                      */
+
             }
         });
 
@@ -316,6 +343,11 @@ public class PARAGGELIAX extends AppCompatActivity {
             String SQL;
             if ( fSearchEidh==0){
                 SQL="select  ID,ONO,IFNULL(AFM,'') AS CCH2,KOD from  PEL   WHERE ONO LIKE '%"+mName+"%' order by ONO limit 300; ";
+                Button ANAZ;
+
+
+
+
             }else{
                 SQL="select  ID,ONO,TIMH,IFNULL(CH2,'') AS CCH2,IFNULL(CH1,'') AS CCH1 ,IFNULL(num1,0) AS TIMHP  from  EIDH   WHERE ONO LIKE '%"+mName+"%' order by ONO desc limit 300 ";
             }
