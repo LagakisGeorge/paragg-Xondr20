@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/one"
+        android:title="1.ΜΕΤΡΗΤΑ" />
+    <item
+        android:id="@+id/two"
+        android:title="2.ΠΙΣΤΩΤΙΚΗ Α"/>
+    <item
+        android:id="@+id/three"
+        android:title="3.ΠΙΣΤΩΤΙΚΗ Β"/>
+    <item
+        android:id="@+id/four"
+        android:title="4.ΚΕΡΑΣΜΕΝΑ"/>
+    <item
+        android:id="@+id/EXODOS"
+        android:title="5.ΑΚΥΡΟ-ΕΠΙΣΤΡΟΦΗ"/>
+
+</menu>

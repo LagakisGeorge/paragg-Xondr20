@@ -192,8 +192,14 @@ public class PARAGGELIAX extends AppCompatActivity {
 
                 EditText t1=findViewById(R.id.t1);  // timh
                 t1.setText(listOfEIDOS.get(position).getTimh().toString());
+
+
+               // EditText tp=findViewById(R.id.Timhp);
+               // tp.setText(listOfEIDOS.get(position).getTimhp().toString()); //kathg
+
+
                 EditText tp=findViewById(R.id.Timhp);
-                tp.setText(listOfEIDOS.get(position).getTimhp().toString()); //kathg
+                tp.setText(""); //kathg
 
                 EditText t2=findViewById(R.id.t2);  // onoma
                 t2.setText(listOfEIDOS.get(position).getName());
@@ -208,9 +214,7 @@ public class PARAGGELIAX extends AppCompatActivity {
 
     }
 
-    public void KATAXORISI (View view){
 
-    }
 
     public void SAVE (View view) {
         EditText t1=findViewById(R.id.t1);
@@ -218,15 +222,33 @@ public class PARAGGELIAX extends AppCompatActivity {
         EditText t4=findViewById(R.id.t4);
         EditText t5=findViewById(R.id.t5);
         EditText tp=findViewById(R.id.Timhp);
-        SQLiteDatabase mydatabase=null;
+        listOfEIDOS2 = new ArrayList<EIDOS>();
+        listOfEIDOS = new ArrayList<EIDOS>();
 
-        mydatabase = openOrCreateDatabase("eidh",MODE_PRIVATE,null);
-        mydatabase.execSQL("update EIDH set  num1="+tp.getText()+", timh="+t1.getText()+",ONO='"+t2.getText()+"',CH2='"+t4.getText()+"',CH1='"+t5.getText()+"' where ID="+fID);
+        PARAGGELIAX.EIDHadapter adapter = new PARAGGELIAX.EIDHadapter(PARAGGELIAX.this, listOfEIDOS2);
+        ListView list = (ListView) findViewById(R.id.listEGGTIM);
+        list.setAdapter(adapter);
 
-        Show();
+
+        PARAGGELIAX.EIDHadapter adapter2 = new PARAGGELIAX.EIDHadapter(PARAGGELIAX.this, listOfEIDOS);
+        ListView list2 = (ListView) findViewById(R.id.listEIDH);
+        list2.setAdapter(adapter2);
+        fSearchEidh=0;
+
+
+
+    //    SQLiteDatabase mydatabase=null;
+
+    //    mydatabase = openOrCreateDatabase("eidh",MODE_PRIVATE,null);
+    //    mydatabase.execSQL("update EIDH set  num1="+tp.getText()+", timh="+t1.getText()+",ONO='"+t2.getText()+"',CH2='"+t4.getText()+"',CH1='"+t5.getText()+"' where ID="+fID);
+
+    //    Show();
     }
     public void NEO_EIDOS (View view) {
+
+      /*
         EditText t1=findViewById(R.id.t1);
+
         EditText t2=findViewById(R.id.t2);
         EditText t4=findViewById(R.id.t4);
         EditText t5=findViewById(R.id.t5);
@@ -237,9 +259,11 @@ public class PARAGGELIAX extends AppCompatActivity {
         sql="INSERT INTO  EIDH ( timh,ONO,CH2,ch1) VALUES ("+t1.getText()+",'"+t2.getText()+"','"+t4.getText()+"','"+t5.getText()+"');";
         mydatabase.execSQL(sql);
         Show();
+        */
+
     }
     public void DELETE (View view) {
-        EditText t1 = findViewById(R.id.t1);
+       /* EditText t1 = findViewById(R.id.t1);
         EditText t2 = findViewById(R.id.t2);
         EditText t4 = findViewById(R.id.t4);
         SQLiteDatabase mydatabase = null;
@@ -248,6 +272,9 @@ public class PARAGGELIAX extends AppCompatActivity {
         mydatabase.execSQL("DELETE FROM  EIDH  where ID=" + fID);
 
         Show();
+        */
+
+
     }
     public void Show () {
 
