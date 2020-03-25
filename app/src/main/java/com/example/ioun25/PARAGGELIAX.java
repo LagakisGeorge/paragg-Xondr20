@@ -139,8 +139,8 @@ public class PARAGGELIAX extends AppCompatActivity {
 
                Button ANAZ=findViewById(R.id.ANAZ);
                 ANAZ.setText("ΑΝΑΖ.ΕΙΔΟΥΣ");
-                t2=findViewById(R.id.t2);
-                t2.setFocusable(false); //setText("ΔΩΣΕ ΚΩΔ.ΕΙΔΟΥΣ")  ;
+             //   t2=findViewById(R.id.t2);
+               // t2.setFocusable(false); //setText("ΔΩΣΕ ΚΩΔ.ΕΙΔΟΥΣ")  ;
 
                 Button  kataxEID=findViewById(R.id.kataxEID);
                 kataxEID.setVisibility(View.VISIBLE);
@@ -169,35 +169,48 @@ public class PARAGGELIAX extends AppCompatActivity {
                 SQLiteDatabase mydatabase=null;
                 mydatabase = openOrCreateDatabase("eidh",MODE_PRIVATE,null);
 
+
+
+                EditText t1=findViewById(R.id.t1);  // timh
+                String ct1=t1.getText().toString();
+
+                EditText tp=findViewById(R.id.Timhp);
+                String cPos=tp.getText().toString();
+
+
+
+                cPos=cPos.replace(",",".");
+                ct1=ct1.replace(",",".");
+
                 String Q;
                 Q="INSERT INTO PARAGG (IDPARAGG,TRAPEZI,ONO,POSO,TIMH) VALUES ("+fArParagg+",'','"+ listOfEIDOS.get(fPosition).getName()+"',";
-                Q=Q+ listOfEIDOS.get(fPosition).getTimhp()+","+ listOfEIDOS.get(fPosition).getTimh()+");";
+                Q=Q+ cPos+","+ ct1+");";
                 mydatabase.execSQL(Q);
 
                 mydatabase.close();
 
                 // μηδενιζω τα υπολοιπα κουτάκια
                 EditText t2=findViewById(R.id.t2);  // onoma
-                t2.setText("         ");
+                t2.setText("");
 
-                EditText t1=findViewById(R.id.t1);  // timh
+               // EditText t1=findViewById(R.id.t1);  // timh
                 t1.setText("  ");
-                EditText tp=findViewById(R.id.Timhp);
+              //  EditText tp=findViewById(R.id.Timhp);
                 tp.setText(""); //kathg
 
                show_EGGTIM();
 
-            /*    Button tV5;
+                Button tV5;
                 tV5=findViewById(R.id.kataxPEL);
                 tV5.setVisibility(View.VISIBLE);
                 tV5.setText("ok "+listOfEIDOS.get(fPosition).getName().substring(0,10));
 
 
-w
 
-                t2.setFocusable(false);
-                t2.setBackgroundColor(YELLOW);
-                      */
+
+              //  t2.setFocusable(false);
+              //  t2.setBackgroundColor(YELLOW);
+
 
             }
         });
@@ -205,7 +218,7 @@ w
 
 
 
-
+// ========================================  ΔΙΑΛΕΓΩ ΤΟ ΕΙΔΟΣ ==========================================================
 
         PARAGGELIAX.EIDHadapter adapter = new PARAGGELIAX.EIDHadapter(PARAGGELIAX.this, listOfEIDOS);
        // SHMADEYV TO EIDOS  // PELATH
@@ -234,6 +247,13 @@ w
 
                 EditText t4=findViewById(R.id.t4);//prosu
                 t4.setText(listOfEIDOS.get(position).getProsu());
+
+                EditText TimhP=findViewById(R.id.Timhp );//prosu
+               //  TimhP.setFocusable(false);
+               // TimhP.setBackgroundColor(YELLOW);
+
+
+
             }
         });
 
@@ -542,15 +562,15 @@ mydatabase.close();
             TextView tvMail = (TextView) convertView.findViewById(R.id.tvTimh);
             tvMail.setText(entry.getTimh().toString());
 
-            TextView tvProsu = (TextView) convertView.findViewById(R.id.tvProsu);
-            tvProsu.setText(entry.getProsu());
+         //   TextView tvProsu = (TextView) convertView.findViewById(R.id.tvProsu);
+         //   tvProsu.setText(entry.getProsu());
 
             TextView tvTimhp = (TextView) convertView.findViewById(R.id.tvTimhp);
             tvTimhp.setText(entry.getTimhp().toString());
 
-            TextView tvKathg = (TextView) convertView.findViewById(R.id.tvSxolia);
-            tvKathg.setText(entry.getKathg());
-            tvKathg.setTextColor(Color.GREEN);
+          //  TextView tvKathg = (TextView) convertView.findViewById(R.id.tvSxolia);
+          //  tvKathg.setText(entry.getKathg());
+          //  tvKathg.setTextColor(Color.GREEN);
 
             //  nPointer=entry.getPointer();
 

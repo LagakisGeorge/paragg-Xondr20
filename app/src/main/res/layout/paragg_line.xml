@@ -6,9 +6,10 @@
     android:orientation="vertical" android:paddingTop="2sp">
 
 
-    <LinearLayout android:id="@+id/LinearLayout12"
-        android:layout_height="30dp"
-        android:layout_width="fill_parent">
+    <LinearLayout
+        android:id="@+id/LinearLayout12"
+        android:layout_width="398dp"
+        android:layout_height="39dp">
 
         <TextView
             android:id="@+id/tvID"
@@ -21,7 +22,7 @@
 
         <TextView
             android:id="@+id/tvName"
-            android:layout_width="316dp"
+            android:layout_width="234dp"
             android:layout_height="wrap_content"
             android:text="Περιγραφη"
             android:textSize="13sp"
@@ -30,6 +31,16 @@
 
         </TextView>
 
+        <TextView
+
+            android:id="@+id/tvTimhp"
+            android:layout_width="19dp"
+            android:layout_height="30dp"
+            android:layout_weight="1"
+            android:text="ΤιμΠακ"
+            android:textSize="12sp">
+
+        </TextView>
 
         <TextView
 
@@ -43,17 +54,6 @@
         </TextView>
 
 
-        <TextView
-
-            android:id="@+id/tvTimhp"
-            android:layout_width="20dp"
-            android:layout_height="30dp"
-            android:layout_weight="1"
-            android:text="ΤιμΠακ"
-            android:textSize="12sp">
-
-        </TextView>
-
         <Button
             android:id="@+id/btnRemove"
             android:layout_width="5dp"
@@ -63,33 +63,10 @@
         </Button>
 
 
-        <TextView
-            android:id="@+id/tvSxolia"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:textSize="12sp">
 
-        </TextView>
-
-        <TextView
-            android:id="@+id/tvProsu"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-
-            android:text="Πρόσθ"
-            android:textSize="13sp">
-
-        </TextView>
 
 
     </LinearLayout>
-
-
-
-
-
 
 
 </LinearLayout>
