@@ -732,6 +732,30 @@ cursor2.moveToFirst() ;
 
             mydatabase = openOrCreateDatabase("eidh",MODE_PRIVATE,null);
 
+            mydatabase.execSQL("CREATE TABLE IF NOT EXISTS ARITMISI (ID  INTEGER PRIMARY KEY  ,"+
+                    "[ARITMISI] [int] ,"+
+                    "[ONO] [nvarchar](55)  ); ");
+
+
+            Cursor cursor1 = mydatabase.rawQuery("select count(*) from ARITMISI ", null);
+
+            // looping through all rows and adding to list
+            if (cursor1.moveToFirst()) {
+                do {
+                    n= Integer.parseInt(cursor1.getString(0));
+                    // movies.add(cursor.getString(0));
+                } while (cursor1.moveToNext());
+            }
+
+            if (n==0){
+
+                mydatabase.execSQL("INSERT INTO ARITMISI (ARITMISI) VALUES('0')");
+
+                //  mydatabase.execSQL("INSERT INTO TABLES (ONO) VALUES('004');");
+                //  mydatabase.execSQL("INSERT INTO TABLES (ONO) VALUES('005');");
+            }
+
+
 
 
 

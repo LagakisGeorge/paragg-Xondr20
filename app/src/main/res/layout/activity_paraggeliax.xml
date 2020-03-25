@@ -39,13 +39,21 @@
 
             <EditText
                 android:id="@+id/t2"
-                android:layout_width="259dp"
+                android:layout_width="100dp"
                 android:layout_height="41dp"
                 android:layout_toRightOf="@+id/ip1"
 
                 android:ems="10"
                 android:inputType="textPersonName"
                 android:textSize="12sp" />
+
+            <TextView
+                android:layout_toRightOf="@+id/t2"
+                android:id="@+id/ARITMISI"
+                android:gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true" />
         </RelativeLayout>
 
     </TableRow>

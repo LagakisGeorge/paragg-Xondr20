@@ -23,6 +23,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
+import static android.graphics.Color.WHITE;
 import static android.graphics.Color.YELLOW;
 
 public class PARAGGELIAX extends AppCompatActivity {
@@ -51,9 +52,29 @@ public class PARAGGELIAX extends AppCompatActivity {
 
 
 
-        // ΑΝΑΖΗΤΗΣΗ ΜΕ ΟΝΟΜΑ ΠΕΛΑΤΗ
+      //  trapezia ttr=new trapezia();
+      Integer nn=1+ReadSqlni("select ARITMISI FROM ARITMISI WHERE ID=1") ;
+        TextView ARITMISI=findViewById(R.id.ARITMISI);  // timh
+        ARITMISI.setText(nn.toString());
+
+
+
+
+
+
+
+
+
+
+
+
+
+        // ***********************************ΑΝΑΖΗΤΗΣΗ ΜΕ ΟΝΟΜΑ ΠΕΛΑΤΗ
         Button ANAZ;
         ANAZ=findViewById(R.id.ANAZ);
+        EditText t1=findViewById(R.id.t1);
+
+
         ANAZ.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -149,6 +170,14 @@ public class PARAGGELIAX extends AppCompatActivity {
                 Button  kataxPEL=findViewById(R.id.kataxPEL);
                 kataxPEL.setVisibility(View.INVISIBLE);
 
+              //  EditText t2=findViewById(R.id.Timhp);  // onoma
+                t2.setFocusableInTouchMode(true);
+                t2.setBackgroundColor(YELLOW);
+                t2.requestFocus();
+
+
+
+
 
             }
         });
@@ -179,11 +208,13 @@ public class PARAGGELIAX extends AppCompatActivity {
 
 
 
+
                 cPos=cPos.replace(",",".");
                 ct1=ct1.replace(",",".");
+                String cName=listOfEIDOS.get(fPosition).getName().substring(0,24);
 
                 String Q;
-                Q="INSERT INTO PARAGG (IDPARAGG,TRAPEZI,ONO,POSO,TIMH) VALUES ("+fArParagg+",'','"+ listOfEIDOS.get(fPosition).getName()+"',";
+                Q="INSERT INTO PARAGG (IDPARAGG,TRAPEZI,ONO,POSO,TIMH) VALUES ("+fArParagg+",'','"+ cName+"',";
                 Q=Q+ cPos+","+ ct1+");";
                 mydatabase.execSQL(Q);
 
@@ -197,6 +228,9 @@ public class PARAGGELIAX extends AppCompatActivity {
                 t1.setText("  ");
               //  EditText tp=findViewById(R.id.Timhp);
                 tp.setText(""); //kathg
+                tp.setBackgroundColor(WHITE);
+
+
 
                show_EGGTIM();
 
@@ -206,7 +240,10 @@ public class PARAGGELIAX extends AppCompatActivity {
                 tV5.setText("ok "+listOfEIDOS.get(fPosition).getName().substring(0,10));
 
 
-
+                //  EditText t2=findViewById(R.id.Timhp);  // onoma
+                t2.setFocusableInTouchMode(true);
+                t2.setBackgroundColor(YELLOW);
+                t2.requestFocus();
 
               //  t2.setFocusable(false);
               //  t2.setBackgroundColor(YELLOW);
@@ -252,12 +289,25 @@ public class PARAGGELIAX extends AppCompatActivity {
                //  TimhP.setFocusable(false);
                // TimhP.setBackgroundColor(YELLOW);
 
-
+                EditText Timhp=findViewById(R.id.Timhp);  // onoma
+                Timhp.setFocusableInTouchMode(true);
+                Timhp.setBackgroundColor(YELLOW);
+                Timhp.requestFocus();
+                t2.setBackgroundColor(WHITE);
 
             }
         });
 
         list.setAdapter(adapter);
+
+
+        EditText t2=findViewById(R.id.t2);  // onoma
+       t2.setFocusableInTouchMode(true);
+       t2.requestFocus();
+       // t1.setFocusable(false);
+
+
+
 
     }
 
@@ -658,5 +708,22 @@ mydatabase.close();
 
     }
 
+
+
+    public Integer ReadSqlni (String query ){
+        Integer x;
+        x=0;
+        SQLiteDatabase mydatabase = null;
+        mydatabase = openOrCreateDatabase("eidh",MODE_PRIVATE,null);
+        Cursor cursor5 = mydatabase.rawQuery(query, null);
+        if (cursor5.moveToFirst()) {
+            //do {
+            x = cursor5.getInt(0);
+            //   } while (cursor5.moveToNext());
+        }
+        else{
+        }
+        return x;
+    }
 
 }

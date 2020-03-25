@@ -41,7 +41,7 @@
 
             android:ems="10"
             android:inputType="textPersonName"
-            android:text="300" />
+            android:text="select * from PARAGG" />
 
 
     </TableRow>
