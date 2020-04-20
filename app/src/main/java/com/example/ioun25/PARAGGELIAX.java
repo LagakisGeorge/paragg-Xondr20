@@ -25,6 +25,7 @@ import java.util.List;
 
 import static android.graphics.Color.WHITE;
 import static android.graphics.Color.YELLOW;
+import static java.lang.Double.parseDouble;
 
 public class PARAGGELIAX extends AppCompatActivity {
     ListView moviesList;
@@ -192,8 +193,14 @@ public class PARAGGELIAX extends AppCompatActivity {
             public void onClick(View v) {
 
                 if (fSearchEidh==0 ){
+                    // Context context  ;
+
                     return;
                 }
+
+
+
+
 
                 SQLiteDatabase mydatabase=null;
                 mydatabase = openOrCreateDatabase("eidh",MODE_PRIVATE,null);
@@ -203,13 +210,21 @@ public class PARAGGELIAX extends AppCompatActivity {
                 EditText t1=findViewById(R.id.t1);  // timh
                 String ct1=t1.getText().toString();
 
-                EditText tp=findViewById(R.id.Timhp);
+                EditText tp=findViewById(R.id.Timhp); // ποσότητα
                 String cPos=tp.getText().toString();
+
+
+                if (cPos == null || cPos.isEmpty() || cPos.equalsIgnoreCase("null")){
+                    Toast.makeText(getApplicationContext(),"Βάλε ποσότητα",Toast.LENGTH_SHORT).show();
+                    return;
+                }
 
 
 
 
                 cPos=cPos.replace(",",".");
+
+
                 ct1=ct1.replace(",",".");
                 String cName=listOfEIDOS.get(fPosition).getName().substring(0,24);
 

@@ -11,8 +11,8 @@
 
             <Button
                 android:id="@+id/ANAZ"
-                android:layout_width="165dp"
-                android:layout_height="23dp"
+                android:layout_width="150dp"
+                android:layout_height="50dp"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentTop="true"
                 android:background="@color/colorPrimary"
@@ -39,8 +39,8 @@
 
             <EditText
                 android:id="@+id/t2"
-                android:layout_width="100dp"
-                android:layout_height="41dp"
+                android:layout_width="98dp"
+                android:layout_height="50dp"
                 android:layout_toRightOf="@+id/ip1"
 
                 android:ems="10"
@@ -48,12 +48,12 @@
                 android:textSize="12sp" />
 
             <TextView
-                android:layout_toRightOf="@+id/t2"
                 android:id="@+id/ARITMISI"
-                android:gravity="center"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true" />
+                android:layout_height="50dp"
+                android:layout_alignParentRight="true"
+                android:layout_toRightOf="@+id/t2"
+                android:gravity="center" />
         </RelativeLayout>
 
     </TableRow>
@@ -65,8 +65,8 @@
 
             <Button
                 android:id="@+id/kataxEID"
-                android:layout_width="88dp"
-                android:layout_height="33dp"
+                android:layout_width="97dp"
+                android:layout_height="45dp"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentTop="true"
                 android:background="@color/colorPrimary"
@@ -79,7 +79,7 @@
             <TextView
                 android:id="@+id/textView55"
                 android:layout_width="wrap_content"
-                android:layout_height="51dp"
+                android:layout_height="45dp"
                 android:layout_toRightOf="@+id/kataxEID"
                 android:background="@android:color/background_light"
                 android:gravity="center"
@@ -89,8 +89,8 @@
 
             <EditText
                 android:id="@+id/t1"
-                android:layout_width="51dp"
-                android:layout_height="wrap_content"
+                android:layout_width="53dp"
+                android:layout_height="45dp"
                 android:layout_toRightOf="@+id/textView55"
                 android:ems="10"
                 android:inputType="textPersonName" />
@@ -99,7 +99,7 @@
             <TextView
                 android:id="@+id/textView52"
                 android:layout_width="wrap_content"
-                android:layout_height="51dp"
+                android:layout_height="45dp"
                 android:layout_toRightOf="@+id/t1"
                 android:background="@android:color/background_light"
                 android:gravity="center"
@@ -109,7 +109,7 @@
             <EditText
                 android:id="@+id/Timhp"
                 android:layout_width="51dp"
-                android:layout_height="wrap_content"
+                android:layout_height="45dp"
                 android:layout_toRightOf="@+id/textView52"
                 android:ems="10"
                 android:inputType="textPersonName" />
@@ -140,7 +140,7 @@
             <Button
                 android:id="@+id/kataxPEL"
                 android:layout_width="wrap_content"
-                android:layout_height="23dp"
+                android:layout_height="50dp"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentTop="true"
                 android:background="@android:color/holo_blue_light"
@@ -150,17 +150,16 @@
                 android:textSize="12sp" />
 
 
+            <EditText
+                android:id="@+id/t5"
+                android:layout_width="259dp"
+                android:layout_height="50dp"
+                android:layout_marginEnd="-1dp"
+                android:layout_marginRight="-1dp"
+                android:layout_toRightOf="@+id/kataxPEL"
 
-        <EditText
-            android:id="@+id/t5"
-            android:layout_width="259dp"
-            android:layout_height="41dp"
-            android:layout_toRightOf="@+id/kataxPEL"
-            android:layout_marginEnd="-1dp"
-            android:layout_marginRight="-1dp"
-
-            android:ems="10"
-            android:inputType="textPersonName" />
+                android:ems="10"
+                android:inputType="textPersonName" />
 
         </RelativeLayout>
     </TableRow>
@@ -181,7 +180,7 @@
             <Button
                 android:id="@+id/button5"
                 android:layout_width="132dp"
-                android:layout_height="40dp"
+                android:layout_height="31dp"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentTop="true"
                 android:onClick="SAVE"
@@ -191,7 +190,7 @@
             <Button
                 android:id="@+id/button6"
                 android:layout_width="132dp"
-                android:layout_height="40dp"
+                android:layout_height="31dp"
                 android:layout_alignParentTop="true"
                 android:layout_toRightOf="@+id/button5"
                 android:onClick="NEO_EIDOS"
@@ -202,7 +201,7 @@
             <Button
                 android:id="@+id/button7"
                 android:layout_width="132dp"
-                android:layout_height="40dp"
+                android:layout_height="31dp"
                 android:layout_alignParentTop="true"
                 android:layout_toRightOf="@+id/button6"
                 android:onClick="DELETE"

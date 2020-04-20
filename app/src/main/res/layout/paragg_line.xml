@@ -23,7 +23,7 @@
         <TextView
             android:id="@+id/tvName"
             android:layout_width="234dp"
-            android:layout_height="wrap_content"
+            android:layout_height="30dp"
             android:text="Περιγραφη"
             android:textSize="13sp"
             android:textStyle="bold"
