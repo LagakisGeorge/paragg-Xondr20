@@ -2,6 +2,7 @@ package com.example.ioun25;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteAccessPermException;
 import android.database.sqlite.SQLiteDatabase;
@@ -9,6 +10,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.os.StrictMode;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
@@ -20,6 +22,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -42,7 +45,7 @@ public class import_sql extends AppCompatActivity {
     EditText e1;
 
     // dell οικιας .7  49702  p@ssw0rd
-    private String URL = "jdbc:jtds:sqlserver://192.168.1.7:51403/EMP;instance=SQL17;";  //49705
+    private String URL = "jdbc:jtds:sqlserver://192.168.1.3:51403/EMP;instance=SQL17;";  //49705
     private String USER = "sa";
      private String PASS = "12345678";  // fujitsu laptop
    // private String PASS = "p@ssw0rd";   // oikia
@@ -967,6 +970,138 @@ cursor2.moveToFirst() ;
 
     }
 
+//====================================================================test sql ======testSQL================================
+public void testSQL (View view) {
+
+
+
+
+
+
+
+    try {
+
+        ResultSet rs=getQuery("select top 10 * from PEL ; ") ;
+        Toast.makeText(getApplicationContext(), "getQuery=ok ", Toast.LENGTH_SHORT).show();
+        while (rs.next()) {
+            // pel3.add("'"+rs.getString("ONO") + "',"+ Integer.toString(rs.getInt("ID")) );
+
+            String KOD, ONO, AFM, CH2;
+            int ID, KAT;
+            double TIMH;
+
+            KOD = rs.getString("KOD");
+            ONO = rs.getString("EPO");
+            ONO=ONO.replace("'","`");
+            ONO=ONO.replace("\"","`");
+          //  Toast.makeText(getApplicationContext(), ONO, Toast.LENGTH_SHORT).show();
+
+            // print_text(ONO);
+            AFM = rs.getString("AFM");
+
+
+            Toast.makeText(getApplicationContext(), "OK "+ONO, Toast.LENGTH_SHORT).show();
+
+            //   CH2 = rs.getString("CH2");
+            // ID = rs.getInt("ID");
+            // KAT = rs.getInt("KATHG");
+
+
+
+          //  String Q;
+          //  Q = "INSERT INTO PEL (KOD,ONO,AFM) VALUES";
+          //  Q =Q+  " ('" + KOD + "','" + ONO + "','" + AFM + "');";
+          //  pel3.add(Q);
+
+
+
+
+
+
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+        Toast.makeText(getApplicationContext(), "PEL ΛΑΘΟΣ", Toast.LENGTH_SHORT).show();
+    }
+
+
+
+}
+
+
+    public void exec2SQL (final String Query){
+        // * ============================================= δουλευει οκ
+        ConnectionClass  connectionClass;
+        connectionClass = new ConnectionClass();
+        try
+        {
+            Connection con = connectionClass.CONN();
+            String query2 = "Query " ;
+            Statement stmt = con.createStatement();
+            stmt.execute(Query);
+           // RESULT=stmt.executeQuery(Query);
+            android.os.SystemClock.sleep(200);
+            con.close();
+
+        }
+        catch (SQLException se)
+        {
+            Log.e("ERROR", se.getMessage());
+        }
+
+
+    }
+
+
+    public ResultSet getQuery(final String Query){
+      // * ============================================= δουλευει οκ
+        ConnectionClass  connectionClass;
+        connectionClass = new ConnectionClass();
+        try
+        {
+            Connection con = connectionClass.CONN();
+            String query2 = "Query " ;
+            Statement stmt = con.createStatement();
+            stmt.execute(Query);
+            RESULT=stmt.executeQuery(Query);
+            android.os.SystemClock.sleep(200);
+            con.close();
+
+        }
+        catch (SQLException se)
+        {
+            Log.e("ERROR", se.getMessage());
+        }
+        return RESULT;
+
+    }
+
+    public class ConnectionClass {
+        String ip = "192.168.1.3:51403";
+        String class2 = "net.sourceforge.jtds.jdbc.Driver";
+        String db = "EMP";
+        String un = "sa";
+        String password = "12345678";
+        @SuppressLint("NewApi")
+        public Connection CONN() {
+            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+            StrictMode.setThreadPolicy(policy);
+            Connection conn = null;
+            String ConnURL = null;
+            try {
+                Class.forName(class2);
+                ConnURL = "jdbc:jtds:sqlserver://" + ip + ";" + "databaseName=" + db + ";user=" + un + ";password=" + password + ";";
+                conn = DriverManager.getConnection(ConnURL);
+            } catch (SQLException se) {
+                Log.e("ERROR", se.getMessage());
+            } catch (ClassNotFoundException e) {
+                Log.e("ERROR", e.getMessage());
+            } catch (Exception e) {
+                Log.e("ERROR", e.getMessage());
+            }
+            return conn;
+        }
+    }
 
 
 
